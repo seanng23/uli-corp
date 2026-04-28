@@ -54,8 +54,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Quick Links</h4>
+            <ul className="space-y-1">
               {quickLinks.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">
@@ -68,8 +68,8 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Products</h4>
-            <ul className="space-y-2">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Products</h4>
+            <ul className="space-y-1">
               {productLinks.map((l) => (
                 <li key={l}>
                   <Link href="/products" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">
@@ -82,13 +82,13 @@ export default function Footer() {
 
           {/* Projects & Media */}
           <div>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Projects</h4>
-            <ul className="space-y-2 mb-6">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Projects</h4>
+            <ul className="space-y-1 mb-4">
               <li><Link href="/projects" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Local</Link></li>
               <li><Link href="/projects#international" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">International</Link></li>
             </ul>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Investor Relations</h4>
-            <ul className="space-y-2">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Investor Relations</h4>
+            <ul className="space-y-1">
               {investorLinks.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">
@@ -101,14 +101,14 @@ export default function Footer() {
 
           {/* Technology & Contact */}
           <div>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Technology</h4>
-            <ul className="space-y-2 mb-6">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Technology</h4>
+            <ul className="space-y-1 mb-4">
               <li><Link href="/technology" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Manufacturing Facilities</Link></li>
               <li><Link href="/technology#innovation" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Technology & Innovation</Link></li>
               <li><Link href="/technology#quality" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Quality Assurance</Link></li>
             </ul>
-            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-4">Contact Us</h4>
-            <ul className="space-y-2">
+            <h4 className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#1A0F00] mb-2">Contact Us</h4>
+            <ul className="space-y-1">
               <li><Link href="/contact" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Our Location</Link></li>
               <li><Link href="/enquiry" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Enquiry Form</Link></li>
               <li><Link href="/careers" className="text-xs text-[#5C4A30] hover:text-[#ff8905] transition-colors">Careers</Link></li>
