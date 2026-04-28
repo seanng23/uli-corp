@@ -3,6 +3,8 @@ import ProductInnerClient from "@/components/products/ProductInnerClient";
 import { getAllProductSlugs, getProductBySlug } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
+export const revalidate = 60;
+
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
