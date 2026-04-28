@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const CATEGORIES = [
@@ -65,6 +65,13 @@ function ProjectGrid() {
 export default function ProjectsTabs() {
   const [location, setLocation] = useState<"Local" | "International">("Local");
   const [category, setCategory] = useState(CATEGORIES[0]);
+
+  // Read URL hash on mount so /projects#international opens the correct tab
+  useEffect(() => {
+    if (window.location.hash === "#international") {
+      setLocation("International");
+    }
+  }, []);
 
   function handleLocationChange(loc: "Local" | "International") {
     setLocation(loc);
