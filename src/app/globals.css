@@ -28,28 +28,13 @@ html {
 
 body {
   background-color: #F5EDD6;
+  background-image: url("/images/paper-texture.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   color: #1A0F00;
   font-family: var(--font-raleway), "Raleway", sans-serif;
   overflow-x: hidden;
-  position: relative;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/images/paper-texture.jpg");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: 0;
-  mix-blend-mode: multiply;
-}
-
-main, header, footer, section, nav {
-  position: relative;
-  z-index: 1;
 }
 
 .font-typewriter {

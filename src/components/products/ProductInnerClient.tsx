@@ -56,15 +56,13 @@ export default function ProductInnerClient({ product }: Props) {
   const [added, setAdded] = useState(false);
   const [certOpen, setCertOpen] = useState(false);
 
-  const showColorPicker = selectedFinishing.toLowerCase().includes("powder coated");
-
   function handleAddToCart() {
     const specs: Record<string, string> = {
       ...selectedDimensions,
       Standard: selectedStandard,
       Finishing: selectedFinishing,
     };
-    if (showColorPicker && selectedColor) specs["Finishing Color"] = selectedColor;
+    if (selectedColor) specs["Finishing Color"] = selectedColor;
     const id = generateItemId(product.slug, specs);
     addToCart({
       id,
@@ -478,9 +476,8 @@ export default function ProductInnerClient({ product }: Props) {
               </div>
             )}
 
-            {/* Finishing color (for any powder coated finish) */}
-            {showColorPicker && (
-              <div className="mb-5">
+            {/* Finishing color */}
+            <div className="mb-5">
                 <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                   Finishing Color
                 </label>
@@ -509,8 +506,7 @@ export default function ProductInnerClient({ product }: Props) {
                     </button>
                   ))}
                 </div>
-              </div>
-            )}
+            </div>
 
             {/* Quantity */}
             <div className="mb-6">
