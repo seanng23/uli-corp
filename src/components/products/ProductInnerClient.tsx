@@ -54,6 +54,7 @@ export default function ProductInnerClient({ product }: Props) {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [certOpen, setCertOpen] = useState(false);
 
   const showColorPicker = selectedFinishing === "Powder Coated";
 
@@ -158,6 +159,39 @@ export default function ProductInnerClient({ product }: Props) {
           {product.properties && (
             <CollapsibleSection id="properties" title="Properties">
               <div className="space-y-5">
+                {/* Dimensions table */}
+                {product.dimensions && (
+                  <div>
+                    <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
+                      Available Dimensions (mm)
+                    </p>
+                    <table className="w-full text-left border border-[#1A0F00]/20">
+                      <thead>
+                        <tr className="bg-[#1A0F00]/5">
+                          {product.dimensions.height   && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Height</th>}
+                          {product.dimensions.width    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Width</th>}
+                          {product.dimensions.length   && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Length</th>}
+                          {product.dimensions.thickness && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Thickness</th>}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Array.from({ length: Math.max(
+                          product.dimensions.height?.length ?? 0,
+                          product.dimensions.width?.length ?? 0,
+                          product.dimensions.length?.length ?? 0,
+                          product.dimensions.thickness?.length ?? 0,
+                        ) }).map((_, i) => (
+                          <tr key={i} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
+                            {product.dimensions!.height    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.height[i]    ?? "—"}</td>}
+                            {product.dimensions!.width     && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.width[i]     ?? "—"}</td>}
+                            {product.dimensions!.length    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.length[i]    ?? "—"}</td>}
+                            {product.dimensions!.thickness && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.thickness[i] ?? "—"}</td>}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
                 {product.properties.materials && (
                   <div>
                     <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">
@@ -553,7 +587,10 @@ export default function ProductInnerClient({ product }: Props) {
                 <FileText size={14} strokeWidth={2} />
                 Data Sheet
               </button>
-              <button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide">
+              <button
+                onClick={() => setCertOpen(true)}
+                className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"
+              >
                 <Award size={14} strokeWidth={2} />
                 Certificate
               </button>
@@ -562,6 +599,33 @@ export default function ProductInnerClient({ product }: Props) {
         </div>
       </div>
       </div>
+
+      {/* Certificate lightbox */}
+      {certOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setCertOpen(false)}
+        >
+          <div
+            className="relative max-w-2xl w-full bg-white p-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setCertOpen(false)}
+              className="absolute top-2 right-3 font-raleway text-[20px] text-[#1A0F00] hover:text-[#ff8905] transition-colors leading-none"
+            >
+              ×
+            </button>
+            <Image
+              src="/images/product-certificate.png"
+              alt="U-LI Product Certificate"
+              width={800}
+              height={1100}
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
