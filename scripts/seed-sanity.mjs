@@ -40,10 +40,10 @@ const products = [
       length: ["2000", "3000"],
       thickness: ["0.8", "1.0", "1.2", "1.5"],
     },
-    finishing: ["Aluminium", "Electro Galvanised", "Hot-Dipped Galvanised", "Pre-Galvanised", "Powder Coated", "Stainless Steel 304", "Stainless Steel 316"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
-      materials: ["Cold Rolled Steel", "Stainless Steel 304", "Stainless Steel 316", "Aluminium"],
-      finishings: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+      materials: ["Cold Rolled Steel", "Stainless Steel 304", "Stainless Steel 316", "Aluminum"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS IEC 61084", "SS 249", "JKR EMAL"],
       components: [
         { ref: "CT-LID", description: "Lid / Cover" },
@@ -82,10 +82,10 @@ const products = [
       length: ["2400", "3000"],
       thickness: ["1.2", "1.5", "2.0", "2.5"],
     },
-    finishing: ["Hot-Dipped Galvanised", "Pre-Galvanised", "Electro Galvanised", "Powder Coated", "Stainless Steel 304", "Stainless Steel 316"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Cold Rolled Steel", "Hot Rolled Steel", "Stainless Steel 304", "Stainless Steel 316"],
-      finishings: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS IEC 61537", "SS 249", "JKR EMAL"],
       components: [
         { ref: "CTP-IE90", description: "Inside Elbow 90°" },
@@ -124,10 +124,10 @@ const products = [
       length: ["2400", "3000"],
       thickness: ["1.5", "2.0", "2.5"],
     },
-    finishing: ["Hot-Dipped Galvanised", "Pre-Galvanised", "Electro Galvanised", "Powder Coated", "Stainless Steel 304"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Cold Rolled Steel", "Hot Rolled Steel", "Stainless Steel 304"],
-      finishings: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS IEC 61537", "SS 249"],
       components: [
         { ref: "CTS-IE90", description: "Inside Elbow 90°" },
@@ -161,10 +161,10 @@ const products = [
       length: ["3000", "6000"],
       thickness: ["1.5", "2.0", "2.5", "3.0"],
     },
-    finishing: ["Hot-Dipped Galvanised", "Pre-Galvanised", "Electro Galvanised", "Powder Coated", "Stainless Steel 304", "Stainless Steel 316", "Aluminium"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
-      materials: ["Hot Rolled Steel", "Cold Rolled Steel", "Stainless Steel 304", "Stainless Steel 316", "Aluminium"],
-      finishings: ["Hot-Dipped Galvanised", "Pre-Galvanised", "Electro Galvanised", "Powder Coated"],
+      materials: ["Hot Rolled Steel", "Cold Rolled Steel", "Stainless Steel 304", "Stainless Steel 316", "Aluminum"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS IEC 61537", "JKR EMAL"],
       components: [
         { ref: "CL-IE90", description: "Inside Elbow 90°" },
@@ -203,10 +203,10 @@ const products = [
       length: ["3000"],
       thickness: ["3", "4", "5"],
     },
-    finishing: ["Electro Galvanised", "Hot-Dipped Galvanised", "Powder Coated", "Stainless Steel 304"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Cold Drawn Wire", "Stainless Steel 304"],
-      finishings: ["Electro Galvanised", "Hot-Dipped Galvanised", "Powder Coated"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["IEC 61537"],
       components: [
         { ref: "WM-IE90", description: "Inside Elbow 90°" },
@@ -239,10 +239,10 @@ const products = [
       length: ["3000"],
       thickness: ["1.6", "2.0"],
     },
-    finishing: ["Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Cold Rolled Steel"],
-      finishings: ["Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS 232", "BS EN 61386"],
       components: [
         { ref: "ESC-E90", description: "Elbow 90°" },
@@ -277,10 +277,10 @@ const products = [
       length: ["3000", "6000"],
       thickness: ["2.0", "2.5", "3.0"],
     },
-    finishing: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated", "Stainless Steel 304"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Cold Rolled Steel", "Stainless Steel 304"],
-      finishings: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Electro Galvanised", "Powder Coated"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS ISO 7092"],
       components: [
         { ref: "SC-CB", description: "Channel Bracket" },
@@ -314,10 +314,10 @@ const products = [
       length: ["1000", "2000", "3000"],
       thickness: ["8", "10", "12", "16", "20", "24"],
     },
-    finishing: ["Electro Galvanised", "Hot-Dipped Galvanised", "Stainless Steel 304", "Stainless Steel 316"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
       materials: ["Carbon Steel Grade 4.8", "Carbon Steel Grade 8.8", "Stainless Steel 304", "Stainless Steel 316"],
-      finishings: ["Electro Galvanised (Zinc Plated)", "Hot-Dipped Galvanised"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["DIN 975"],
       components: [
         { ref: "TR-HEX", description: "Hex Nut" },
@@ -352,10 +352,10 @@ const products = [
       length: ["2000", "3000"],
       thickness: ["0.8", "1.0", "1.2"],
     },
-    finishing: ["Pre-Galvanised", "Hot-Dipped Galvanised", "Aluminium"],
+    finishing: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
     properties: {
-      materials: ["Pre-Galvanised Steel", "Aluminium"],
-      finishings: ["Pre-Galvanised", "Hot-Dipped Galvanised"],
+      materials: ["Pre-Galvanised Steel", "Aluminum"],
+      finishings: ["Aluminum", "Electro-Galvanised Steel with Epoxy Powder Coated", "Epoxy Powder Coated", "Hot Dip Galvanised", "Hot Dip Galvanised with Epoxy Powder Coated", "Polyester Powder Coated", "Pre-Galvanised Steel (Unpainted)", "Pre-Galvanised Steel with Epoxy Powder Coated", "Stainless Steel 304 / 316", "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)", "Electro Galvanised Steel (Unpainted)", "Others/ Custom Sizes"],
       standards: ["MS IEC 61084"],
       components: [
         { ref: "UFT-FC", description: "Flat Cover" },
