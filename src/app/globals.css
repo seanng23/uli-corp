@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "American Typewriter";
+  src: url("/fonts/American Typewriter Regular.woff2") format("woff2"),
+       url("/fonts/American Typewriter Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-surface: #F5EDD6;
+  --color-ink: #1A0F00;
+  --color-ink-muted: #5C4A30;
+  --color-accent: #ff8905;
+  --color-accent-dark: #cc6e00;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F5EDD6;
+  color: #1A0F00;
+  font-family: var(--font-raleway), "Raleway", sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("/images/paper-texture.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+main, header, footer, section, nav {
+  position: relative;
+  z-index: 1;
+}
+
+.font-typewriter {
+  font-family: "American Typewriter", "Courier New", monospace;
+}
+
+.btn-primary {
+  background-color: #ff8905;
+  color: #F5EDD6;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease-out;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-primary:hover {
+  background-color: #cc6e00;
+}
+
+.btn-outline {
+  border: 2px solid #1A0F00;
+  color: #1A0F00;
+  padding: 0.625rem 1.375rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-outline:hover {
+  background-color: #1A0F00;
+  color: #F5EDD6;
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 200ms ease-out;
+}
+
+.link-underline:hover {
+  color: #ff8905;
+}
+
+@layer utilities {
+  .site-container {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    .site-container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
