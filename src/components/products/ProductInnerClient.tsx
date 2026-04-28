@@ -495,7 +495,7 @@ export default function ProductInnerClient({ product }: Props) {
                   />
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {["silver", "gold", "white", "brown", "green", "black", "grey", "red"].map((c) => (
+                  {["silver", "gold", "white", "green", "black", "red"].map((c) => (
                     <button
                       key={c}
                       onClick={() => setSelectedColor(c)}

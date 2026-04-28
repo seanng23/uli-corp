@@ -53,6 +53,7 @@ const products = [
         { ref: "CT-TJ", description: "Tee Junction" },
         { ref: "CT-CB", description: "Coupler / Bracket" },
       ],
+      notes: "Preferred length 2.0 meter and 3.0 meter.\nEvery single length comes with 1 set of coupler c/w all necessary screws.\nThickness tolerance ±10%.\nCustom lengths available on request.",
     },
     accessories: [
       { no: 1, description: "Lid / Cover" },
@@ -95,6 +96,7 @@ const products = [
         { ref: "CTP-CP", description: "Coupler Plate" },
         { ref: "CTP-RDR", description: "Reducer" },
       ],
+      notes: "Preferred length 2.4 meter and 3.0 meter.\nEvery single length comes with 1 set of coupler plate c/w all necessary hardware.\nThickness tolerance ±10%.\nPerforations comply with MS IEC 61537 ventilation requirements.",
     },
     accessories: [
       { no: 1, description: "Inside Elbow 90°" },
@@ -135,6 +137,7 @@ const products = [
         { ref: "CTS-HT", description: "Horizontal Tee" },
         { ref: "CTS-CP", description: "Coupler Plate" },
       ],
+      notes: "Preferred length 2.4 meter and 3.0 meter.\nSolid bottom design provides full cable protection and prevents dust ingress.\nThickness tolerance ±10%.\nSuitable for corrosive and outdoor environments when hot-dipped galvanised.",
     },
     accessories: [
       { no: 1, description: "Inside Elbow 90°" },
@@ -174,6 +177,7 @@ const products = [
         { ref: "CL-VIR", description: "Vertical Inside Riser" },
         { ref: "CL-VOR", description: "Vertical Outside Riser" },
       ],
+      notes: "Preferred length 3.0 meter and 6.0 meter.\nRung spacing 300mm standard; custom spacing available on request.\nThickness tolerance ±10%.\nDesigned for heavy-duty power cable installations in industrial plants and infrastructure projects.",
     },
     accessories: [
       { no: 1, description: "Inside Elbow 90°" },
@@ -214,6 +218,7 @@ const products = [
         { ref: "WM-HT", description: "Horizontal Tee" },
         { ref: "WM-CP", description: "Coupler" },
       ],
+      notes: "Standard length 3.0 meter.\nWire diameter 3mm, 4mm, and 5mm available.\nEasy field cutting with standard bolt cutters.\nSuitable for lightweight data and communication cables in offices and data centres.",
     },
     accessories: [
       { no: 1, description: "Inside Elbow 90°" },
@@ -250,6 +255,7 @@ const products = [
         { ref: "ESC-CP", description: "Coupler" },
         { ref: "ESC-LB", description: "LB Conduit Body" },
       ],
+      notes: "Standard length 3.0 meter.\nAvailable in nominal trade sizes 16mm to 63mm.\nThreaded ends comply with BS 21 taper thread standard.\nFull range of conduit bodies, fittings, and accessories available.",
     },
     accessories: [
       { no: 1, description: "Elbow 90°" },
@@ -288,6 +294,7 @@ const products = [
         { ref: "SC-EC", description: "End Cap" },
         { ref: "SC-NB", description: "Channel Nut & Bolt" },
       ],
+      notes: "Standard length 3.0 meter and 6.0 meter.\nSlotted 9/16\" holes at 1-7/8\" centres for maximum adjustability.\nCompatible with standard Unistrut fittings and hardware.\nThickness tolerance ±10%.",
     },
     accessories: [
       { no: 1, description: "Channel Bracket" },
@@ -325,6 +332,7 @@ const products = [
         { ref: "TR-CPL", description: "Coupling Nut" },
         { ref: "TR-WAS", description: "Flat Washer" },
       ],
+      notes: "Available in lengths 1.0 meter, 2.0 meter, and 3.0 meter.\nDiameter range M8 to M24.\nGrade 4.8 standard; Grade 8.8 available for heavy-duty applications.\nSupplied with two hex nuts and one flat washer per rod.",
     },
     accessories: [
       { no: 1, description: "Hex Nut" },
@@ -363,6 +371,7 @@ const products = [
         { ref: "UFT-TC", description: "Tile Cover" },
         { ref: "UFT-JB", description: "Junction Box" },
       ],
+      notes: "Preferred length 2.0 meter and 3.0 meter.\nCovers supplied separately — specify flat, carpet, or tile finish.\nDesigned for flush installation in concrete screeds.\nThickness tolerance ±10%.",
     },
     accessories: [
       { no: 1, description: "Flat Cover" },
