@@ -8,6 +8,7 @@ export type ProductProperties = {
   finishings?: string[];
   standards?: string[];
   components?: { ref: string; description: string }[];
+  notes?: string;
 };
 
 export type ProductAccessory = {
@@ -51,7 +52,7 @@ export const categories: Category[] = [
     name: "Cable Support Systems",
     description:
       "The foundation of any efficient electrical infrastructure. U-LI manufactures a complete range of steel-based Cable Support System solutions engineered for demanding environments.",
-    image: "/images/homepage/steel-1.jpg",
+    image: "/images/homepage/project-2.jpg",
   },
   {
     slug: "metal-framing-systems",
@@ -80,7 +81,7 @@ export const products: Product[] = [
     itemNo: "CSS-CT-001",
     description:
       "Steel cable trunking for concealed cable routing in walls and ceilings. Clean finish ideal for offices, commercial buildings, and public spaces. Manufactured to MS IEC 61084 and available in a wide range of dimensions and surface finishes.",
-    image: "/images/homepage/project-2.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS IEC 61084", "SS 249", "JKR EMAL", "Others/Custom"],
     dimensions: {
       height: ["50", "75", "100", "150", "200"],
@@ -141,7 +142,7 @@ export const products: Product[] = [
     itemNo: "CSS-CTP-001",
     description:
       "Perforated cable trays designed for maximum ventilation and heat dissipation. Suitable for power cables, data cables, and instrumentation across commercial and industrial environments.",
-    image: "/images/homepage/steel-1.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS IEC 61537", "SS 249", "JKR EMAL", "Others/Custom"],
     dimensions: {
       height: ["25", "50", "75", "100"],
@@ -203,7 +204,7 @@ export const products: Product[] = [
     itemNo: "CSS-CTS-001",
     description:
       "Solid bottom cable trays provide full cable support and protection, ideal for sensitive instrumentation cables or installations requiring physical protection from below.",
-    image: "/images/homepage/factory-3.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS IEC 61537", "SS 249", "Others/Custom"],
     dimensions: {
       height: ["50", "75", "100"],
@@ -260,7 +261,7 @@ export const products: Product[] = [
     itemNo: "CSS-CL-001",
     description:
       "Heavy-duty cable ladders for large cable bundles, power cables, and long span installations. Engineered for industrial plants, power stations, and infrastructure projects.",
-    image: "/images/homepage/manufacturing.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS IEC 61537", "JKR EMAL", "Others/Custom"],
     dimensions: {
       height: ["75", "100", "150"],
@@ -322,7 +323,7 @@ export const products: Product[] = [
     itemNo: "CSS-WM-001",
     description:
       "Flexible wire mesh trays for data centres, offices, and light commercial applications. Easy installation, excellent ventilation, and quick cable access.",
-    image: "/images/homepage/project-1.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["IEC 61537", "Others/Custom"],
     dimensions: {
       height: ["25", "50", "75", "100"],
@@ -379,7 +380,7 @@ export const products: Product[] = [
     itemNo: "CSS-ESC-001",
     description:
       "Rigid electrical steel conduit pipes with a full range of accessories for enclosed cable protection in industrial, commercial, and residential projects.",
-    image: "/images/homepage/project-3.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS 232", "BS EN 61386", "Others/Custom"],
     dimensions: {
       length: ["3000"],
@@ -437,7 +438,7 @@ export const products: Product[] = [
     itemNo: "MFS-SC-001",
     description:
       "Versatile metal framing channel for MEP support systems. Compatible with a full range of fittings, clamps, and accessories for rapid installation.",
-    image: "/images/tech/Metal-Rail.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS ISO 7092", "Others/Custom"],
     dimensions: {
       length: ["3000", "6000"],
@@ -494,7 +495,7 @@ export const products: Product[] = [
     itemNo: "MFS-TR-001",
     description:
       "High-tensile threaded rods and pipe hangers for suspending cable trays, pipes, ducts, and mechanical equipment from structural ceilings and beams.",
-    image: "/images/homepage/factory-2.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["DIN 975", "Others/Custom"],
     dimensions: {
       length: ["1000", "2000", "3000"],
@@ -550,7 +551,7 @@ export const products: Product[] = [
     itemNo: "FTS-UFT-001",
     description:
       "Recessed underfloor trunking systems for power and data cable routing in concrete slabs and open-plan office environments. Supplied with flush-fit covers.",
-    image: "/images/homepage/blog-3.jpg",
+    image: "/images/products/placeholder.png",
     standards: ["MS IEC 61084", "Others/Custom"],
     dimensions: {
       height: ["25", "38", "50"],

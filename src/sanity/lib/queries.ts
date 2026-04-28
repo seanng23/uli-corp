@@ -33,7 +33,8 @@ export async function getAllProducts(): Promise<Product[]> {
           materials,
           finishings,
           standards,
-          components[] { ref, description }
+          components[] { ref, description },
+          notes
         },
         accessories[] { no, description },
         dataSheetUrl,
@@ -71,7 +72,8 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
           materials,
           finishings,
           standards,
-          components[] { ref, description }
+          components[] { ref, description },
+          notes
         },
         accessories[] { no, description },
         dataSheetUrl,

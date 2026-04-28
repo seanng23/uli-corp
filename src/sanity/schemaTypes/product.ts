@@ -79,6 +79,7 @@ export const productSchema = defineType({
             preview: { select: { title: "ref", subtitle: "description" } },
           }],
         }),
+        defineField({ name: "notes", title: "Notes (below Component Reference)", type: "text", rows: 4, description: "e.g. preferred lengths, tolerances, included items" }),
       ],
     }),
     defineField({

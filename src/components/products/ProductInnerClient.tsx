@@ -56,7 +56,7 @@ export default function ProductInnerClient({ product }: Props) {
   const [added, setAdded] = useState(false);
   const [certOpen, setCertOpen] = useState(false);
 
-  const showColorPicker = selectedFinishing === "Powder Coated";
+  const showColorPicker = selectedFinishing.toLowerCase().includes("powder coated");
 
   function handleAddToCart() {
     const specs: Record<string, string> = {
@@ -110,7 +110,7 @@ export default function ProductInnerClient({ product }: Props) {
 
       {/* Two-column layout */}
       <div className="site-container py-10 lg:py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_440px] gap-10 lg:gap-14 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
 
         {/* LEFT — image gallery + collapsible sections */}
         <div>
@@ -267,6 +267,11 @@ export default function ProductInnerClient({ product }: Props) {
                       </tbody>
                     </table>
                   </div>
+                )}
+                {product.properties.notes && (
+                  <p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed whitespace-pre-line">
+                    {product.properties.notes}
+                  </p>
                 )}
               </div>
             </CollapsibleSection>
@@ -473,24 +478,37 @@ export default function ProductInnerClient({ product }: Props) {
               </div>
             )}
 
-            {/* Finishing color (only for Powder Coated) */}
+            {/* Finishing color (for any powder coated finish) */}
             {showColorPicker && (
               <div className="mb-5">
                 <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                   Finishing Color
                 </label>
-                <select
-                  value={selectedColor}
-                  onChange={(e) => setSelectedColor(e.target.value)}
-                  className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
-                >
-                  <option value="">Select color</option>
-                  <option value="White (RAL 9010)">White (RAL 9010)</option>
-                  <option value="Light Grey (RAL 7035)">Light Grey (RAL 7035)</option>
-                  <option value="Dark Grey (RAL 7016)">Dark Grey (RAL 7016)</option>
-                  <option value="Black (RAL 9005)">Black (RAL 9005)</option>
-                  <option value="Custom">Custom (specify in remarks)</option>
-                </select>
+                <div className="flex items-center gap-2 mb-2">
+                  <input
+                    type="text"
+                    value={selectedColor}
+                    onChange={(e) => setSelectedColor(e.target.value)}
+                    placeholder="e.g. silver, gold, white, green…"
+                    className="flex-1 font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
+                  />
+                  <div
+                    className="w-8 h-8 flex-shrink-0 border border-[#1A0F00]/30"
+                    style={{ backgroundColor: selectedColor || "transparent" }}
+                  />
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {["silver", "gold", "white", "brown", "green", "black", "grey", "red"].map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => setSelectedColor(c)}
+                      className="flex items-center gap-1.5 px-2 py-1 border border-[#1A0F00]/20 hover:border-[#1A0F00]/60 transition-colors"
+                    >
+                      <span className="w-3 h-3 rounded-full border border-[#1A0F00]/20 flex-shrink-0" style={{ backgroundColor: c }} />
+                      <span className="font-raleway text-[11px] text-[#5C4A30] capitalize">{c}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
