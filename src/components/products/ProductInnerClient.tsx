@@ -211,10 +211,10 @@ export default function ProductInnerClient({ product }: Props) {
                     <table className="w-full text-left border border-[#1A0F00]/20">
                       <thead>
                         <tr className="bg-[#1A0F00]/5">
-                          {product.dimensions.height    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Height</th>}
-                          {product.dimensions.width     && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Width</th>}
-                          {product.dimensions.length    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Length</th>}
-                          {product.dimensions.thickness && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Thickness</th>}
+                          {product.dimensions.height    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Components Reference</th>}
+                          {product.dimensions.width     && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Size (mm) H (Height) X W (Width)</th>}
+                          {product.dimensions.length    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Min. Thickness of Body & Cover (mm)</th>}
+                          {product.dimensions.thickness && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Max. Thickness of Body & Cover (mm)</th>}
                         </tr>
                       </thead>
                       <tbody>
