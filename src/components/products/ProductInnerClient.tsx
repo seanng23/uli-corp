@@ -45,7 +45,8 @@ function CollapsibleSection({
 export default function ProductInnerClient({ product }: Props) {
   const { addToCart } = useCart();
 
-  const allImages = [product.image, ...(product.thumbnails ?? [])];
+  const PLACEHOLDER = "/images/products/placeholder.png";
+  const allImages = [product.image ?? PLACEHOLDER, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
   const [activeImage, setActiveImage] = useState(0);
 
   const [selectedStandard, setSelectedStandard] = useState<string>(product.standards?.[0] ?? "");
