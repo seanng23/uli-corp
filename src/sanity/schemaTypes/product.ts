@@ -48,6 +48,14 @@ export const productSchema = defineType({
       options: { layout: "tags" },
     }),
     defineField({
+      name: "finishingColors",
+      title: "Finishing Colors",
+      type: "array",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+      description: "Color options shown as pills on the product page. Defaults to Orange, White, Green, Red if left empty.",
+    }),
+    defineField({
       name: "dimensions",
       title: "Available Dimensions",
       type: "object",

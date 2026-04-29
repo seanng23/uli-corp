@@ -28,6 +28,7 @@ export async function getAllProducts(): Promise<Product[]> {
         "videoUrl": video.asset->url,
         standards,
         finishing,
+        finishingColors,
         dimensions,
         properties {
           materials,
@@ -67,6 +68,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
         "videoUrl": video.asset->url,
         standards,
         finishing,
+        finishingColors,
         dimensions,
         properties {
           materials,

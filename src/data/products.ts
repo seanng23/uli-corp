@@ -34,6 +34,7 @@ export type Product = {
     thickness?: string[];
   };
   finishing?: string[];
+  finishingColors?: string[];
   properties?: ProductProperties;
   accessories?: ProductAccessory[];
   specs: SpecOption[];

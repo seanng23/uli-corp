@@ -158,39 +158,6 @@ export default function ProductInnerClient({ product }: Props) {
           {product.properties && (
             <CollapsibleSection id="properties" title="Properties">
               <div className="space-y-5">
-                {/* Dimensions table */}
-                {product.dimensions && (
-                  <div>
-                    <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
-                      Available Dimensions (mm)
-                    </p>
-                    <table className="w-full text-left border border-[#1A0F00]/20">
-                      <thead>
-                        <tr className="bg-[#1A0F00]/5">
-                          {product.dimensions.height   && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Height</th>}
-                          {product.dimensions.width    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Width</th>}
-                          {product.dimensions.length   && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Length</th>}
-                          {product.dimensions.thickness && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Thickness</th>}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Array.from({ length: Math.max(
-                          product.dimensions.height?.length ?? 0,
-                          product.dimensions.width?.length ?? 0,
-                          product.dimensions.length?.length ?? 0,
-                          product.dimensions.thickness?.length ?? 0,
-                        ) }).map((_, i) => (
-                          <tr key={i} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
-                            {product.dimensions!.height    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.height[i]    ?? "—"}</td>}
-                            {product.dimensions!.width     && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.width[i]     ?? "—"}</td>}
-                            {product.dimensions!.length    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.length[i]    ?? "—"}</td>}
-                            {product.dimensions!.thickness && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.thickness[i] ?? "—"}</td>}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
                 {product.properties.materials && (
                   <div>
                     <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">
@@ -236,31 +203,32 @@ export default function ProductInnerClient({ product }: Props) {
                     </ul>
                   </div>
                 )}
-                {product.properties.components && product.properties.components.length > 0 && (
+                {product.dimensions && (
                   <div>
                     <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
-                      Component Reference
+                      Available Dimensions (mm)
                     </p>
                     <table className="w-full text-left border border-[#1A0F00]/20">
                       <thead>
                         <tr className="bg-[#1A0F00]/5">
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20 w-[120px]">
-                            Ref
-                          </th>
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">
-                            Description
-                          </th>
+                          {product.dimensions.height    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Height</th>}
+                          {product.dimensions.width     && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Width</th>}
+                          {product.dimensions.length    && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Length</th>}
+                          {product.dimensions.thickness && <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Thickness</th>}
                         </tr>
                       </thead>
                       <tbody>
-                        {product.properties.components.map((c, i) => (
-                          <tr key={c.ref} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
-                            <td className="font-raleway text-[13px] font-semibold text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/10">
-                              {c.ref}
-                            </td>
-                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">
-                              {c.description}
-                            </td>
+                        {Array.from({ length: Math.max(
+                          product.dimensions.height?.length ?? 0,
+                          product.dimensions.width?.length ?? 0,
+                          product.dimensions.length?.length ?? 0,
+                          product.dimensions.thickness?.length ?? 0,
+                        ) }).map((_, i) => (
+                          <tr key={i} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
+                            {product.dimensions!.height    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.height[i]    ?? "—"}</td>}
+                            {product.dimensions!.width     && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.width[i]     ?? "—"}</td>}
+                            {product.dimensions!.length    && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.length[i]    ?? "—"}</td>}
+                            {product.dimensions!.thickness && <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{product.dimensions!.thickness[i] ?? "—"}</td>}
                           </tr>
                         ))}
                       </tbody>
@@ -478,36 +446,46 @@ export default function ProductInnerClient({ product }: Props) {
             )}
 
             {/* Finishing color */}
-            <div className="mb-5">
-                <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
-                  Finishing Color
-                </label>
-                <div className="flex items-center gap-2 mb-2">
-                  <input
-                    type="text"
-                    value={selectedColor}
-                    onChange={(e) => setSelectedColor(e.target.value)}
-                    placeholder="e.g. silver, gold, white, green…"
-                    className="flex-1 font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
-                  />
-                  <div
-                    className="w-8 h-8 flex-shrink-0 border border-[#1A0F00]/30"
-                    style={{ backgroundColor: selectedColor || "transparent" }}
-                  />
+            {(() => {
+              const colors = product.finishingColors?.length
+                ? product.finishingColors
+                : ["Orange", "White", "Green", "Red"];
+              const COLOR_MAP: Record<string, string> = {
+                orange: "#ff8905", white: "#ffffff", green: "#4a7c59",
+                red: "#cc2222", silver: "#c0c0c0", gold: "#c9a84c",
+                black: "#1a0f00", blue: "#2563eb",
+              };
+              return (
+                <div className="mb-5">
+                  <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
+                    Finishing Color
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {colors.map((c) => {
+                      const css = COLOR_MAP[c.toLowerCase()] ?? c.toLowerCase();
+                      const active = selectedColor === c;
+                      return (
+                        <button
+                          key={c}
+                          onClick={() => setSelectedColor(active ? "" : c)}
+                          className={`flex items-center gap-2 px-3 py-1.5 border font-raleway text-[11px] font-semibold transition-all duration-150 ${
+                            active
+                              ? "border-[#ff8905] bg-[#ff8905]/10 text-[#1A0F00]"
+                              : "border-[#1A0F00]/30 text-[#1A0F00] hover:border-[#1A0F00]"
+                          }`}
+                        >
+                          <span
+                            className="w-3 h-3 rounded-full border border-[#1A0F00]/20 flex-shrink-0"
+                            style={{ backgroundColor: css }}
+                          />
+                          {c}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {["silver", "gold", "white", "green", "black", "red"].map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setSelectedColor(c)}
-                      className="flex items-center gap-1.5 px-2 py-1 border border-[#1A0F00]/20 hover:border-[#1A0F00]/60 transition-colors"
-                    >
-                      <span className="w-3 h-3 rounded-full border border-[#1A0F00]/20 flex-shrink-0" style={{ backgroundColor: c }} />
-                      <span className="font-raleway text-[11px] text-[#5C4A30] capitalize">{c}</span>
-                    </button>
-                  ))}
-                </div>
-            </div>
+              );
+            })()}
 
             {/* Quantity */}
             <div className="mb-6">
