@@ -29,6 +29,7 @@ export async function getAllProducts(): Promise<Product[]> {
         standards,
         finishing,
         finishingColors,
+        "dimensionTable": dimensionTable[] { ref, nominalSize, minThickness, maxThickness },
         dimensions,
         properties {
           materials,
@@ -69,6 +70,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
         standards,
         finishing,
         finishingColors,
+        "dimensionTable": dimensionTable[] { ref, nominalSize, minThickness, maxThickness },
         dimensions,
         properties {
           materials,

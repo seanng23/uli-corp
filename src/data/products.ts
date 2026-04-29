@@ -16,6 +16,13 @@ export type ProductAccessory = {
   description: string;
 };
 
+export type DimensionRow = {
+  ref?: string;
+  nominalSize?: string;
+  minThickness?: string;
+  maxThickness?: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -35,6 +42,7 @@ export type Product = {
   };
   finishing?: string[];
   finishingColors?: string[];
+  dimensionTable?: DimensionRow[];
   properties?: ProductProperties;
   accessories?: ProductAccessory[];
   specs: SpecOption[];

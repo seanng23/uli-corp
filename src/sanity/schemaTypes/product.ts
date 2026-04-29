@@ -56,9 +56,26 @@ export const productSchema = defineType({
       description: "Color options shown as pills on the product page. Defaults to Orange, White, Green, Red if left empty.",
     }),
     defineField({
+      name: "dimensionTable",
+      title: "Dimension Table (Properties section)",
+      type: "array",
+      description: "Rows shown in the Available Dimensions table on the product page. Independent from the selector dropdowns below.",
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "ref", title: "Components Reference", type: "string" }),
+          defineField({ name: "nominalSize", title: "Nominal Size (mm) H × W", type: "string" }),
+          defineField({ name: "minThickness", title: "Nominal Min. Thickness of Body & Cover (mm)", type: "string" }),
+          defineField({ name: "maxThickness", title: "Nominal Max. Thickness of Body & Cover (mm)", type: "string" }),
+        ],
+        preview: { select: { title: "ref", subtitle: "nominalSize" } },
+      }],
+    }),
+    defineField({
       name: "dimensions",
-      title: "Available Dimensions",
+      title: "Dimension Selectors (configurator dropdowns)",
       type: "object",
+      description: "Values that populate the H / W / L / T dropdown selectors in the right-side configurator panel.",
       fields: [
         defineField({ name: "height", title: "Height (mm) options", type: "array", of: [{ type: "string" }], options: { layout: "tags" } }),
         defineField({ name: "width", title: "Width (mm) options", type: "array", of: [{ type: "string" }], options: { layout: "tags" } }),
