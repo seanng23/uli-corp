@@ -10,7 +10,7 @@ export default function AboutBand() {
           <p className="text-[#1A0F00] text-[20px] leading-relaxed max-w-xl">
             For over 40 years, U-LI leads the way in delivering reliable Cable Support System solutions.
             We manufacture and deliver reliable systems that power infrastructure across the region.
-            Explore our complete range of ISO-certified Cable Management Support Systems.
+            Explore our complete range of ISO-certified Cable Support Systems.
           </p>
           <Link href="/products" className="link-underline mt-5 inline-flex text-[#1A0F00]">
             Explore Our Products »
@@ -26,7 +26,10 @@ export default function AboutBand() {
             Certified Cable Support Systems. Proudly engineered in Malaysia and trusted across ASEAN
             and international markets, including the Middle East.
           </p>
-          <Link href="/contact" className="btn-primary">
+          <Link
+            href="/contact-us"
+            className="inline-flex items-center gap-2 bg-[#ff8905] text-[#1A0F00] font-bold px-10 py-5 underline underline-offset-4 hover:bg-[#cc6e00] transition-colors"
+          >
             Get In Touch »
           </Link>
         </FadeUp>

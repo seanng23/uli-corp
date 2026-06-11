@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
+import Typewriter from "@/components/motion/Typewriter";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 const articles = [
@@ -10,7 +11,7 @@ const articles = [
     excerpt:
       "With five fully integrated factories across the country, U-LI manufactures over 40,000 metric tonnes of steel-based products every year.",
     src: "/images/homepage/blog-1.jpg",
-    href: "/media",
+    href: "/media/made-in-malaysia-trusted-globally",
   },
   {
     title: "How to Choose the Right Cable Support Systems for Your Project",
@@ -18,7 +19,7 @@ const articles = [
     excerpt:
       "A well-planned Cable Support Systems is the backbone of any electrical or data installation. Discover the key components and importance of strategic planning.",
     src: "/images/homepage/blog-2.jpg",
-    href: "/media",
+    href: "/media/choosing-cable-support-systems",
   },
   {
     title: "Understanding Cable Management Systems in Modern Infrastructure",
@@ -26,21 +27,23 @@ const articles = [
     excerpt:
       "This guide breaks down the differences and provides expert tips for selecting the right solutions that meet key industry standards.",
     src: "/images/homepage/blog-3.jpg",
-    href: "/media",
+    href: "/media/understanding-cable-management-systems",
   },
 ];
 
 export default function InsightsSection() {
   return (
     <section className="site-container py-16">
-      <FadeUp className="mb-12">
-        <h2 className="font-typewriter text-[clamp(1.75rem,4.5vw,2.875rem)] leading-[1.05] text-[#1A0F00]">
-          Insights &amp; Expertise.
+      <div className="mb-12">
+        <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00]">
+          <Typewriter text="Insights & Expertise." />
         </h2>
-        <p className="font-raleway font-bold text-[20px] text-[#ff8905] mt-3">
-          Real-world knowledge from the people who build infrastructure every day.
-        </p>
-      </FadeUp>
+        <FadeUp delay={0.15}>
+          <p className="font-raleway font-bold text-[20px] text-[#ff8905] mt-3">
+            Real-world knowledge from the people who build infrastructure every day.
+          </p>
+        </FadeUp>
+      </div>
       <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {articles.map((a) => (
           <StaggerItem key={a.title}>

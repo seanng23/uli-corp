@@ -15,10 +15,10 @@ export default function AboutSplit({
 }) {
   return (
     <section className="site-container py-10">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_4px_1fr] gap-0 lg:gap-x-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_4px_1fr] gap-0 lg:gap-x-10">
         {/* Left: tall worker photo + heading + body */}
         <div className="flex flex-col">
-          <div className="relative w-full h-[480px] lg:h-[560px]">
+          <div className="relative w-full h-[480px] lg:h-[944px]">
             <SanityMedia
               videoUrl={workerMedia?.videoUrl}
               imageUrl={workerMedia?.imageUrl}
@@ -33,20 +33,30 @@ export default function AboutSplit({
             <h2 className="font-typewriter text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.1] text-[#1A0F00] mb-4">
               From Malaysia to the region. Powering progress through steel-based solutions.
             </h2>
+            <p className="font-raleway text-[16px] text-[#1A0F00] leading-relaxed mb-4">
+              Backed by over 40 years of industry experience, U-LI continues to contribute to infrastructure development across Malaysia and the region. We manufacture certified Cable Support Systems and lighting solutions.
+            </p>
             <p className="font-raleway text-[16px] text-[#1A0F00] leading-relaxed">
-              Backed by over 40 years of industry experience, U-LI continues to contribute to infrastructure development across Malaysia and the region. We manufacture certified Cable Support Systems and lighting solutions. We are not just a supplier. We are a trusted partner to engineers, developers, and infrastructure teams across key international markets, including ASEAN, the Middle East, and Australia.
+              We are not just a supplier. We are a trusted partner to engineers, developers, and infrastructure teams across key international markets, including ASEAN, the Middle East, and Australia.
             </p>
           </FadeUp>
         </div>
 
-        {/* Vertical divider */}
-        <div className="hidden lg:block bg-[#1A0F00] self-stretch" />
+        {/* Vertical divider — thin textured line */}
+        <div className="hidden lg:block relative">
+          <img
+            src="/images/lines/line-thin-vertical.png"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-fill"
+          />
+        </div>
 
         {/* Right: two stacked sections */}
         <div className="flex flex-col">
           {/* Top: cable tray photo + text */}
           <div>
-            <div className="relative w-full h-[260px]">
+            <div className="relative w-full h-[300px] lg:h-[360px]">
               <SanityMedia
                 videoUrl={trayMedia?.videoUrl}
                 imageUrl={trayMedia?.imageUrl}
@@ -57,7 +67,7 @@ export default function AboutSplit({
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
-            <FadeUp className="pt-5 pb-6 border-b-[4px] border-[#1A0F00]">
+            <FadeUp className="pt-5 pb-6">
               <h3 className="font-typewriter text-[clamp(1.4rem,2.5vw,2rem)] leading-[1.1] text-[#1A0F00] mb-3">
                 Made in Malaysia. Built for the World.
               </h3>
@@ -69,7 +79,7 @@ export default function AboutSplit({
 
           {/* Bottom: yellow crane photo + text */}
           <div>
-            <div className="relative w-full h-[260px] mt-6">
+            <div className="relative w-full h-[300px] lg:h-[360px] mt-6">
               <SanityMedia
                 videoUrl={factoryMedia?.videoUrl}
                 imageUrl={factoryMedia?.imageUrl}

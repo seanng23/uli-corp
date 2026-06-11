@@ -19,9 +19,9 @@ export default async function TechnologyPage() {
     <>
       <TechHero media={getHero(settings, "technology")} />
       <TechCapabilities />
-      <Divider />
+      <Divider variant="thin" />
       <TechInnovation />
-      <Divider />
+      <Divider variant="double" />
       <CTASection />
     </>
   );

@@ -16,20 +16,20 @@ export default async function HomePage() {
     <>
       <Hero media={getHero(settings, "home")} />
       <AboutBand />
-      <Divider />
+      <Divider variant="thin" />
       <StatsBand />
-      <Divider />
+      <Divider variant="thin" />
       <LegacySplit media={getSectionImage(settings, "home-legacy")} />
-      <Divider />
+      <Divider variant="thin" />
       <ClientsGrid />
-      <Divider />
+      <Divider variant="double" />
       <IndustriesSection
         internationalMedia={getSectionImage(settings, "home-projects-international")}
         localMedia={getSectionImage(settings, "home-projects-local")}
       />
-      <Divider />
+      <Divider variant="thick" />
       <InsightsSection />
-      <Divider />
+      <Divider variant="double" />
       <CTASection />
     </>
   );

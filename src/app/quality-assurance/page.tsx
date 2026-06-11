@@ -24,7 +24,7 @@ export default async function QualityAssurancePage() {
       <QualityCertified fieldMedia={getSectionImage(settings, "quality-field")} />
       <QualityStats />
       <QualityBuild />
-      <Divider />
+      <Divider variant="double" />
       <CTASection />
     </>
   );

@@ -43,6 +43,14 @@ export function removeFromCart(id: string): CartItem[] {
   return cart;
 }
 
+export function updateQuantity(id: string, quantity: number): CartItem[] {
+  const cart = getCart();
+  const item = cart.find((i) => i.id === id);
+  if (item) item.quantity = Math.max(1, quantity);
+  saveCart(cart);
+  return cart;
+}
+
 export function clearCart(): void {
   saveCart([]);
 }

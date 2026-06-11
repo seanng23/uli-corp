@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
+import Typewriter from "@/components/motion/Typewriter";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
@@ -25,30 +26,45 @@ export default function IndustriesSection({
   localMedia?: SectionMedia | null;
 }) {
   return (
-    <section className="site-container py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_4px_1fr] gap-0 lg:gap-x-12 items-stretch">
-        {/* Left text */}
-        <div>
-          <FadeUp>
-            <h2 className="font-typewriter text-[clamp(1.75rem,4.5vw,2.875rem)] leading-[1.05] text-[#1A0F00] mb-4">
-              Supporting Every Layer of the Built Environment.
+    <section className="site-container py-14">
+      {/* Section padding insets the grid so the vertical rule floats between the
+          top/bottom Dividers (gap above & below), while the middle rule still
+          meets the vertical rule. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+        {/* Left text — thin textured vertical rule on its right edge */}
+        <div className="relative flex flex-col">
+          <img
+            src="/images/lines/line-thin-vertical.png"
+            alt=""
+            aria-hidden="true"
+            className="hidden lg:block absolute inset-y-0 right-0 h-full w-[4px] object-fill"
+          />
+          <div className="pb-10 lg:pb-14 lg:pr-12">
+            <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
+              <Typewriter text="Supporting Every Layer of the Built Environment." />
             </h2>
-          </FadeUp>
-          <FadeUp delay={0.1}>
-            <p className="font-raleway font-bold text-[20px] text-[#ff8905] mb-4">
-              We power essential infrastructure across key industries.
-            </p>
-            <p className="font-raleway text-[20px] text-[#1A0F00] leading-relaxed">
-              From Malaysia to the Middle East and beyond, our products and solutions are recognized
-              by industry professionals across diverse markets around the world.
-            </p>
-          </FadeUp>
-          <div className="mt-10 pt-10 border-t-[4px] border-[#1A0F00]">
-            <FadeUp delay={0.15}>
-              <h2 className="font-typewriter text-[clamp(1.75rem,4.5vw,2.875rem)] leading-[1.05] text-[#1A0F00] mb-4">
-                A Proven Track Record Across Sectors.
-              </h2>
+            <FadeUp delay={0.1}>
+              <p className="font-raleway font-bold text-[20px] text-[#ff8905] mb-4">
+                We power essential infrastructure across key industries.
+              </p>
+              <p className="font-raleway text-[20px] text-[#1A0F00] leading-relaxed">
+                From Malaysia to the Middle East and beyond, our products and solutions are recognized
+                by industry professionals across diverse markets around the world.
+              </p>
             </FadeUp>
+          </div>
+
+          {/* Middle rule (thin texture) meets the vertical rule on its right */}
+          <div className="relative pt-10 lg:pt-14 lg:pr-12">
+            <img
+              src="/images/lines/line-thin.png"
+              alt=""
+              aria-hidden="true"
+              className="absolute top-0 left-0 w-full h-auto"
+            />
+            <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
+              <Typewriter text="A Proven Track Record Across Sectors." />
+            </h2>
             <FadeUp delay={0.2}>
               <p className="font-raleway font-bold text-[20px] text-[#ff8905] mb-4">
                 Explore highlights from our project portfolio in commercial, industrial, and infrastructure environments.
@@ -61,11 +77,8 @@ export default function IndustriesSection({
           </div>
         </div>
 
-        {/* Vertical divider */}
-        <div className="hidden lg:block bg-[#1A0F00] self-stretch" />
-
         {/* Right: industry icons + project links */}
-        <div>
+        <div className="lg:pl-12">
           <StaggerGroup className="grid grid-cols-3 gap-6 mb-8">
             {industries.map((ind, i) => (
               <StaggerItem key={ind.name} className={`flex flex-col items-center gap-3${i === industries.length - 1 ? " col-start-2" : ""}`}>
@@ -111,7 +124,8 @@ export default function IndustriesSection({
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-[#1A0F00]/35 group-hover:bg-[#1A0F00]/15 transition-all duration-500" />
+                {/* Bottom gradient only — keeps the photo bright, label readable */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A0F00]/70 via-[#1A0F00]/10 to-transparent group-hover:from-[#1A0F00]/55 transition-all duration-500" />
                 <div className="absolute bottom-4 right-5">
                   <span className="font-raleway text-base font-semibold text-[#F5EDD6] underline underline-offset-4 decoration-[#F5EDD6]/60 group-hover:decoration-[#F5EDD6] transition-all duration-300">
                     {p.label} ↗

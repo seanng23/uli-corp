@@ -10,8 +10,74 @@ export const metadata: Metadata = {
   alternates: { canonical: "/products" },
 };
 
+const SUBCATEGORY_RENAMES: Record<string, string> = {
+  "Cable Trays": "Cable Tray",
+  "Cable Ladders": "Cable Ladder",
+};
+
+const ITEM_CODE_OVERRIDES: Record<string, string> = {
+  "cable-trunking": "UL/TG",
+};
+
+// Categories without a finished product page yet — hidden from the listing.
+const EXCLUDED_SUBCATEGORIES = new Set([
+  "Threaded Rod & Hanger",
+  "Conduit",
+  "Strut Channel",
+  "Floor Trunking",
+  "Wire Mesh Tray",
+]);
+
+// Card images that match the product's inner detail page.
+const CARD_IMAGES: Record<string, string> = {
+  "cable-trunking": "/images/products/cable-trunking.png",
+};
+
 export default async function ProductsPage() {
-  const products = await getAllProducts();
+  const renamed = (await getAllProducts())
+    .filter((p) => !EXCLUDED_SUBCATEGORIES.has(p.subcategory))
+    .map((p) => ({
+      ...p,
+      subcategory: SUBCATEGORY_RENAMES[p.subcategory] ?? p.subcategory,
+      itemNo: ITEM_CODE_OVERRIDES[p.slug] ?? p.itemNo,
+      image: CARD_IMAGES[p.slug] ?? p.image,
+    }));
+
+  // Collapse multi-profile categories into a single card linking to their
+  // combined product page (Cable Tray = TU/TT/TC/TR, Cable Ladder = LZ/LN/LG/LC/L6N).
+  const makeCard = (subcat: string, overrides: Partial<(typeof renamed)[number]>) => {
+    const first = renamed.find((p) => p.subcategory === subcat);
+    return first ? { ...first, subcategory: subcat, thumbnails: [], ...overrides } : null;
+  };
+  const collapsed: Record<string, (typeof renamed)[number] | null> = {
+    "Cable Tray": makeCard("Cable Tray", {
+      slug: "cable-tray",
+      name: "Cable Tray",
+      itemNo: "TU · TT · TC · TR",
+      image: "/images/products/cable-tray.png",
+    }),
+    "Cable Ladder": makeCard("Cable Ladder", {
+      slug: "cable-ladder",
+      name: "Cable Ladder",
+      itemNo: "LZ · LN · LG · LC · L6N",
+      image: "/images/products/cable-ladder.png",
+    }),
+  };
+
+  const products: typeof renamed = [];
+  const insertedCards = new Set<string>();
+  for (const p of renamed) {
+    if (p.subcategory in collapsed) {
+      const card = collapsed[p.subcategory];
+      if (card && !insertedCards.has(p.subcategory)) {
+        products.push(card);
+        insertedCards.add(p.subcategory);
+      }
+      continue;
+    }
+    products.push(p);
+  }
+
   return (
     <>
       {/* Double-line top */}

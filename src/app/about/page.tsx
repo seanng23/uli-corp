@@ -20,17 +20,17 @@ export default async function AboutPage() {
         trayMedia={getSectionImage(settings, "about-split-tray")}
         factoryMedia={getSectionImage(settings, "about-split-factory")}
       />
-      <Divider />
+      <Divider variant="thin" />
       <StatsBand />
-      <Divider />
+      <Divider variant="thin" />
       <AboutLegacy media={getSectionImage(settings, "about-legacy")} />
-      <Divider />
+      <Divider variant="thin" />
       <AboutVision />
-      <Divider />
+      <Divider variant="thin" />
       <AboutValues />
-      <Divider />
+      <Divider variant="thin" />
       <AboutImpact />
-      <Divider />
+      <Divider variant="double" />
       <CTASection />
     </>
   );

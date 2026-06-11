@@ -15,8 +15,8 @@ const container = (stagger: number): Variants => ({
 });
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.0, 0.0, 0.58, 1.0] } },
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export function StaggerGroup({ children, className, stagger = 0.08 }: Props) {

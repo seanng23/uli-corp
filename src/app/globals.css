@@ -101,7 +101,42 @@ body {
   color: #ff8905;
 }
 
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
 @layer utilities {
+  /* Matches the body's fixed paper texture so sticky surfaces (nav, menus)
+     blend seamlessly with the page instead of reading as flat cream blocks. */
+  .bg-paper-fixed {
+    background-color: #F5EDD6;
+    background-image: url("/images/paper-texture.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  /* Logo marquee — two rows scrolling in opposite directions */
+  .marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+  }
+  .marquee-track-left { animation: marquee-left 40s linear infinite; }
+  .marquee-track-right { animation: marquee-right 40s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+
   .site-container {
     max-width: 1400px;
     margin-left: auto;

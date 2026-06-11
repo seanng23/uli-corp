@@ -26,7 +26,7 @@ export default function AboutImpact() {
   return (
     <section className="site-container py-16">
       <FadeUp className="text-center mb-10">
-        <h2 className="font-typewriter text-[clamp(1.75rem,4.5vw,2.875rem)] leading-[1.05] text-[#1A0F00]">
+        <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00]">
           Positive Impact, Measurable Results
         </h2>
       </FadeUp>

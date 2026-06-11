@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
+import { Plus, Minus, SlidersHorizontal, X } from "lucide-react";
 import type { Product } from "@/data/products";
 
 type Filters = {
@@ -43,7 +43,7 @@ function FilterSection({
   selected: Set<string>;
   onToggle: (val: string) => void;
 }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   if (!options.length) return null;
   return (
     <div className="border-t border-[#1A0F00]/20 py-4">
@@ -54,11 +54,11 @@ function FilterSection({
         <span className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00]">
           {title}
         </span>
-        <ChevronDown
-          size={14}
-          strokeWidth={2.5}
-          className={`text-[#1A0F00] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
+        {open ? (
+          <Minus size={16} strokeWidth={2.5} className="text-[#ff8905] shrink-0" />
+        ) : (
+          <Plus size={16} strokeWidth={2.5} className="text-[#ff8905] shrink-0" />
+        )}
       </button>
       {open && (
         <div className="mt-3 space-y-2.5">
@@ -81,15 +81,25 @@ function FilterSection({
   );
 }
 
+// Per-product image fallbacks (used until real images are uploaded via Sanity).
+const PRODUCT_IMAGES: Record<string, string> = {
+  "cable-trunking": "/images/products/placeholder.png",
+  "cable-tray-perforated": "/images/products/cable-tray-perforated.jpg",
+  "cable-tray-solid-bottom": "/images/products/cable-tray-solid.jpg",
+  "cable-ladder": "/images/products/cable-ladder.jpg",
+  "wire-mesh-tray": "/images/products/wire-mesh-tray.jpg",
+  "conduit-pipe-accessories": "/images/products/conduit.jpg",
+};
+
 function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#1A0F00]/5">
+      <div className="relative aspect-square overflow-hidden rounded-xl border border-[#1A0F00]/15">
         <Image
-          src={product.image}
+          src={product.image || PRODUCT_IMAGES[product.slug] || "/images/products/placeholder.png"}
           alt={product.name}
           fill
-          className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
+          className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.04]"
           sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
         />
       </div>

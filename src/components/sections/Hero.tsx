@@ -1,4 +1,6 @@
 import SanityMedia from "@/components/SanityMedia";
+import Typewriter from "@/components/motion/Typewriter";
+import RevealImage from "@/components/motion/RevealImage";
 import type { HeroMedia } from "@/sanity/lib/queries";
 
 export default function Hero({ media }: { media?: HeroMedia | null }) {
@@ -17,7 +19,7 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
             <p className="font-typewriter text-sm text-[#1A0F00]">1978</p>
           </div>
           <h1 className="font-typewriter uppercase text-center text-[clamp(2rem,4.5vw,5rem)] leading-[1.0] text-[#1A0F00] tracking-tight px-4">
-            Engineering Tomorrow&apos;s Infrastructure
+            <Typewriter text="Engineering Tomorrow's Infrastructure" speed={0.045} />
           </h1>
           <div className="text-left">
             <p className="font-typewriter text-sm text-[#1A0F00]">Inc.</p>
@@ -33,18 +35,20 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
 
       {/* Hero photo / video */}
       <div className="site-container pt-4">
-        <SanityMedia
-          videoUrl={media?.videoUrl}
-          videoThumbnailUrl={media?.videoThumbnailUrl}
-          imageUrl={media?.imageUrl}
-          fallbackSrc="/images/homepage/mask-group-31.jpg"
-          alt="U-Li steel manufacturing"
-          width={2038}
-          height={744}
-          priority
-          className="w-full h-auto block"
-          sizes="(max-width: 1400px) 100vw, 1400px"
-        />
+        <RevealImage duration={1.5}>
+          <SanityMedia
+            videoUrl={media?.videoUrl}
+            videoThumbnailUrl={media?.videoThumbnailUrl}
+            imageUrl={media?.imageUrl}
+            fallbackSrc="/images/homepage/mask-group-31.jpg"
+            alt="U-Li steel manufacturing"
+            width={2038}
+            height={744}
+            priority
+            className="w-full h-auto block"
+            sizes="(max-width: 1400px) 100vw, 1400px"
+          />
+        </RevealImage>
       </div>
     </section>
   );

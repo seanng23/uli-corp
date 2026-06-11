@@ -1,13 +1,14 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { type CartItem, getCart, saveCart, addToCart as addItem, removeFromCart as removeItem, clearCart as clear } from "@/lib/cart-store";
+import { type CartItem, getCart, saveCart, addToCart as addItem, removeFromCart as removeItem, updateQuantity as updateQty, clearCart as clear } from "@/lib/cart-store";
 
 type CartContextType = {
   items: CartItem[];
   count: number;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 };
 
@@ -16,6 +17,7 @@ const CartContext = createContext<CartContextType>({
   count: 0,
   addToCart: () => {},
   removeFromCart: () => {},
+  updateQuantity: () => {},
   clearCart: () => {},
 });
 
@@ -40,6 +42,11 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     setItems([...updated]);
   };
 
+  const updateQuantity = (id: string, quantity: number) => {
+    const updated = updateQty(id, quantity);
+    setItems([...updated]);
+  };
+
   const clearCart = () => {
     clear();
     setItems([]);
@@ -48,7 +55,7 @@ export default function CartProvider({ children }: { children: React.ReactNode }
   const count = items.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, count, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ items, count, addToCart, removeFromCart, updateQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -18,7 +18,7 @@ export default function QualityCertified({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
 
           <FadeUp className="pb-10 lg:pb-0">
-            <h2 className="font-typewriter text-[clamp(1.4rem,2.5vw,2rem)] leading-tight text-[#1A0F00] mb-5">
+            <h2 className="font-typewriter text-[clamp(2rem,3.4vw,3.25rem)] leading-tight text-[#1A0F00] mb-5">
               Certified by Trusted Institutions
             </h2>
             <p className="font-raleway text-[16px] text-[#5C4A30] leading-relaxed">
@@ -29,13 +29,13 @@ export default function QualityCertified({
             </p>
           </FadeUp>
 
-          <FadeUp delay={0.1} className="flex items-center justify-center lg:justify-start">
+          <FadeUp delay={0.1} className="flex items-center justify-center lg:justify-end">
             <Image
               src="/images/quality/Group-2618.png"
               alt="ISO 9001, IQNET, QAS, SIRIM, Buatan Malaysia certifications"
-              width={500}
-              height={200}
-              className="w-full max-w-[480px] h-auto object-contain"
+              width={944}
+              height={291}
+              className="w-full max-w-[640px] h-auto object-contain"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </FadeUp>
@@ -43,16 +43,16 @@ export default function QualityCertified({
         </div>
       </section>
 
-      {/* Single-line divider between sections */}
+      {/* Solid bar between Certified and Proven on the Field */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <div className="border-t-[5px] border-[#1A0F00]" />
       </div>
 
       {/* Proven on the Field */}
-      <section className="site-container py-14 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
+      <section className="site-container py-12 lg:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
 
-          <FadeUp className="relative h-[380px] lg:h-auto mb-10 lg:mb-0">
+          <FadeUp className="relative h-[380px] lg:h-[600px] mb-10 lg:mb-0">
             <SanityMedia
               videoUrl={fieldMedia?.videoUrl}
               imageUrl={fieldMedia?.imageUrl}
@@ -65,7 +65,7 @@ export default function QualityCertified({
           </FadeUp>
 
           <FadeUp delay={0.1} className="flex flex-col justify-center">
-            <h2 className="font-typewriter text-[clamp(1.4rem,2.5vw,2rem)] leading-tight text-[#1A0F00] mb-3">
+            <h2 className="font-typewriter text-[clamp(2rem,3.4vw,3.25rem)] leading-tight text-[#1A0F00] mb-3">
               Proven on the Field
             </h2>
             <p className="font-raleway text-[15px] font-semibold text-[#ff8905] mb-5">

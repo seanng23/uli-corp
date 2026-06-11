@@ -9,7 +9,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
   return (
     <section className="site-container py-16">
       <FadeUp className="text-center mb-4">
-        <h2 className="font-typewriter text-[clamp(1.75rem,4.5vw,2.875rem)] leading-[1.05] text-[#1A0F00]">
+        <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00]">
           From Local Beginnings to Global Reach
         </h2>
       </FadeUp>
@@ -35,7 +35,8 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
       </FadeUp>
 
       {/* Timeline — 2002 spans 2 cols, all thick 4px dividers */}
-      <div className="mt-10 border-t-[4px] border-b-[4px] border-[#1A0F00]">
+      <div className="mt-10">
+        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
         <StaggerGroup className="grid grid-cols-[1fr_2fr_1fr_1fr]">
 
           {/* 1990s */}
@@ -47,7 +48,8 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
           </StaggerItem>
 
           {/* 2002 — double-width, year spans both cols, two text items below */}
-          <StaggerItem className="border-l-[4px] border-[#1A0F00] flex flex-col">
+          <StaggerItem className="relative flex flex-col">
+            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             {/* Year spanning full width */}
             <div className="pt-8 pb-4 text-center">
               <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00]">2002</p>
@@ -59,7 +61,9 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
                   Public listing on Bursa Malaysia
                 </p>
               </div>
-              <div className="bg-[#1A0F00]" />
+              <div className="relative">
+                <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-fill" />
+              </div>
               <div className="px-6 flex items-center justify-center text-center">
                 <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
                   Expanded to five integrated manufacturing plants
@@ -69,7 +73,8 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
           </StaggerItem>
 
           {/* 2020 */}
-          <StaggerItem className="border-l-[4px] border-[#1A0F00] py-8 px-6 text-center">
+          <StaggerItem className="relative py-8 px-6 text-center">
+            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00] mb-4">2020</p>
             <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
               Export operations across ASEAN, the Middle East, and Australia
@@ -77,7 +82,8 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
           </StaggerItem>
 
           {/* 2024 */}
-          <StaggerItem className="border-l-[4px] border-[#1A0F00] py-8 px-6 text-center">
+          <StaggerItem className="relative py-8 px-6 text-center">
+            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00] mb-4">2024</p>
             <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
               RM253 million revenue and over 40,000MT of steel processed
@@ -85,6 +91,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
           </StaggerItem>
 
         </StaggerGroup>
+        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
       </div>
     </section>
   );

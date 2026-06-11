@@ -10,6 +10,26 @@ import { generateItemId } from "@/lib/cart-store";
 
 type Props = { product: Product };
 
+const FINISH_CUSTOM = "Others / Custom Finishing";
+function normalizeFinishing(list: string[] = []): string[] {
+  const expanded = list.flatMap((f) =>
+    f === "Stainless Steel 304 / 316"
+      ? ["Stainless Steel 304", "Stainless Steel 316"]
+      : f === "Others/ Custom Sizes"
+        ? [FINISH_CUSTOM]
+        : [f]
+  );
+  const custom = expanded.filter((f) => f === FINISH_CUSTOM);
+  const rest = expanded.filter((f) => f !== FINISH_CUSTOM).sort((a, b) => a.localeCompare(b));
+  return [...rest, ...custom];
+}
+function normalizeStandards(list: string[] = []): string[] {
+  const renamed = list.map((s) => (s === "Others/Custom" ? "Others" : s));
+  const others = renamed.filter((s) => s === "Others");
+  const rest = renamed.filter((s) => s !== "Others").sort((a, b) => a.localeCompare(b));
+  return [...rest, ...others];
+}
+
 function CollapsibleSection({
   id,
   title,
@@ -46,12 +66,48 @@ export default function ProductInnerClient({ product }: Props) {
   const { addToCart } = useCart();
 
   const PLACEHOLDER = "/images/products/placeholder.png";
-  const allImages = [product.image ?? PLACEHOLDER, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
+  const MAIN_IMAGES: Record<string, string> = {
+    "cable-trunking": "/images/products/cable-trunking.png",
+  };
+  const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
+  const allImages = [mainImage, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
+  // Fill all four thumbnail slots — duplicate the main image into empty slots
+  const galleryImages = Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
+  // Main images that already include the U-LI badge baked in (skip the overlay badge)
+  const BADGED_MAIN = new Set(["cable-trunking"]);
+  const showBadgeOverlay = !BADGED_MAIN.has(product.slug);
+
+  const ITEM_CODES: Record<string, string> = { "cable-trunking": "UL/TG" };
+  const itemCode = ITEM_CODES[product.slug] ?? product.itemNo;
+
+  const TITLE_ICONS: Record<string, string> = {
+    "cable-trunking": "/images/products/icon-cable-trunking.png",
+  };
+  const titleIcon = TITLE_ICONS[product.slug];
+
+  const DIM_OVERRIDES: Record<string, { length?: number[]; thickness?: number[] }> = {
+    "cable-trunking": {
+      length: [2440, 3000],
+      thickness: [0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 2.5],
+    },
+  };
+  const dims = product.dimensions
+    ? { ...product.dimensions, ...(DIM_OVERRIDES[product.slug] ?? {}) }
+    : product.dimensions;
+  const lengthLabel = dims?.length
+    ? dims.length.length === 2
+      ? `${dims.length[0]}mm or ${dims.length[1]}mm`
+      : `${dims.length[0]}–${dims.length[dims.length.length - 1]}mm`
+    : null;
+  const standards = (product.standards ?? []).map((s) =>
+    s === "Others/Custom" ? "Others" : s
+  );
+  const finishing = normalizeFinishing(product.finishing ?? []);
   const [activeImage, setActiveImage] = useState(0);
 
-  const [selectedStandard, setSelectedStandard] = useState<string>(product.standards?.[0] ?? "");
+  const [selectedStandard, setSelectedStandard] = useState<string>(standards[0] ?? "");
   const [selectedDimensions, setSelectedDimensions] = useState<Record<string, string>>({});
-  const [selectedFinishing, setSelectedFinishing] = useState<string>(product.finishing?.[0] ?? "");
+  const [selectedFinishing, setSelectedFinishing] = useState<string>(finishing[0] ?? "");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -95,57 +151,62 @@ export default function ProductInnerClient({ product }: Props) {
         <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
       </div>
 
-      {/* Product heading */}
-      <div className="site-container py-5">
-        <h1 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] leading-tight text-[#1A0F00]">
-          {product.name}
-        </h1>
-      </div>
-
-      {/* Bottom divider */}
-      <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
-      </div>
-
       {/* Two-column layout */}
       <div className="site-container py-10 lg:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
 
         {/* LEFT — image gallery + collapsible sections */}
         <div>
-          {/* Main image */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#1A0F00]/5 mb-3">
-            <Image
-              src={allImages[activeImage]}
-              alt={product.name}
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width:1024px) 100vw, 55vw"
-            />
-          </div>
+          {/* Image gallery — thumbnails left, main image right */}
+          <div className="mb-10 flex gap-4 items-start">
+            {/* Thumbnails — vertical strip on the left */}
+            <div className="flex flex-col gap-3 w-[104px] shrink-0">
+              {galleryImages.map((img, i) => {
+                const isActive = activeImage === i;
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setActiveImage(i)}
+                    aria-label={`View image ${i + 1}`}
+                    className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${
+                      isActive
+                        ? "border-[#ff8905] border-2"
+                        : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.name} thumbnail ${i + 1}`}
+                      fill
+                      className="object-cover object-center"
+                      sizes="80px"
+                    />
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* Thumbnails */}
-          <div className="flex gap-2 mb-10">
-            {allImages.slice(0, 4).map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveImage(i)}
-                className={`relative w-[72px] h-[54px] overflow-hidden border-2 transition-colors flex-shrink-0 ${
-                  activeImage === i
-                    ? "border-[#ff8905]"
-                    : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"
-                }`}
-              >
+            {/* Main image — rounded bordered box (transparent bg) with U-LI logo badge */}
+            <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
+              <Image
+                src={galleryImages[activeImage]}
+                alt={product.name}
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width:1024px) 100vw, 50vw"
+              />
+              {showBadgeOverlay && (
                 <Image
-                  src={img}
-                  alt={`${product.name} thumbnail ${i + 1}`}
-                  fill
-                  className="object-cover object-center"
-                  sizes="72px"
+                  src="/images/products/logo-badge.png"
+                  alt="United U-Li Corporation Berhad"
+                  width={254}
+                  height={223}
+                  className="absolute top-5 left-5 w-[92px] h-auto drop-shadow-md"
                 />
-              </button>
-            ))}
+              )}
+            </div>
           </div>
 
           {/* Collapsible sections */}
@@ -158,28 +219,13 @@ export default function ProductInnerClient({ product }: Props) {
           {product.properties && (
             <CollapsibleSection id="properties" title="Properties">
               <div className="space-y-5">
-                {product.properties.materials && (
-                  <div>
-                    <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">
-                      Materials
-                    </p>
-                    <ul className="space-y-1">
-                      {product.properties.materials.map((m) => (
-                        <li key={m} className="font-raleway text-[14px] text-[#5C4A30] flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-[#ff8905] flex-shrink-0" />
-                          {m}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
                 {product.properties.finishings && (
                   <div>
                     <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">
                       Finishing Options
                     </p>
                     <ul className="space-y-1">
-                      {product.properties.finishings.map((f) => (
+                      {normalizeFinishing(product.properties.finishings).map((f) => (
                         <li key={f} className="font-raleway text-[14px] text-[#5C4A30] flex items-center gap-2">
                           <span className="w-1 h-1 rounded-full bg-[#ff8905] flex-shrink-0" />
                           {f}
@@ -194,7 +240,7 @@ export default function ProductInnerClient({ product }: Props) {
                       Applicable Standards
                     </p>
                     <ul className="space-y-1">
-                      {product.properties.standards.map((s) => (
+                      {normalizeStandards(product.properties.standards).map((s) => (
                         <li key={s} className="font-raleway text-[14px] text-[#5C4A30] flex items-center gap-2">
                           <span className="w-1 h-1 rounded-full bg-[#ff8905] flex-shrink-0" />
                           {s}
@@ -211,19 +257,15 @@ export default function ProductInnerClient({ product }: Props) {
                     <table className="w-full text-left border border-[#1A0F00]/20">
                       <thead>
                         <tr className="bg-[#1A0F00]/5">
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Components Reference</th>
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Size (mm) H (Height) X W (Width)</th>
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Min. Thickness of Body &amp; Cover (mm)</th>
-                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">Nominal Max. Thickness of Body &amp; Cover (mm)</th>
+                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-1.5 border-b border-[#1A0F00]/20">Components Reference</th>
+                          <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-1.5 border-b border-[#1A0F00]/20">Nominal Size (mm) H (Height) X W (Width)</th>
                         </tr>
                       </thead>
                       <tbody>
                         {product.dimensionTable.map((row, i) => (
                           <tr key={i} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
-                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{row.ref ?? "—"}</td>
-                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{row.nominalSize ?? "—"}</td>
-                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{row.minThickness ?? "—"}</td>
-                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">{row.maxThickness ?? "—"}</td>
+                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-1.5 border-b border-[#1A0F00]/10">{row.ref ?? "—"}</td>
+                            <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-1.5 border-b border-[#1A0F00]/10">{row.nominalSize ?? "—"}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -271,36 +313,53 @@ export default function ProductInnerClient({ product }: Props) {
 
         {/* RIGHT — configurator panel */}
         <div>
-          <div className="border border-[#1A0F00]/20 p-6 bg-[#F5EDD6]">
+          <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
+            {/* Product name */}
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00]">
+                {product.name}
+              </h1>
+              {titleIcon && (
+                <Image
+                  src={titleIcon}
+                  alt=""
+                  aria-hidden="true"
+                  width={141}
+                  height={81}
+                  className="w-[56px] h-auto shrink-0"
+                />
+              )}
+            </div>
+
             {/* Item No */}
-            {product.itemNo && (
+            {itemCode && (
               <p className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#5C4A30] mb-5">
-                Item No: <span className="text-[#1A0F00]">{product.itemNo}</span>
+                Item No: <span className="text-[#1A0F00]">{itemCode}</span>
               </p>
             )}
 
             {/* Dimension range summary */}
-            {product.dimensions && (
+            {dims && (
               <div className="mb-5 pb-5 border-b border-[#1A0F00]/15">
                 <div className="flex flex-wrap gap-x-4 gap-y-1">
-                  {product.dimensions.height && (
+                  {dims.height && (
                     <span className="font-raleway text-[12px] text-[#5C4A30]">
-                      H: {product.dimensions.height[0]}–{product.dimensions.height[product.dimensions.height.length - 1]}mm
+                      H: {dims.height[0]}–{dims.height[dims.height.length - 1]}mm
                     </span>
                   )}
-                  {product.dimensions.width && (
+                  {dims.width && (
                     <span className="font-raleway text-[12px] text-[#5C4A30]">
-                      W: {product.dimensions.width[0]}–{product.dimensions.width[product.dimensions.width.length - 1]}mm
+                      W: {dims.width[0]}–{dims.width[dims.width.length - 1]}mm
                     </span>
                   )}
-                  {product.dimensions.length && (
+                  {lengthLabel && (
                     <span className="font-raleway text-[12px] text-[#5C4A30]">
-                      L: {product.dimensions.length[0]}–{product.dimensions.length[product.dimensions.length.length - 1]}mm
+                      L: {lengthLabel}
                     </span>
                   )}
-                  {product.dimensions.thickness && (
+                  {dims.thickness && (
                     <span className="font-raleway text-[12px] text-[#5C4A30]">
-                      T: {product.dimensions.thickness[0]}–{product.dimensions.thickness[product.dimensions.thickness.length - 1]}mm
+                      T: {dims.thickness[0]}–{dims.thickness[dims.thickness.length - 1]}mm
                     </span>
                   )}
                 </div>
@@ -308,17 +367,17 @@ export default function ProductInnerClient({ product }: Props) {
             )}
 
             {/* Standard pills */}
-            {product.standards && product.standards.length > 0 && (
+            {standards.length > 0 && (
               <div className="mb-5">
                 <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
                   Standard
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {product.standards.map((s) => (
+                  {standards.map((s) => (
                     <button
                       key={s}
                       onClick={() => setSelectedStandard(s)}
-                      className={`px-3 py-1.5 font-raleway text-[11px] font-semibold border transition-all duration-150 ${
+                      className={`px-3 py-1.5 rounded-md font-raleway text-[11px] font-semibold border transition-all duration-150 ${
                         selectedStandard === s
                           ? "bg-[#ff8905] border-[#ff8905] text-white"
                           : "bg-transparent border-[#1A0F00]/40 text-[#1A0F00] hover:border-[#1A0F00]"
@@ -332,9 +391,9 @@ export default function ProductInnerClient({ product }: Props) {
             )}
 
             {/* Dimension dropdowns */}
-            {product.dimensions && (
+            {dims && (
               <div className="mb-5 grid grid-cols-2 gap-3">
-                {product.dimensions.height && (
+                {dims.height && (
                   <div>
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Height (mm)
@@ -344,16 +403,16 @@ export default function ProductInnerClient({ product }: Props) {
                       onChange={(e) =>
                         setSelectedDimensions((p) => ({ ...p, Height: e.target.value }))
                       }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
+                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
                     >
                       <option value="">Select</option>
-                      {product.dimensions.height.map((v) => (
+                      {dims.height.map((v) => (
                         <option key={v} value={v}>{v}</option>
                       ))}
                     </select>
                   </div>
                 )}
-                {product.dimensions.width && (
+                {dims.width && (
                   <div>
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Width (mm)
@@ -363,16 +422,16 @@ export default function ProductInnerClient({ product }: Props) {
                       onChange={(e) =>
                         setSelectedDimensions((p) => ({ ...p, Width: e.target.value }))
                       }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
+                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
                     >
                       <option value="">Select</option>
-                      {product.dimensions.width.map((v) => (
+                      {dims.width.map((v) => (
                         <option key={v} value={v}>{v}</option>
                       ))}
                     </select>
                   </div>
                 )}
-                {product.dimensions.length && (
+                {dims.length && (
                   <div>
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Length (mm)
@@ -382,16 +441,16 @@ export default function ProductInnerClient({ product }: Props) {
                       onChange={(e) =>
                         setSelectedDimensions((p) => ({ ...p, Length: e.target.value }))
                       }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
+                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
                     >
                       <option value="">Select</option>
-                      {product.dimensions.length.map((v) => (
+                      {dims.length.map((v) => (
                         <option key={v} value={v}>{v}</option>
                       ))}
                     </select>
                   </div>
                 )}
-                {product.dimensions.thickness && (
+                {dims.thickness && (
                   <div>
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Thickness (mm)
@@ -401,11 +460,11 @@ export default function ProductInnerClient({ product }: Props) {
                       onChange={(e) =>
                         setSelectedDimensions((p) => ({ ...p, Thickness: e.target.value }))
                       }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/30 bg-white px-2.5 py-2 focus:outline-none focus:border-[#1A0F00]"
+                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
                     >
                       <option value="">Select</option>
-                      {product.dimensions.thickness.map((v) => (
-                        <option key={v} value={v}>{v}</option>
+                      {dims.thickness.map((v) => (
+                        <option key={v} value={v}>{Number(v).toFixed(1)}</option>
                       ))}
                     </select>
                   </div>
@@ -414,20 +473,20 @@ export default function ProductInnerClient({ product }: Props) {
             )}
 
             {/* Finishing grid */}
-            {product.finishing && product.finishing.length > 0 && (
+            {finishing.length > 0 && (
               <div className="mb-5">
                 <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">
                   Finishing
                 </p>
-                <div className="grid grid-cols-2 gap-2">
-                  {product.finishing.map((f) => (
+                <div className="grid grid-cols-3 gap-2 auto-rows-fr">
+                  {finishing.map((f) => (
                     <button
                       key={f}
                       onClick={() => {
                         setSelectedFinishing(f);
                         if (f !== "Powder Coated") setSelectedColor("");
                       }}
-                      className={`px-3 py-2 font-raleway text-[11px] font-semibold border transition-all duration-150 text-left leading-snug ${
+                      className={`px-3 py-2 rounded-md font-raleway text-[11px] font-semibold border transition-all duration-150 text-left leading-snug ${
                         selectedFinishing === f
                           ? "bg-[#ff8905] border-[#ff8905] text-white"
                           : "bg-transparent border-[#1A0F00]/30 text-[#1A0F00] hover:border-[#1A0F00]"
@@ -463,7 +522,7 @@ export default function ProductInnerClient({ product }: Props) {
                         <button
                           key={c}
                           onClick={() => setSelectedColor(active ? "" : c)}
-                          className={`flex items-center gap-2 px-3 py-1.5 border font-raleway text-[11px] font-semibold transition-all duration-150 ${
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-md border font-raleway text-[11px] font-semibold transition-all duration-150 ${
                             active
                               ? "border-[#ff8905] bg-[#ff8905]/10 text-[#1A0F00]"
                               : "border-[#1A0F00]/30 text-[#1A0F00] hover:border-[#1A0F00]"
@@ -487,7 +546,7 @@ export default function ProductInnerClient({ product }: Props) {
               <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                 Quantity
               </label>
-              <div className="flex items-center gap-0 border border-[#1A0F00]/30 w-fit">
+              <div className="flex items-center gap-0 border border-[#1A0F00]/30 w-fit rounded-md overflow-hidden">
                 <button
                   onClick={() => setQty((q) => Math.max(1, q - 1))}
                   className="w-9 h-9 flex items-center justify-center font-raleway text-lg text-[#1A0F00] hover:bg-[#1A0F00]/10 transition-colors border-r border-[#1A0F00]/30"
@@ -531,56 +590,75 @@ export default function ProductInnerClient({ product }: Props) {
                 View Enquiry →
               </Link>
             )}
+          </div>
 
-            {/* Table of Contents */}
-            <div className="mt-6 pt-5 border-t border-[#1A0F00]/15">
-              <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">
-                Table of Contents
-              </p>
-              <ul className="space-y-2">
+          {/* Table of Contents — separate section */}
+          <div className="mt-8">
+            <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">
+              Table of Contents
+            </p>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="#description"
+                  className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
+                >
+                  Description
+                </a>
+              </li>
+              {product.properties && (
                 <li>
                   <a
-                    href="#description"
+                    href="#properties"
                     className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
                   >
-                    Description
+                    Properties
                   </a>
                 </li>
-                {product.properties && (
-                  <li>
-                    <a
-                      href="#properties"
-                      className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
-                    >
-                      Properties
-                    </a>
-                  </li>
-                )}
-                {product.accessories && product.accessories.length > 0 && (
-                  <li>
-                    <a
-                      href="#accessories"
-                      className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
-                    >
-                      Accessories
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </div>
+              )}
+              {product.accessories && product.accessories.length > 0 && (
+                <li>
+                  <a
+                    href="#accessories"
+                    className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
+                  >
+                    Accessories
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
 
-            {/* Data Sheet + Certificate */}
-            <div className="mt-5 pt-5 border-t border-[#1A0F00]/15 flex flex-col gap-2">
-              <button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide">
-                <FileText size={14} strokeWidth={2} />
-                Data Sheet
-              </button>
+          {/* Documents — separate section */}
+          <div className="mt-8 pt-6 border-t border-[#1A0F00]/15">
+            <button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide">
+              <FileText size={14} strokeWidth={2} />
+              Data Sheet
+            </button>
+
+            {/* Certificate — shown inline, click to enlarge */}
+            <div className="mt-6">
+              <p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3">
+                <Award size={14} strokeWidth={2} className="text-[#ff8905]" />
+                Certificate
+              </p>
               <button
                 onClick={() => setCertOpen(true)}
-                className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"
+                aria-label="Enlarge certificate"
+                className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"
               >
-                <Award size={14} strokeWidth={2} />
-                Certificate
+                <Image
+                  src="/images/product-certificate.png"
+                  alt="U-LI Product Certificate"
+                  width={400}
+                  height={550}
+                  className="w-full h-auto"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">
+                    Click to enlarge
+                  </span>
+                </span>
               </button>
             </div>
           </div>

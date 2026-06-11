@@ -29,7 +29,7 @@ const INITIAL_FORM: FormData = {
 };
 
 export default function EnquiryClient() {
-  const { items, removeFromCart, clearCart, count } = useCart();
+  const { items, removeFromCart, updateQuantity, clearCart, count } = useCart();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -126,8 +126,29 @@ export default function EnquiryClient() {
                       ))}
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="font-typewriter text-lg text-[#1A0F00] w-8 text-center">{item.quantity}</span>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center border border-[#1A0F00]/30 rounded-md overflow-hidden">
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        disabled={item.quantity <= 1}
+                        className="w-8 h-8 flex items-center justify-center font-raleway text-lg text-[#1A0F00] hover:bg-[#1A0F00]/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors border-r border-[#1A0F00]/30"
+                        aria-label="Decrease quantity"
+                      >
+                        −
+                      </button>
+                      <span className="w-10 text-center font-typewriter text-[15px] text-[#1A0F00]">
+                        {item.quantity}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="w-8 h-8 flex items-center justify-center font-raleway text-lg text-[#1A0F00] hover:bg-[#1A0F00]/10 transition-colors border-l border-[#1A0F00]/30"
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
                       className="text-[#5C4A30] hover:text-[#ff8905] transition-colors"
