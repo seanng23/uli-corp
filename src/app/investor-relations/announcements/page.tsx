@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Company Announcements",
   description:
-    "Official Bursa Malaysia announcements from United U-Li Corporation Berhad (stock code 7133).",
+    "Official Bursa Malaysia announcements from United U-LI Corporation Berhad (stock code 7133).",
   alternates: { canonical: "/investor-relations/announcements" },
 };
 
@@ -27,8 +27,8 @@ export default function AnnouncementsPage() {
           Company Announcements
         </h1>
         <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed max-w-[640px]">
-          Official announcements released by United U-Li Corporation Berhad (stock code 7133) on
-          Bursa Malaysia. The list below updates live from Bursa Malaysia — use the filters to
+          Official announcements released by United U-LI Corporation Berhad (stock code 7133) on
+          Bursa Malaysia. The list below updates live from Bursa Malaysia. Use the filters to
           search, and click any title to read the full announcement.
         </p>
       </section>
@@ -44,7 +44,7 @@ export default function AnnouncementsPage() {
           <div className="relative w-full overflow-hidden">
             <iframe
               src={BURSA_SRC}
-              title="United U-Li Corporation Berhad — Bursa Malaysia Company Announcements"
+              title="United U-LI Corporation Berhad — Bursa Malaysia Company Announcements"
               className="w-full block"
               style={{ height: "1150px", border: "0" }}
               loading="lazy"

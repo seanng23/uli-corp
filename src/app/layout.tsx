@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://uli.com.my"
   ),
   title: {
-    default: "United U-Li Corporation Berhad – Engineering Tomorrow's Infrastructure",
-    template: "%s – United U-Li Corporation Berhad",
+    default: "United U-LI Corporation Berhad – Engineering Tomorrow's Infrastructure",
+    template: "%s – United U-LI Corporation Berhad",
   },
   description:
     "Malaysia's leading manufacturer of ISO-certified Cable Support Systems. Trusted across ASEAN and international markets since 1978.",
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_MY",
-    siteName: "United U-Li Corporation Berhad",
-    title: "United U-Li Corporation Berhad – Engineering Tomorrow's Infrastructure",
+    siteName: "United U-LI Corporation Berhad",
+    title: "United U-LI Corporation Berhad – Engineering Tomorrow's Infrastructure",
     description:
       "Malaysia's leading manufacturer of ISO-certified Cable Support Systems. Trusted across ASEAN and international markets since 1978.",
   },

@@ -21,6 +21,7 @@ const leftLinks: NavLink[] = [
     label: "Technology",
     href: "/technology",
     dropdown: [
+      { label: "Manufacturing Facilities", href: "/manufacturing" },
       { label: "Technology & Innovation", href: "/technology" },
       { label: "Quality Assurance", href: "/quality-assurance" },
     ],
@@ -32,6 +33,7 @@ const rightLinks: NavLink[] = [
     label: "Investor Relations",
     href: "/investor-relations/announcements",
     dropdown: [
+      { label: "Share Price", href: "/investor-relations/share-price" },
       { label: "Announcements", href: "/investor-relations/announcements" },
       { label: "General Meetings", href: "/investor-relations/general-meetings" },
     ],
@@ -157,7 +159,7 @@ export default function Nav() {
           </ul>
 
           <Link href="/" className="flex-shrink-0">
-            <Image src="/images/cropped-logo.png" alt="United U-Li Corporation Berhad" width={90} height={90} priority />
+            <Image src="/images/cropped-logo.png" alt="United U-LI Corporation Berhad" width={90} height={90} priority />
           </Link>
 
           <ul className="flex items-center gap-5 xl:gap-7">
@@ -176,7 +178,7 @@ export default function Nav() {
         {/* Mobile nav */}
         <div className="lg:hidden flex items-center justify-between">
           <Link href="/">
-            <Image src="/images/cropped-logo.png" alt="U-Li" width={60} height={60} />
+            <Image src="/images/cropped-logo.png" alt="U-LI" width={60} height={60} />
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/enquiry" className="relative">

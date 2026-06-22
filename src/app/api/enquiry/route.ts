@@ -4,6 +4,10 @@ import type { CartItem } from "@/lib/cart-store";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Dimension specs are in millimetres — show the unit in the label.
+const MM_FIELDS = new Set(["Height", "Width", "Length", "Thickness"]);
+const specLabel = (key: string) => (MM_FIELDS.has(key) ? `${key} (mm)` : key);
+
 function generateRef(): string {
   const date = new Date();
   const stamp = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(date.getDate()).padStart(2, "0")}`;
@@ -15,7 +19,7 @@ function buildEmailHtml(form: Record<string, string>, items: CartItem[], ref: st
   const specsRows = items
     .map((item, i) => {
       const specsStr = Object.entries(item.specs)
-        .map(([k, v]) => `<span style="display:inline-block;margin-right:12px;"><strong>${k}:</strong> ${v}</span>`)
+        .map(([k, v]) => `<span style="display:inline-block;margin-right:12px;"><strong>${specLabel(k)}:</strong> ${v}</span>`)
         .join("");
       return `
         <tr style="background:${i % 2 === 0 ? "#fdf8ee" : "#f5edd6"};">
@@ -40,7 +44,7 @@ function buildEmailHtml(form: Record<string, string>, items: CartItem[], ref: st
         <!-- Header -->
         <tr>
           <td style="background:#1A0F00;padding:28px 32px;">
-            <p style="margin:0;font-family:'Courier New',monospace;font-size:22px;color:#F5EDD6;letter-spacing:-0.5px;">United U-Li Corporation Berhad</p>
+            <p style="margin:0;font-family:'Courier New',monospace;font-size:22px;color:#F5EDD6;letter-spacing:-0.5px;">United U-LI Corporation Berhad</p>
             <p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:12px;color:#ff8905;letter-spacing:2px;text-transform:uppercase;">New Product Enquiry</p>
           </td>
         </tr>

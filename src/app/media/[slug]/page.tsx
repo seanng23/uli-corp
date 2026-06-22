@@ -35,7 +35,7 @@ const ARTICLES: Article[] = [
     body: [
       {
         type: "p",
-        text: "For more than two decades, United U-Li Corporation Berhad has grown from a local manufacturer into one of Malaysia's most trusted names in cable support and management systems. What began as a single production line is today a national manufacturing network — five fully integrated factories turning raw steel into the backbone of modern infrastructure.",
+        text: "For more than two decades, United U-LI Corporation Berhad has grown from a local manufacturer into one of Malaysia's most trusted names in cable support and management systems. What began as a single production line is today a national manufacturing network — five fully integrated factories turning raw steel into the backbone of modern infrastructure.",
       },
       {
         type: "p",

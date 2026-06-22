@@ -41,7 +41,7 @@ const columns: Col[] = [
     title: "Technology",
     href: "/technology",
     links: [
-      { label: "Manufacturing Facilities", href: "/technology" },
+      { label: "Manufacturing Facilities", href: "/manufacturing" },
       { label: "Technology & Innovation", href: "/technology#innovation" },
       { label: "Quality Assurance", href: "/quality-assurance" },
     ],
@@ -50,6 +50,7 @@ const columns: Col[] = [
     title: "Investor Relations",
     href: "/investor-relations/announcements",
     links: [
+      { label: "Share Price", href: "/investor-relations/share-price" },
       { label: "Announcements", href: "/investor-relations/announcements" },
       { label: "General Meetings", href: "/investor-relations/general-meetings" },
     ],
@@ -79,7 +80,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8 lg:gap-12">
           {/* Left: logo + company info */}
           <div>
-            <Image src="/images/cropped-logo.png" alt="United U-Li Corporation Berhad" width={84} height={84} className="mb-4" />
+            <Image src="/images/cropped-logo.png" alt="United U-LI Corporation Berhad" width={84} height={84} className="mb-4" />
             <p className="font-typewriter text-[13px] font-bold tracking-wide uppercase text-[#1A0F00] mb-3 leading-snug">
               United <span className="text-[#ff8905]">U-LI</span>
               <br />Corporation Berhad

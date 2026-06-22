@@ -41,7 +41,7 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
             videoThumbnailUrl={media?.videoThumbnailUrl}
             imageUrl={media?.imageUrl}
             fallbackSrc="/images/homepage/mask-group-31.jpg"
-            alt="U-Li steel manufacturing"
+            alt="U-LI steel manufacturing"
             width={2038}
             height={744}
             priority

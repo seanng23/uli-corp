@@ -7,6 +7,7 @@ import { ChevronDown, ChevronUp, FileText, Award, ShoppingBag, CheckCircle } fro
 import type { Product } from "@/data/products";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
+import DimensionCombobox from "./DimensionCombobox";
 
 type Props = { product: Product };
 
@@ -128,6 +129,7 @@ export default function ProductInnerClient({ product }: Props) {
       specs,
       quantity: qty,
       slug: product.slug,
+      image: mainImage,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
@@ -200,7 +202,7 @@ export default function ProductInnerClient({ product }: Props) {
               {showBadgeOverlay && (
                 <Image
                   src="/images/products/logo-badge.png"
-                  alt="United U-Li Corporation Berhad"
+                  alt="United U-LI Corporation Berhad"
                   width={254}
                   height={223}
                   className="absolute top-5 left-5 w-[92px] h-auto drop-shadow-md"
@@ -398,18 +400,11 @@ export default function ProductInnerClient({ product }: Props) {
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Height (mm)
                     </label>
-                    <select
+                    <DimensionCombobox
                       value={selectedDimensions["Height"] ?? ""}
-                      onChange={(e) =>
-                        setSelectedDimensions((p) => ({ ...p, Height: e.target.value }))
-                      }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
-                    >
-                      <option value="">Select</option>
-                      {dims.height.map((v) => (
-                        <option key={v} value={v}>{v}</option>
-                      ))}
-                    </select>
+                      onChange={(v) => setSelectedDimensions((p) => ({ ...p, Height: v }))}
+                      options={dims.height}
+                    />
                   </div>
                 )}
                 {dims.width && (
@@ -417,18 +412,11 @@ export default function ProductInnerClient({ product }: Props) {
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Width (mm)
                     </label>
-                    <select
+                    <DimensionCombobox
                       value={selectedDimensions["Width"] ?? ""}
-                      onChange={(e) =>
-                        setSelectedDimensions((p) => ({ ...p, Width: e.target.value }))
-                      }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
-                    >
-                      <option value="">Select</option>
-                      {dims.width.map((v) => (
-                        <option key={v} value={v}>{v}</option>
-                      ))}
-                    </select>
+                      onChange={(v) => setSelectedDimensions((p) => ({ ...p, Width: v }))}
+                      options={dims.width}
+                    />
                   </div>
                 )}
                 {dims.length && (
@@ -436,18 +424,11 @@ export default function ProductInnerClient({ product }: Props) {
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Length (mm)
                     </label>
-                    <select
+                    <DimensionCombobox
                       value={selectedDimensions["Length"] ?? ""}
-                      onChange={(e) =>
-                        setSelectedDimensions((p) => ({ ...p, Length: e.target.value }))
-                      }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
-                    >
-                      <option value="">Select</option>
-                      {dims.length.map((v) => (
-                        <option key={v} value={v}>{v}</option>
-                      ))}
-                    </select>
+                      onChange={(v) => setSelectedDimensions((p) => ({ ...p, Length: v }))}
+                      options={[...dims.length].map(String)}
+                    />
                   </div>
                 )}
                 {dims.thickness && (
@@ -455,18 +436,12 @@ export default function ProductInnerClient({ product }: Props) {
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">
                       Thickness (mm)
                     </label>
-                    <select
+                    <DimensionCombobox
                       value={selectedDimensions["Thickness"] ?? ""}
-                      onChange={(e) =>
-                        setSelectedDimensions((p) => ({ ...p, Thickness: e.target.value }))
-                      }
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
-                    >
-                      <option value="">Select</option>
-                      {dims.thickness.map((v) => (
-                        <option key={v} value={v}>{Number(v).toFixed(1)}</option>
-                      ))}
-                    </select>
+                      onChange={(v) => setSelectedDimensions((p) => ({ ...p, Thickness: v }))}
+                      options={[...dims.thickness].map((v) => Number(v).toFixed(1))}
+                      allowDecimal
+                    />
                   </div>
                 )}
               </div>

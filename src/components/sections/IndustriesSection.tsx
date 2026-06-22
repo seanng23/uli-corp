@@ -8,13 +8,13 @@ import type { SiteSettings } from "@/sanity/lib/queries";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
-const industries = [
+const industries: { name: string; src: string; big?: boolean }[] = [
   { name: "Construction", src: "/images/homepage/industry-construction.png" },
   { name: "Commercial & Industrial", src: "/images/homepage/industry-commercial.png" },
   { name: "Telecom & Data Centres", src: "/images/homepage/industry-telecom.png" },
   { name: "Energy & Utilities", src: "/images/homepage/industry-energy.png" },
   { name: "Transportation & Marine", src: "/images/homepage/industry-transport.png" },
-  { name: "Oil and Gas", src: "/images/homepage/industry-oilgas.png" },
+  { name: "Oil and Gas", src: "/images/homepage/industry-oilgas.png", big: true },
   { name: "Government Buildings", src: "/images/homepage/industry-government.png" },
 ];
 
@@ -26,7 +26,7 @@ export default function IndustriesSection({
   localMedia?: SectionMedia | null;
 }) {
   return (
-    <section className="site-container py-14">
+    <section className="site-container py-20 lg:py-28">
       {/* Section padding insets the grid so the vertical rule floats between the
           top/bottom Dividers (gap above & below), while the middle rule still
           meets the vertical rule. */}
@@ -37,9 +37,9 @@ export default function IndustriesSection({
             src="/images/lines/line-thin-vertical.png"
             alt=""
             aria-hidden="true"
-            className="hidden lg:block absolute inset-y-0 right-0 h-full w-[4px] object-fill"
+            className="hidden lg:block absolute -top-[72px] right-0 h-[calc(100%_+_144px)] w-[4px] object-fill"
           />
-          <div className="pb-10 lg:pb-14 lg:pr-12">
+          <div className="pb-14 lg:pb-20 lg:pr-12">
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text="Supporting Every Layer of the Built Environment." />
             </h2>
@@ -55,7 +55,7 @@ export default function IndustriesSection({
           </div>
 
           {/* Middle rule (thin texture) meets the vertical rule on its right */}
-          <div className="relative pt-10 lg:pt-14 lg:pr-12">
+          <div className="relative pt-14 lg:pt-20 lg:pr-12">
             <img
               src="/images/lines/line-thin.png"
               alt=""
@@ -82,13 +82,13 @@ export default function IndustriesSection({
           <StaggerGroup className="grid grid-cols-3 gap-6 mb-8">
             {industries.map((ind, i) => (
               <StaggerItem key={ind.name} className={`flex flex-col items-center gap-3${i === industries.length - 1 ? " col-start-2" : ""}`}>
-                <div className="relative w-[106px] h-[106px]">
+                <div className={`relative ${ind.big ? "w-[114px] h-[114px] lg:w-[133px] lg:h-[133px]" : "w-[106px] h-[106px] lg:w-[124px] lg:h-[124px]"}`}>
                   <Image
                     src={ind.src}
                     alt={ind.name}
                     fill
                     className="object-contain"
-                    sizes="106px"
+                    sizes={ind.big ? "(max-width: 1024px) 114px, 133px" : "(max-width: 1024px) 106px, 124px"}
                   />
                 </div>
                 <p className="font-raleway text-sm text-center text-[#1A0F00] font-medium leading-tight">

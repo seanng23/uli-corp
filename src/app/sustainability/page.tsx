@@ -7,6 +7,8 @@ import {
   Sun,
   Droplets,
   Recycle,
+  Flame,
+  BatteryCharging,
   Gauge,
   Smile,
   LineChart,
@@ -15,7 +17,7 @@ import {
 export const metadata: Metadata = {
   title: "Sustainability",
   description:
-    "United U-Li Corporation Berhad's approach to sustainability — creating long-term economic, environmental and social value across our operations.",
+    "United U-LI Corporation Berhad's approach to sustainability — creating long-term economic, environmental and social value across our operations.",
   alternates: { canonical: "/sustainability" },
 };
 
@@ -61,6 +63,24 @@ const pillars = [
     title: "Governance Value Creation",
     body: "Upholding integrity through anti-corruption, whistle-blowing, data privacy and conflict-of-interest controls.",
     topics: ["Anti-corruption", "Whistle-blowing", "Data Privacy", "Conflict of Interest"],
+  },
+];
+
+const initiatives = [
+  {
+    icon: Flame,
+    title: "Natural Gas",
+    body: "Transitioning thermal processes to cleaner-burning natural gas, reducing carbon intensity compared with heavier fossil fuels across our manufacturing operations.",
+  },
+  {
+    icon: BatteryCharging,
+    title: "EV Forklifts",
+    body: "Replacing diesel and LPG forklifts with electric units across our facilities, cutting Scope 1 fleet emissions and improving on-site air quality.",
+  },
+  {
+    icon: Recycle,
+    title: "Scrap (Waste Recycling)",
+    body: "Recovering and recycling steel scrap and production waste back into the supply chain, reducing landfill and supporting a circular use of materials.",
   },
 ];
 
@@ -162,7 +182,7 @@ export default function SustainabilityPage() {
           for the Long Term.
         </h1>
         <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed max-w-[720px]">
-          Sustainable development remains material to the business operations of United U-Li
+          Sustainable development remains material to the business operations of United U-LI
           Corporation Berhad. We continue to review our approach and explore ways to improve our
           practices and performance across the economic, environmental and social dimensions of
           everything we make.
@@ -227,6 +247,35 @@ export default function SustainabilityPage() {
                     ))}
                   </ul>
                 </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="site-container">
+        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+      </div>
+
+      {/* Environmental initiatives */}
+      <section className="site-container py-12 lg:py-16">
+        <h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.25rem)] leading-tight text-[#1A0F00] mb-3">
+          Environmental Initiatives.
+        </h2>
+        <p className="font-raleway font-bold text-[17px] text-[#ff8905] mb-10 max-w-[680px]">
+          Practical steps we are taking to lower the footprint of our operations.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {initiatives.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="border-t-[3px] border-[#1A0F00] pt-5">
+                <div className="w-12 h-12 flex items-center justify-center border border-[#1A0F00]/20 bg-[#ff8905]/10 mb-4">
+                  <Icon size={24} strokeWidth={1.7} className="text-[#ff8905]" />
+                </div>
+                <h3 className="font-typewriter text-[20px] text-[#1A0F00] mb-2">{item.title}</h3>
+                <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">{item.body}</p>
               </div>
             );
           })}

@@ -7,6 +7,7 @@ export type CartItem = {
   specs: Record<string, string>;
   quantity: number;
   slug: string;
+  image?: string;
 };
 
 const CART_KEY = "uli_enquiry_cart";

@@ -27,7 +27,7 @@ export function CompanyStory() {
             <FadeUp delay={0.2}>
               <div className="space-y-5 font-body text-base lg:text-lg text-ink-body leading-relaxed max-w-xl">
                 <p>
-                  Founded in 1978 and incorporated in 1983, United U-Li Corporation Berhad has spent more than four decades engineering the unseen infrastructure that powers Malaysia&apos;s commercial, industrial, and civic landscape.
+                  Founded in 1978 and incorporated in 1983, United U-LI Corporation Berhad has spent more than four decades engineering the unseen infrastructure that powers Malaysia&apos;s commercial, industrial, and civic landscape.
                 </p>
                 <p>
                   From our five integrated manufacturing plants in Seri Kembangan, we process over 40,000 metric tonnes of steel each year into certified cable support, framing, and electrical accessory systems trusted across ASEAN.

@@ -40,14 +40,14 @@ const capabilities = [
   {
     title: "Laser Cutting",
     description:
-      "For non-linear shapes or custom designs, our laser cutting systems are guided via CNC control, enabling high-accuracy cuts across steel plates. These machines support design flexibility without sacrificing speed.",
+      "For non-linear shapes or custom designs, our laser cutting systems are guided via CNC control, enabling high-accuracy cuts across steel sheets. These machines support design flexibility without sacrificing speed.",
     image: "/images/technology/DSC-5.jpg",
     alt: "U-LI laser cutting machine",
   },
   {
     title: "Robotic Welding & Automation",
     description:
-      "Industrial robots have been deployed since 2003 to perform welding tasks with repeatability. Automation improves throughput, consistency, and reduces manual error in critical joints.",
+      "Industrial robots have been deployed since 2003 to perform high-speed welding tasks with repeatability. Automation improves throughput, consistency, and reduces manual error in critical joints.",
     image: "/images/technology/DSC-6.jpg",
     alt: "U-LI robotic welding arm",
   },
@@ -68,7 +68,7 @@ const capabilities = [
   {
     title: "Hot Dip Galvanizing",
     description:
-      "Our Nilai facility houses a hot dip galvanizing line that produces lead-free zinc coatings meeting EN ISO 1461 and ASTM A123 standards. This gives products long-term protection in harsh environments.",
+      "Our Nilai facility houses a hot dip galvanizing line that produces and guarantees lead-free zinc coatings meeting EN ISO 1461 and ASTM A123 standards. This provides products with a high level of long-term protection in harsh environments.",
     image: "/images/technology/DSC-9.png",
     alt: "U-LI hot dip galvanizing",
   },

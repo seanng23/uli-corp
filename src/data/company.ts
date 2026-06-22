@@ -1,6 +1,6 @@
 export const company = {
-  name: "United U-Li Corporation Berhad",
-  legalName: "United U-Li Corporation Berhad (510737-H)",
+  name: "United U-LI Corporation Berhad",
+  legalName: "United U-LI Corporation Berhad (510737-H)",
   registrationNumber: "200001008131 (510737-H)",
   bursaCode: "7133",
   address: {

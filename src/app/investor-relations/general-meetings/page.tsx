@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 export const metadata: Metadata = {
   title: "General Meetings",
   description:
-    "Annual General Meeting (AGM) minutes for United U-Li Corporation Berhad.",
+    "Annual General Meeting (AGM) minutes for United U-LI Corporation Berhad.",
   alternates: { canonical: "/investor-relations/general-meetings" },
 };
 
@@ -33,7 +33,7 @@ export default function GeneralMeetingsPage() {
           General Meetings
         </h1>
         <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed max-w-[640px]">
-          Minutes of the Annual General Meetings of United U-Li Corporation Berhad. Select a year to
+          Minutes of the Annual General Meetings of United U-LI Corporation Berhad. Select a year to
           download the minutes (PDF).
         </p>
       </section>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ChevronDown, ChevronUp, FileText, Award, ShoppingBag, CheckCircle } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
+import DimensionCombobox from "./DimensionCombobox";
 import {
   CABLE_LADDER_PROFILES,
   CABLE_LADDER_STANDARDS,
@@ -186,6 +187,7 @@ export default function CableLadderClient() {
       specs,
       quantity: qty,
       slug: "cable-ladder",
+      image: MAIN_IMAGE,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
@@ -371,16 +373,12 @@ export default function CableLadderClient() {
                 ] as const).map((field) => (
                   <div key={field.key}>
                     <label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">{field.label}</label>
-                    <select
+                    <DimensionCombobox
                       value={selectedDimensions[field.key] ?? ""}
-                      onChange={(e) => setSelectedDimensions((p) => ({ ...p, [field.key]: e.target.value }))}
-                      className="w-full font-raleway text-[13px] text-[#1A0F00] border border-[#1A0F00]/40 bg-[#F5EDD6] rounded-md px-2.5 py-2 focus:outline-none focus:border-[#ff8905] [&>option]:bg-[#F5EDD6] [&>option]:text-[#1A0F00]"
-                    >
-                      <option value="">Select</option>
-                      {field.opts.map((v) => (
-                        <option key={v} value={v}>{v}</option>
-                      ))}
-                    </select>
+                      onChange={(v) => setSelectedDimensions((p) => ({ ...p, [field.key]: v }))}
+                      options={[...field.opts]}
+                      allowDecimal={field.key === "Thickness"}
+                    />
                   </div>
                 ))}
               </div>

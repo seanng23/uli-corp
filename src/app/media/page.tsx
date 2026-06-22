@@ -6,7 +6,7 @@ import { FileText } from "lucide-react";
 export const metadata: Metadata = {
   title: "Media Centre",
   description:
-    "News, insights and press releases from United U-Li Corporation Berhad — Malaysia's leading manufacturer of cable support and management systems.",
+    "News, insights and press releases from United U-LI Corporation Berhad — Malaysia's leading manufacturer of cable support and management systems.",
   alternates: { canonical: "/media" },
 };
 
@@ -79,9 +79,9 @@ const articles = [
 
 const pressReleases = [
   { date: "May 22, 2026", title: "U-LI Corporation announces results for the first quarter of FY2026" },
-  { date: "April 30, 2026", title: "United U-Li expands production capacity at its Nilai manufacturing facility" },
+  { date: "April 30, 2026", title: "United U-LI expands production capacity at its Nilai manufacturing facility" },
   { date: "March 14, 2026", title: "U-LI showcases latest cable management innovations at industry expo" },
-  { date: "February 5, 2026", title: "United U-Li Corporation Berhad releases its Annual Report 2025" },
+  { date: "February 5, 2026", title: "United U-LI Corporation Berhad releases its Annual Report 2025" },
   { date: "January 12, 2026", title: "U-LI strengthens regional distribution network with new partnerships" },
 ];
 
@@ -102,7 +102,7 @@ export default function MediaPage() {
           News &amp; Insights.
         </h1>
         <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed max-w-[720px]">
-          The latest stories, announcements and expertise from United U-Li Corporation Berhad —
+          The latest stories, announcements and expertise from United U-LI Corporation Berhad —
           real-world knowledge from the people who build infrastructure every day.
         </p>
       </section>
@@ -188,7 +188,7 @@ export default function MediaPage() {
           Press Releases.
         </h2>
         <p className="font-raleway font-bold text-[17px] text-[#ff8905] mb-8">
-          Official announcements from United U-Li Corporation Berhad.
+          Official announcements from United U-LI Corporation Berhad.
         </p>
         <ul className="max-w-[820px] border-t border-[#1A0F00]/15">
           {pressReleases.map((p) => (
