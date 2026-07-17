@@ -144,7 +144,7 @@ export default function DimensionCombobox({
           <li className="font-raleway text-[11px] text-[#8a7a5c] px-2.5 py-2 border-t border-[#1A0F00]/12">
             {filtered.length === 0
               ? "No standard size — custom value will be used"
-              : "Or type any value for a custom size"}
+              : "Or type any value in the box for a custom size"}
           </li>
         </ul>
       )}

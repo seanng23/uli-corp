@@ -26,7 +26,7 @@ const columns: Col[] = [
       { label: "Wire Mesh Tray Systems", href: "/products" },
       { label: "Conduits Pipe & Accessories", href: "/products" },
       { label: "Custom Made", href: "/products" },
-      { label: "Lighting Systems", href: "https://www.opple.com/en", external: true },
+      { label: "Lighting Systems", href: "https://www.goodlite.com.my/", external: true },
     ],
   },
   {

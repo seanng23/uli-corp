@@ -67,8 +67,15 @@ const capabilities = [
   },
   {
     title: "Hot Dip Galvanizing",
-    description:
-      "Our Nilai facility houses a hot dip galvanizing line that produces and guarantees lead-free zinc coatings meeting EN ISO 1461 and ASTM A123 standards. This provides products with a high level of long-term protection in harsh environments.",
+    description: (
+      <>
+        Our Nilai facility houses a hot dip galvanizing line that produces and
+        guarantees <strong>Lead-Free Zinc</strong> coatings meeting{" "}
+        <strong>EN ISO 1461</strong> and <strong>ASTM A123</strong> standards.
+        This provides products with a high level of long-term protection in
+        harsh environments.
+      </>
+    ),
     image: "/images/technology/DSC-9.png",
     alt: "U-LI hot dip galvanizing",
   },

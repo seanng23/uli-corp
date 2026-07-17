@@ -5,8 +5,8 @@ import Image from "next/image";
 const locations = [
   { name: "Seri Kembangan", image: "/images/manufacturing/facility.png" },
   { name: "Balakong", image: "/images/manufacturing/facility.png" },
-  { name: "Taming Jaya", image: "/images/manufacturing/facility.png" },
-  { name: "Ipoh", image: "/images/manufacturing/facility.png" },
+  { name: "Taming Jaya (Goodlite)", image: "/images/manufacturing/facility.png" },
+  { name: "Ipoh (Goodlite)", image: "/images/manufacturing/facility.png" },
   { name: "Nilai", image: "/images/manufacturing/facility.png" },
 ];
 
