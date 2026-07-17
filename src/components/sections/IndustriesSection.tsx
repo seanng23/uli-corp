@@ -82,13 +82,13 @@ export default function IndustriesSection({
           <StaggerGroup className="grid grid-cols-3 gap-6 mb-8">
             {industries.map((ind, i) => (
               <StaggerItem key={ind.name} className={`flex flex-col items-center gap-3${i === industries.length - 1 ? " col-start-2" : ""}`}>
-                <div className={`relative ${ind.big ? "w-[124px] h-[124px] lg:w-[145px] lg:h-[145px]" : "w-[106px] h-[106px] lg:w-[124px] lg:h-[124px]"}`}>
+                <div className={`relative ${ind.big ? "w-[114px] h-[114px] lg:w-[133px] lg:h-[133px]" : "w-[106px] h-[106px] lg:w-[124px] lg:h-[124px]"}`}>
                   <Image
                     src={ind.src}
                     alt={ind.name}
                     fill
                     className="object-contain"
-                    sizes={ind.big ? "(max-width: 1024px) 124px, 145px" : "(max-width: 1024px) 106px, 124px"}
+                    sizes={ind.big ? "(max-width: 1024px) 114px, 133px" : "(max-width: 1024px) 106px, 124px"}
                   />
                 </div>
                 <p className="font-raleway text-sm text-center text-[#1A0F00] font-medium leading-tight">
