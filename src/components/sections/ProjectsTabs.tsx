@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { PROJECTS, type ProjectCategory } from "@/data/projects";
 
-const CATEGORIES = [
+const CATEGORIES: ProjectCategory[] = [
   "Commercial Building",
   "Data Center",
   "Education Facilities",
@@ -20,42 +21,50 @@ const CATEGORIES = [
   "Water Works & Treatment Plant",
 ];
 
-// 3-column layout matching reference site
-const COLUMNS: string[][] = [
-  [
-    "/images/projects/Group-2599.jpg",
-    "/images/projects/Group-2600.jpg",
-    "/images/projects/Group-2607.jpg",
-  ],
-  [
-    "/images/projects/Group-2603.jpg",
-    "/images/projects/Group-2602.jpg",
-    "/images/projects/Group-2601.jpg",
-  ],
-  [
-    "/images/projects/Group-2604.jpg",
-    "/images/projects/Group-2605.jpg",
-    "/images/projects/Group-2606.jpg",
-  ],
-];
+function ProjectGrid({
+  category,
+  location,
+}: {
+  category: ProjectCategory;
+  location: "Local" | "International";
+}) {
+  const projects = PROJECTS.filter(
+    (p) =>
+      p.category === category &&
+      (location === "International" ? !!p.location : !p.location),
+  );
 
-function ProjectGrid() {
+  if (projects.length === 0) {
+    return (
+      <p className="font-raleway text-[15px] text-[#5C4A30] pt-8">
+        No {location === "International" ? "international" : "local"} projects
+        listed in this category yet.
+      </p>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-8">
-      {COLUMNS.map((col, ci) => (
-        <div key={ci} className="flex flex-col gap-3">
-          {col.map((src, ri) => (
-            <div key={ri} className="relative w-full overflow-hidden">
-              <Image
-                src={src}
-                alt=""
-                width={439}
-                height={484}
-                className="w-full h-auto object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1400px) 33vw, 460px"
-              />
-            </div>
-          ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-8">
+      {projects.map((p) => (
+        <div key={p.name} className="relative aspect-[4/3] overflow-hidden group">
+          <Image
+            src={p.image}
+            alt={p.name}
+            fill
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1400px) 33vw, 460px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A0F00]/75 via-[#1A0F00]/15 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            <p className="font-raleway text-[13px] font-semibold uppercase tracking-wide leading-snug text-[#F5EDD6]">
+              {p.name}
+            </p>
+            {p.location && (
+              <p className="font-raleway text-[11px] text-[#F5EDD6]/75 mt-1">
+                {p.location}
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </div>
@@ -117,7 +126,7 @@ export default function ProjectsTabs() {
       </div>
 
       {/* Project grid */}
-      <ProjectGrid />
+      <ProjectGrid category={category} location={location} />
     </section>
   );
 }
