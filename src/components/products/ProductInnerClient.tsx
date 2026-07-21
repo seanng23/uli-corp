@@ -68,21 +68,21 @@ export default function ProductInnerClient({ product }: Props) {
 
   const PLACEHOLDER = "/images/products/placeholder.png";
   const MAIN_IMAGES: Record<string, string> = {
-    "cable-trunking": "/images/products/cable-trunking.png",
+    "cable-trunking": "/images/products/cable-trunking-v4.png",
   };
   const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
   const allImages = [mainImage, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
   // Fill all four thumbnail slots — duplicate the main image into empty slots
   const galleryImages = Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
   // Main images that already include the U-LI badge baked in (skip the overlay badge)
-  const BADGED_MAIN = new Set(["cable-trunking"]);
+  const BADGED_MAIN = new Set<string>(["cable-trunking"]);
   const showBadgeOverlay = !BADGED_MAIN.has(product.slug);
 
   const ITEM_CODES: Record<string, string> = { "cable-trunking": "UL/TG" };
   const itemCode = ITEM_CODES[product.slug] ?? product.itemNo;
 
   const TITLE_ICONS: Record<string, string> = {
-    "cable-trunking": "/images/products/icon-cable-trunking.png",
+    "cable-trunking": "/images/products/icon-cable-trunking-v2.png",
   };
   const titleIcon = TITLE_ICONS[product.slug];
 

@@ -30,7 +30,7 @@ const EXCLUDED_SUBCATEGORIES = new Set([
 
 // Card images that match the product's inner detail page.
 const CARD_IMAGES: Record<string, string> = {
-  "cable-trunking": "/images/products/cable-trunking.png",
+  "cable-trunking": "/images/products/cable-trunking-v4.png",
 };
 
 export default async function ProductsPage() {

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProjectsHero from "@/components/sections/ProjectsHero";
 import ProjectsTabs from "@/components/sections/ProjectsTabs";
 import CTASection from "@/components/sections/CTASection";
@@ -14,7 +15,9 @@ export default function ProjectsPage() {
   return (
     <>
       <ProjectsHero />
-      <ProjectsTabs />
+      <Suspense fallback={null}>
+        <ProjectsTabs />
+      </Suspense>
       <Divider />
       <CTASection />
     </>
