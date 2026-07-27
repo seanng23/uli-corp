@@ -2,10 +2,10 @@ import path from "node:path";
 import sharp from "sharp";
 
 const SRC = "Assets/ASSETS/U-li Wire Mesh Tray.png";
-const OUTPUT = "public/images/products/wire-mesh-tray-v2.png";
+const OUTPUT = "public/images/products/wire-mesh-tray-v3.png";
 const CANVAS_WIDTH = 1080;
 const CANVAS_HEIGHT = 1080;
-const PRODUCT_BOX = { left: 70, top: 70, width: 940, height: 940 };
+const PRODUCT_BOX = { left: 140, top: 250, width: 939, height: 628 };
 
 function alphaBbox(data, width, height, window = {}) {
   const left = Math.max(0, window.left ?? 0);
@@ -81,6 +81,10 @@ async function main() {
     .toBuffer({ resolveWithObject: true });
   const productLeft = PRODUCT_BOX.left + Math.floor((PRODUCT_BOX.width - resizedInfo.width) / 2);
   const productTop = PRODUCT_BOX.top + Math.floor((PRODUCT_BOX.height - resizedInfo.height) / 2);
+  const resizedBadge = await sharp("public/images/products/logo-badge.png")
+    .resize({ width: 252, height: 218, fit: "fill" })
+    .png()
+    .toBuffer();
 
   const outputBuffer = await sharp({
     create: {
@@ -90,7 +94,10 @@ async function main() {
       background: { r: 0, g: 0, b: 0, alpha: 0 },
     },
   })
-    .composite([{ input: resizedProduct, left: productLeft, top: productTop }])
+    .composite([
+      { input: resizedProduct, left: productLeft, top: productTop },
+      { input: resizedBadge, left: 27, top: 0 },
+    ])
     .png()
     .toBuffer();
 
