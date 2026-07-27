@@ -24,7 +24,6 @@ const EXCLUDED_SUBCATEGORIES = new Set([
   "Threaded Rod & Hanger",
   "Strut Channel",
   "Floor Trunking",
-  "Wire Mesh Tray",
 ]);
 
 // Card images that match the product's inner detail page.
@@ -67,6 +66,12 @@ export default async function ProductsPage() {
       name: "Steel Conduit",
       itemNo: "C-ULI",
       image: "/images/products/steel-conduit-v2.png",
+    }),
+    "Wire Mesh Tray": makeCard("Wire Mesh Tray", {
+      slug: "wire-cable-tray",
+      name: "Wire Cable Tray",
+      itemNo: "FWB",
+      image: "/images/products/placeholder.png",
     }),
   };
 

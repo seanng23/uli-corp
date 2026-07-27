@@ -31,10 +31,12 @@ export default function DimensionCombobox({
 }: Props) {
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(-1);
+  const [hasTypedSinceOpen, setHasTypedSinceOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const listId = useId();
 
-  const filtered = value ? options.filter((o) => o.startsWith(value)) : options;
+  const filtered =
+    hasTypedSinceOpen && value ? options.filter((o) => o.startsWith(value)) : options;
   const isCustom = value !== "" && !options.includes(value);
 
   useEffect(() => {
@@ -46,8 +48,14 @@ export default function DimensionCombobox({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, [open]);
 
+  function openOptions() {
+    if (!open) setHasTypedSinceOpen(false);
+    setOpen(true);
+  }
+
   function commit(v: string) {
     onChange(v);
+    setHasTypedSinceOpen(false);
     setOpen(false);
     setHighlight(-1);
   }
@@ -55,7 +63,7 @@ export default function DimensionCombobox({
   function onKeyDown(e: React.KeyboardEvent) {
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setOpen(true);
+      openOptions();
       setHighlight((h) => Math.min(h + 1, filtered.length - 1));
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -85,10 +93,11 @@ export default function DimensionCombobox({
           autoComplete="off"
           value={value}
           placeholder={placeholder}
-          onFocus={() => setOpen(true)}
-          onClick={() => setOpen(true)}
+          onFocus={openOptions}
+          onClick={openOptions}
           onChange={(e) => {
             onChange(sanitize(e.target.value, allowDecimal));
+            setHasTypedSinceOpen(true);
             setOpen(true);
             setHighlight(-1);
           }}
@@ -104,7 +113,14 @@ export default function DimensionCombobox({
           type="button"
           tabIndex={-1}
           aria-label="Toggle options"
-          onClick={() => setOpen((o) => !o)}
+          onClick={() => {
+            if (open) {
+              setOpen(false);
+            } else {
+              setHasTypedSinceOpen(false);
+              setOpen(true);
+            }
+          }}
           className="shrink-0 px-2 py-2 text-[#1A0F00]"
         >
           <ChevronDown
