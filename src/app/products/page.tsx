@@ -22,7 +22,6 @@ const ITEM_CODE_OVERRIDES: Record<string, string> = {
 // Categories without a finished product page yet — hidden from the listing.
 const EXCLUDED_SUBCATEGORIES = new Set([
   "Threaded Rod & Hanger",
-  "Conduit",
   "Strut Channel",
   "Floor Trunking",
   "Wire Mesh Tray",
@@ -31,6 +30,7 @@ const EXCLUDED_SUBCATEGORIES = new Set([
 // Card images that match the product's inner detail page.
 const CARD_IMAGES: Record<string, string> = {
   "cable-trunking": "/images/products/cable-trunking-v5.png",
+  "conduit-pipe-accessories": "/images/products/steel-conduit-v2.png",
 };
 
 export default async function ProductsPage() {
@@ -61,6 +61,12 @@ export default async function ProductsPage() {
       name: "Cable Ladder",
       itemNo: "LZ · LN · LG · LC · L6N",
       image: "/images/products/cable-ladder.png",
+    }),
+    Conduit: makeCard("Conduit", {
+      slug: "steel-conduit",
+      name: "Steel Conduit",
+      itemNo: "C-ULI",
+      image: "/images/products/steel-conduit-v2.png",
     }),
   };
 
