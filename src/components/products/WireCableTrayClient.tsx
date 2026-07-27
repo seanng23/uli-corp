@@ -9,7 +9,7 @@ import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 
-const MAIN_IMAGE = "/images/products/wire-mesh-tray-v3.png";
+const MAIN_IMAGE = "/images/products/wire-mesh-tray-v4.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
 const FINISHING = [
   "Aluminum",

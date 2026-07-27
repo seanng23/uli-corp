@@ -71,13 +71,13 @@ export default async function ProductsPage() {
       slug: "wire-cable-tray",
       name: "Wire Mesh Tray",
       itemNo: "FWB",
-      image: "/images/products/wire-mesh-tray-v3.png",
+      image: "/images/products/wire-mesh-tray-v4.png",
     }),
     "Metal Framing System": makeCard("Metal Framing System", {
       slug: "metal-framing-system",
       name: "Metal Framing System",
       itemNo: "UL1000 · UL3300",
-      image: "/images/products/metal-framing-v2.png",
+      image: "/images/products/metal-framing-v3.png",
     }),
   };
 

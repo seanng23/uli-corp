@@ -28,7 +28,7 @@ import {
 
 type ChannelProfile = ChannelVariant["profile"];
 
-const MAIN_IMAGE = "/images/products/metal-framing-v2.png";
+const MAIN_IMAGE = "/images/products/metal-framing-v3.png";
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];
 const COLOR_MAP: Record<string, string> = { grey: "#9aa0a6", white: "#ffffff", orange: "#ff8905" };
 const thClass = "font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20";
