@@ -9,7 +9,7 @@ import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 
-const MAIN_IMAGE = "/images/products/placeholder.png";
+const MAIN_IMAGE = "/images/products/wire-mesh-tray-v2.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
 const FINISHING = [
   "Aluminum",
@@ -119,33 +119,33 @@ export default function WireCableTrayClient() {
       } : {}),
     };
     const id = generateItemId("wire-cable-tray", specs);
-    addToCart({ id, productName: "Wire Cable Tray", category: "Cable Support Systems", specs, quantity: qty, slug: "wire-cable-tray", image: MAIN_IMAGE });
+    addToCart({ id, productName: "Wire Mesh Tray", category: "Cable Support Systems", specs, quantity: qty, slug: "wire-cable-tray", image: MAIN_IMAGE });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
   }
 
   return <>
-    <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Wire Cable Tray</span></nav></div>
+    <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Wire Mesh Tray</span></nav></div>
     <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
 
     <div className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
         <div className="mb-10 flex gap-4 items-start">
-          <div className="flex flex-col gap-3 w-[104px] shrink-0">{galleryImages.map((image, index) => <button key={index} type="button" onClick={() => setActiveImage(index)} aria-label={`View image ${index + 1}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${activeImage === index ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}><Image src={image} alt={`Wire cable tray thumbnail ${index + 1}`} fill className="object-cover object-center" sizes="104px" /></button>)}</div>
-          <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image src={galleryImages[activeImage]} alt="U-LI Wire Cable Tray" fill priority className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" /><Image src="/images/products/logo-badge.png" alt="United U-LI Corporation Berhad" width={254} height={223} className="absolute top-5 left-5 w-[92px] h-auto drop-shadow-md" /></div>
+          <div className="flex flex-col gap-3 w-[104px] shrink-0">{galleryImages.map((image, index) => <button key={index} type="button" onClick={() => setActiveImage(index)} aria-label={`View image ${index + 1}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${activeImage === index ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}><Image src={image} alt={`Wire mesh tray thumbnail ${index + 1}`} fill className="object-cover object-center" sizes="104px" /></button>)}</div>
+          <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image src={galleryImages[activeImage]} alt="U-LI Wire Mesh Tray" fill priority className="object-contain object-center" sizes="(max-width:1024px) 100vw, 50vw" /></div>
         </div>
 
-        <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">Wire cable trays provide a safe, open solution for routing cables and wires. The wire-frame construction allows air to circulate for proper cable ventilation and gives a track that lets cables be routed around a building in an easily maintainable manner. Manufactured with a 50 x 100 mm screen from 5.00 mm cross and alongside wires, load tested according to DIN EN IEC 61537, and supplied in 3000 mm lengths. Other sizes, lengths, wire diameters and finishes are available upon request.</p></CollapsibleSection>
+        <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">Wire mesh trays provide a safe, open solution for routing cables and wires. The wire-frame construction allows air to circulate for proper cable ventilation and gives a track that lets cables be routed around a building in an easily maintainable manner. Manufactured with a 50 x 100 mm screen from 5.00 mm cross and alongside wires, load tested according to DIN EN IEC 61537, and supplied in 3000 mm lengths. Other sizes, lengths, wire diameters and finishes are available upon request.</p></CollapsibleSection>
 
         <CollapsibleSection id="dimensions" title="Dimensions"><div className="space-y-6">{TRAY_PROFILES.map((item) => <div key={item.height}><p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">FWB {item.height}</p><div className="overflow-x-auto"><table className="w-full text-left min-w-[760px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{["Reference", "Height (mm)", "Width (mm)", "Length (mm)", "Theoretical Weight (kg)"].map((heading) => <th key={heading} className={thClass}>{heading}</th>)}</tr></thead><tbody>{item.rows.map((tray, index) => <tr key={tray.refSuffix} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={tdClass}>FWB{item.height} - {tray.refSuffix}</td><td className={tdClass}>{item.height}</td><td className={tdClass}>{tray.width}</td><td className={tdClass}>{tray.length}</td><td className={tdClass}>{tray.weight.toFixed(2)}</td></tr>)}</tbody></table></div></div>)}</div></CollapsibleSection>
 
-        <CollapsibleSection id="fwb-cover" title="FWB Cover"><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed mb-4">Matching covers for FWB wire cable trays. Mainly used for horizontal and vertical sections; the cover height is 10 mm.</p><div className="overflow-x-auto"><table className="w-full text-left min-w-[900px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{["Reference", "FWB Width (mm)", "Internal Width (mm)", "Thickness (mm)", "Length (mm)", "Theoretical Weight (kg)"].map((heading) => <th key={heading} className={thClass}>{heading}</th>)}</tr></thead><tbody>{COVERS.map((item, index) => <tr key={item.ref} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={tdClass}>{item.ref}</td><td className={tdClass}>{item.fwbWidth}</td><td className={tdClass}>{item.internalWidth}</td><td className={tdClass}>{item.thickness.toFixed(1)}</td><td className={tdClass}>{item.length}</td><td className={tdClass}>{item.weight.toFixed(2)}</td></tr>)}</tbody></table></div></CollapsibleSection>
+        <CollapsibleSection id="fwb-cover" title="FWB Cover"><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed mb-4">Matching covers for FWB wire mesh trays. Mainly used for horizontal and vertical sections; the cover height is 10 mm.</p><div className="overflow-x-auto"><table className="w-full text-left min-w-[900px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{["Reference", "FWB Width (mm)", "Internal Width (mm)", "Thickness (mm)", "Length (mm)", "Theoretical Weight (kg)"].map((heading) => <th key={heading} className={thClass}>{heading}</th>)}</tr></thead><tbody>{COVERS.map((item, index) => <tr key={item.ref} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={tdClass}>{item.ref}</td><td className={tdClass}>{item.fwbWidth}</td><td className={tdClass}>{item.internalWidth}</td><td className={tdClass}>{item.thickness.toFixed(1)}</td><td className={tdClass}>{item.length}</td><td className={tdClass}>{item.weight.toFixed(2)}</td></tr>)}</tbody></table></div></CollapsibleSection>
 
         <CollapsibleSection id="accessories" title="Accessories"><div className="overflow-x-auto"><table className="w-full text-left min-w-[620px] border border-[#1A0F00]/20"><thead><tr className="bg-[#1A0F00]/5"><th className={`${thClass} w-[60px]`}>No.</th><th className={thClass}>Reference</th><th className={thClass}>Description</th></tr></thead><tbody>{ACCESSORIES.map((item, index) => <tr key={item.no} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={`${tdClass} py-2`}>{item.no}</td><td className={`${tdClass} py-2`}>{item.ref}</td><td className={`${tdClass} py-2`}>{item.description}</td></tr>)}</tbody></table></div></CollapsibleSection>
       </div>
 
       <div><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
-        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Wire Cable Tray</h1>
+        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Wire Mesh Tray</h1>
         <p className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#5C4A30] mb-5">Item No: <span className="text-[#1A0F00]">FWB</span></p>
         <div className="mb-5 pb-5 border-b border-[#1A0F00]/15"><p className="font-raleway text-[12px] text-[#5C4A30]">Screen: 50 x 100 mm&nbsp; | &nbsp;Wire: 5.00 mm&nbsp; | &nbsp;L: 3000 mm</p></div>
 

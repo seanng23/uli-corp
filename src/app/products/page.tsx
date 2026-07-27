@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 const SUBCATEGORY_RENAMES: Record<string, string> = {
   "Cable Trays": "Cable Tray",
   "Cable Ladders": "Cable Ladder",
+  "Strut Channel": "Metal Framing System",
 };
 
 const ITEM_CODE_OVERRIDES: Record<string, string> = {
@@ -22,7 +23,6 @@ const ITEM_CODE_OVERRIDES: Record<string, string> = {
 // Categories without a finished product page yet — hidden from the listing.
 const EXCLUDED_SUBCATEGORIES = new Set([
   "Threaded Rod & Hanger",
-  "Strut Channel",
   "Floor Trunking",
 ]);
 
@@ -69,9 +69,15 @@ export default async function ProductsPage() {
     }),
     "Wire Mesh Tray": makeCard("Wire Mesh Tray", {
       slug: "wire-cable-tray",
-      name: "Wire Cable Tray",
+      name: "Wire Mesh Tray",
       itemNo: "FWB",
-      image: "/images/products/placeholder.png",
+      image: "/images/products/wire-mesh-tray-v2.png",
+    }),
+    "Metal Framing System": makeCard("Metal Framing System", {
+      slug: "metal-framing-system",
+      name: "Metal Framing System",
+      itemNo: "UL1000 · UL3300",
+      image: "/images/products/metal-framing-v1.png",
     }),
   };
 
