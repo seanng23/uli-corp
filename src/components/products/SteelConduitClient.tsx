@@ -19,18 +19,8 @@ const STANDARD_OPTIONS: Record<string, string[]> = {
   "Electrical Wiring": ["BS 31 : 1940", "Others"],
 };
 const FINISHING = [
-  "Aluminum",
-  "Electro Galvanised Steel (Unpainted)",
-  "Electro-Galvanised Steel with Epoxy Powder Coated",
-  "Epoxy Powder Coated",
-  "Hot Dip Galvanised",
-  "Hot Dip Galvanised with Epoxy Powder Coated",
-  "Polyester Powder Coated",
   "Pre-Galvanised Steel (Unpainted)",
   "Pre-Galvanised Steel with Epoxy Powder Coated",
-  "Stainless Steel 304",
-  "Stainless Steel 316",
-  "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)",
   "Others / Custom Finishing",
 ];
 const COLORS = ["Orange", "White", "Green", "Red", "Grey", "Others / Custom Colour"];
@@ -162,7 +152,7 @@ export default function SteelConduitClient() {
             </div>
 
             <CollapsibleSection id="description" title="Description" defaultOpen>
-              <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">Rigid electrical steel conduits for enclosed cable protection in industrial, commercial, and residential installations. Supplied in 3.81-metre lengths threaded at both ends, with a coupling fitted on one end and a plastic end cap protecting the other. Available as a conduit system for cable management certified to MS IEC 61386-1 / MS 61386-21 (Class 3 and Class 4), or as steel conduit for electrical wiring certified to BS 31 : 1940 by SIRIM QAS International. Colour epoxy powder-coated conduits are supplied upon request in 3.0-metre lengths.</p>
+              <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">Electrical steel conduits for enclosed cable protection in industrial, commercial, and residential installations. Supplied in 3.81-metre lengths threaded at both ends, with a coupling fitted on one end and a plastic end cap protecting the other. Available as a conduit system for cable management certified to MS IEC 61386-1 / MS 61386-21 (Class 3 and Class 4), or as steel conduit for electrical wiring certified to BS 31 : 1940 by SIRIM QAS International. Colour epoxy powder-coated conduits are supplied upon request in 3.0-metre lengths.</p>
             </CollapsibleSection>
 
             <CollapsibleSection id="cable-management" title="Conduit System for Cable Management">
