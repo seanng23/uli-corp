@@ -29,6 +29,11 @@ import {
 type ChannelProfile = ChannelVariant["profile"];
 
 const MAIN_IMAGE = "/images/products/metal-framing-v4.png";
+const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
+  "UL1000": { iso: "/images/products/metal-framing/channels/ul1000-iso.png", dims: "/images/products/metal-framing/channels/ul1000-dims.png" },
+  "UL1001": { iso: "/images/products/metal-framing/channels/ul1001-iso.png", dims: "/images/products/metal-framing/channels/ul1001-dims.png" },
+  "UL1001-C41": { iso: "/images/products/metal-framing/channels/ul1001-c41-iso.png", dims: "/images/products/metal-framing/channels/ul1001-c41-dims.png" },
+};
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];
 const COLOR_MAP: Record<string, string> = { grey: "#9aa0a6", white: "#ffffff", orange: "#ff8905" };
 const thClass = "font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20";
@@ -54,8 +59,23 @@ function DataTable({ table }: { table: SpecTable }) {
   </div>;
 }
 
-function channelPath(height: number) {
-  return `M 13 11 L 13 7 Q 13 3.5 9.5 3.5 L 3.5 3.5 Q 0 3.5 0 7 L 0 ${height - 2} Q 0 ${height} 2 ${height} L 39.3 ${height} Q 41.3 ${height} 41.3 ${height - 2} L 41.3 7 Q 41.3 3.5 37.8 3.5 L 31.8 3.5 Q 28.3 3.5 28.3 7 L 28.3 11`;
+function channelPath(W: number, H: number) {
+  return `M 6.4 9.1
+A 1.55 1.55 0 0 0 9.5 9.1
+L 9.5 4.5
+A 2.9 2.9 0 0 0 6.6 1.6
+L 3.6 1.6
+A 2 2 0 0 0 1.6 3.6
+L 1.6 ${H - 3.6}
+A 2 2 0 0 0 3.6 ${H - 1.6}
+L ${W - 3.6} ${H - 1.6}
+A 2 2 0 0 0 ${W - 1.6} ${H - 3.6}
+L ${W - 1.6} 3.6
+A 2 2 0 0 0 ${W - 3.6} 1.6
+L ${W - 6.6} 1.6
+A 2.9 2.9 0 0 0 ${W - 9.5} 4.5
+L ${W - 9.5} 9.1
+A 1.55 1.55 0 0 0 ${W - 6.4} 9.1`;
 }
 
 function Slots({ y }: { y: number }) {
@@ -63,13 +83,26 @@ function Slots({ y }: { y: number }) {
 }
 
 function ChannelProfileSVG({ profile, pierced = false, className = "" }: { profile: ChannelProfile; pierced?: boolean; className?: string }) {
-  const shallow = profile === "single-shallow" || profile === "back-to-back-shallow";
-  const h = shallow ? 20.6 : 41.3;
-  const paired = profile === "back-to-back-deep" || profile === "back-to-back-shallow" || profile === "quad";
-  const totalW = profile === "quad" ? 82.6 : 41.3;
-  const totalH = paired ? h * 2 : h;
-  const pair = (x = 0) => <g transform={`translate(${x} 0)`}><path d={channelPath(h)} />{pierced && <Slots y={h - 1.25} />}{paired && <g transform={`translate(0 ${h * 2}) scale(1 -1)`}><path d={channelPath(h)} />{pierced && <Slots y={h - 1.25} />}</g>}</g>;
-  return <svg viewBox={`-8 -8 ${totalW + 16} ${totalH + 16}`} className={className} role="img" aria-label={`${profile.replaceAll("-", " ")} channel profile`} fill="none" stroke="#1A0F00" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">{pair()}{profile === "quad" && pair(41.3)}</svg>;
+  const W = 41.3;
+  const H = profile === "single-shallow" || profile === "back-to-back-shallow" ? 20.6 : 41.3;
+  const channel = <><path d={channelPath(W, H)} />{pierced && <Slots y={H - 2.85} />}</>;
+  const pair = <>{channel}<g transform={`translate(0 ${H * 2}) scale(1 -1)`}>{channel}</g></>;
+  const content = profile === "single-deep" || profile === "single-shallow"
+    ? channel
+    : profile === "quad"
+      ? <>{pair}<g transform="translate(42.5 0)">{pair}</g></>
+      : pair;
+  const viewBox = profile === "single-deep"
+    ? "-6 -6 53.3 53.3"
+    : profile === "single-shallow"
+      ? "-6 -6 53.3 32.6"
+      : profile === "back-to-back-deep"
+        ? "-6 -6 53.3 94.6"
+        : profile === "back-to-back-shallow"
+          ? "-6 -6 53.3 53.2"
+          : "-6 -6 95.8 94.6";
+
+  return <svg viewBox={viewBox} className={className} role="img" aria-label={`${profile.replaceAll("-", " ")} channel profile`} fill="none" stroke="#1A0F00" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">{content}</svg>;
 }
 
 function ReferenceTable({ rows }: { rows: { code: string; description: string }[] }) {
@@ -128,6 +161,11 @@ export default function MetalFramingClient() {
 
   const powderCoated = finishing.includes("Powder Coating");
   const filteredFittings = family === "All" ? FITTINGS : FITTINGS.filter((fitting) => fitting.family === family);
+  const detail = CHANNEL_DETAIL_IMAGES[variant.code];
+  const elementsRow = series.elementsOfSection?.rows.find((row) => String(row[0]) === String(variant.code));
+  const elementsTable = series.elementsOfSection && elementsRow
+    ? { columns: series.elementsOfSection.columns, rows: [elementsRow] }
+    : null;
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
@@ -137,6 +175,20 @@ export default function MetalFramingClient() {
     {tab === "channels" ? <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
         <div className="mb-10 relative aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image fill src={MAIN_IMAGE} alt="U-LI Metal Framing System" className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority /></div>
+        <div className="mb-10 rounded-2xl border border-[#1A0F00]/20 bg-white p-5 sm:p-6">
+          <div className="mb-4">
+            <p className="font-typewriter text-[18px] text-[#1A0F00]">{variant.code} Series</p>
+            <p className="font-raleway text-[13px] text-[#5C4A30]">Weight: {variant.weightKgPerM} kg per metre</p>
+          </div>
+          {detail && <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center mb-5">
+            <img src={detail.iso} alt={`${variant.code} channel`} className="w-full h-auto max-h-[240px] object-contain" />
+            <img src={detail.dims} alt={`${variant.code} cross-section dimensions`} className="w-full h-auto max-h-[240px] object-contain" />
+          </div>}
+          {elementsTable && <div>
+            <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Elements of Section</p>
+            <DataTable table={elementsTable} />
+          </div>}
+        </div>
         <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-5">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Design basis</p><ul className="list-disc pl-5 space-y-1.5">{DESIGN_FUNDAMENTALS.map((item) => <li key={item} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed">{item}</li>)}</ul></CollapsibleSection>
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
         <CollapsibleSection id="elements" title="Elements of Section"><div className="space-y-7">{CHANNEL_SERIES.filter((item) => item.elementsOfSection).map((item) => <div key={item.key}><p className="font-raleway text-[12px] font-bold text-[#1A0F00] mb-2">{item.label}</p><DataTable table={item.elementsOfSection!} /></div>)}</div></CollapsibleSection>
