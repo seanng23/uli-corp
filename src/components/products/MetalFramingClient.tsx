@@ -29,6 +29,13 @@ import {
 type ChannelProfile = ChannelVariant["profile"];
 
 const MAIN_IMAGE = "/images/products/metal-framing-v4.png";
+const PROFILE_IMAGES: Record<ChannelProfile, { src: string; heightClass: string }> = {
+  "single-deep": { src: "/images/products/metal-framing/profiles/single-deep.png", heightClass: "h-10" },
+  "back-to-back-deep": { src: "/images/products/metal-framing/profiles/back-to-back-deep.png", heightClass: "h-20" },
+  "quad": { src: "/images/products/metal-framing/profiles/quad.png", heightClass: "h-20" },
+  "single-shallow": { src: "/images/products/metal-framing/profiles/single-shallow.png", heightClass: "h-5" },
+  "back-to-back-shallow": { src: "/images/products/metal-framing/profiles/back-to-back-shallow.png", heightClass: "h-10" },
+};
 const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
   "UL1000": { iso: "/images/products/metal-framing/channels/ul1000-iso.png", dims: "/images/products/metal-framing/channels/ul1000-dims.png" },
   "UL1001": { iso: "/images/products/metal-framing/channels/ul1001-iso.png", dims: "/images/products/metal-framing/channels/ul1001-dims.png" },
@@ -82,36 +89,6 @@ function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
       </table>
     </div>
   </div>;
-}
-
-function channelPath(H: number): string {
-  return `M 12.0 5.2 L 12.0 7.4 A 1.35 1.35 0 0 1 9.3 7.4 L 9.3 2.8 A 1.3 1.3 0 0 0 8.0 1.5 L 4.0 1.5 Q 1.5 1.5 1.5 4.0 L 1.5 ${H - 4} Q 1.5 ${H - 1.5} 4.0 ${H - 1.5} L 37.3 ${H - 1.5} Q 39.8 ${H - 1.5} 39.8 ${H - 4} L 39.8 4.0 Q 39.8 1.5 37.3 1.5 L 33.3 1.5 A 1.3 1.3 0 0 0 32.0 2.8 L 32.0 7.4 A 1.35 1.35 0 0 1 29.3 7.4 L 29.3 5.2`;
-}
-
-function Slots({ y }: { y: number }) {
-  return <>{[6, 16.65, 27.3].map((x) => <rect key={x} x={x} y={y} width="8" height="2.5" rx="1.25" strokeWidth="1.5" opacity="0.55" vectorEffect="non-scaling-stroke" />)}</>;
-}
-
-function ChannelProfileSVG({ profile, pierced = false, className = "" }: { profile: ChannelProfile; pierced?: boolean; className?: string }) {
-  const H = profile === "single-shallow" || profile === "back-to-back-shallow" ? 20.6 : 41.3;
-  const channel = <><path d={channelPath(H)} vectorEffect="non-scaling-stroke" />{pierced && <Slots y={H - 2.85} />}</>;
-  const pair = <>{channel}<g transform={`translate(0 ${H * 2}) scale(1 -1)`}>{channel}</g></>;
-  const content = profile === "single-deep" || profile === "single-shallow"
-    ? channel
-    : profile === "quad"
-      ? <>{pair}<g transform="translate(42.5 0)">{pair}</g></>
-      : pair;
-  const viewBox = profile === "single-deep"
-    ? "-4 -4 49.3 49.3"
-    : profile === "single-shallow"
-      ? "-4 -4 49.3 28.6"
-      : profile === "back-to-back-deep"
-        ? "-4 -4 49.3 90.6"
-        : profile === "back-to-back-shallow"
-          ? "-4 -4 49.3 49.2"
-          : "-4 -4 91.8 90.6";
-
-  return <svg viewBox={viewBox} className={className} role="img" aria-label={`${profile.replaceAll("-", " ")} channel profile`} fill="none" stroke="#1A0F00" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">{content}</svg>;
 }
 
 function ReferenceTable({ rows }: { rows: { code: string; description: string }[] }) {
@@ -192,7 +169,7 @@ export default function MetalFramingClient() {
       <div className="lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
         <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">Configure Channel</h1>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
-        <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><ChannelProfileSVG profile={item.profile} pierced={item.pierced} className="w-16 h-16" /><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
+        <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
         {detail && (
           <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4">
             <p className="font-typewriter text-[16px] text-[#1A0F00]">{variant.code} Series</p>
