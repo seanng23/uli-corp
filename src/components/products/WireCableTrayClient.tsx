@@ -17,6 +17,7 @@ const FINISHING = [
   "Polyester Powder Coated",
   "Stainless Steel 304",
   "Stainless Steel 316",
+  "Others / Custom Finishing",
 ];
 const COLORS = ["Orange", "White", "Green", "Red", "Grey", "Others / Custom Colour"];
 const HEIGHT_OPTIONS = ["25", "50", "75", "100", "150"];
