@@ -19,16 +19,9 @@ const STANDARD_OPTIONS: Record<string, string[]> = {
   "Electrical Wiring": ["BS 31 : 1940", "Others"],
 };
 const FINISHING = [
-  "Aluminum",
-  "Electro Galvanised Steel (Unpainted)",
-  "Electro-Galvanised Steel with Epoxy Powder Coated",
-  "Epoxy Powder Coated",
-  "Hot Dip Galvanised",
-  "Hot Dip Galvanised with Epoxy Powder Coated",
-  "Polyester Powder Coated",
-  "Stainless Steel 304",
-  "Stainless Steel 316",
-  "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)",
+  "Pre-Galvanised Steel (Unpainted)",
+  "Pre-Galvanised Steel with Epoxy Powder Coated",
+  "Others / Custom Finishing",
 ];
 const COLORS = ["Orange", "White", "Green", "Red", "Grey", "Others / Custom Colour"];
 const COLOR_MAP: Record<string, string> = {

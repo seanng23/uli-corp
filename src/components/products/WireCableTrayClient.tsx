@@ -12,16 +12,11 @@ import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 const MAIN_IMAGE = "/images/products/wire-mesh-tray-v5.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
 const FINISHING = [
-  "Aluminum",
-  "Electro Galvanised Steel (Unpainted)",
-  "Electro-Galvanised Steel with Epoxy Powder Coated",
   "Electro Zinc-Plated",
-  "Epoxy Powder Coated",
-  "Hot Dip Galvanised with Epoxy Powder Coated",
-  "Pre-Galvanised Steel (Unpainted)",
-  "Pre-Galvanised Steel with Epoxy Powder Coated",
-  "ULIMAZ (H.D.G. Zinc Alloyed with Aluminum & Magnesium Steel)",
-  "Others / Custom Finishing",
+  "Hot Dip Galvanised",
+  "Polyester Powder Coated",
+  "Stainless Steel 304",
+  "Stainless Steel 316",
 ];
 const COLORS = ["Orange", "White", "Green", "Red", "Grey", "Others / Custom Colour"];
 const HEIGHT_OPTIONS = ["25", "50", "75", "100", "150"];
