@@ -59,33 +59,42 @@ function DataTable({ table }: { table: SpecTable }) {
   </div>;
 }
 
-function channelPath(W: number, H: number) {
-  return `M 6.4 9.1
-A 1.55 1.55 0 0 0 9.5 9.1
-L 9.5 4.5
-A 2.9 2.9 0 0 0 6.6 1.6
-L 3.6 1.6
-A 2 2 0 0 0 1.6 3.6
-L 1.6 ${H - 3.6}
-A 2 2 0 0 0 3.6 ${H - 1.6}
-L ${W - 3.6} ${H - 1.6}
-A 2 2 0 0 0 ${W - 1.6} ${H - 3.6}
-L ${W - 1.6} 3.6
-A 2 2 0 0 0 ${W - 3.6} 1.6
-L ${W - 6.6} 1.6
-A 2.9 2.9 0 0 0 ${W - 9.5} 4.5
-L ${W - 9.5} 9.1
-A 1.55 1.55 0 0 0 ${W - 6.4} 9.1`;
+function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
+  const groupedHeaderClass = `${thClass} text-center`;
+  return <div>
+    <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Elements of Section</p>
+    <div className="overflow-x-auto">
+      <table className="w-full text-left min-w-[560px] border border-[#1A0F00]/20">
+        <thead className="bg-[#F0E6CC]">
+          <tr>
+            <th rowSpan={2} className={thClass}>Channel</th>
+            <th rowSpan={2} className={thClass}>Thickness mm</th>
+            <th rowSpan={2} className={thClass}>Area of Section mm²</th>
+            <th rowSpan={2} className={thClass}>Weight Steel kg/m</th>
+            <th colSpan={3} className={groupedHeaderClass}>Axis X - X</th>
+            <th colSpan={3} className={groupedHeaderClass}>Axis Y - Y</th>
+          </tr>
+          <tr>
+            {["I·10³ mm⁴", "z·10³ mm³", "r mm", "I·10³ mm⁴", "z·10³ mm³", "r mm"].map((heading, index) => <th key={`${heading}-${index}`} className={thClass}>{heading}</th>)}
+          </tr>
+        </thead>
+        <tbody><tr>{row.map((cell, index) => <td key={index} className={tdClass}>{cell}</td>)}</tr></tbody>
+      </table>
+    </div>
+  </div>;
+}
+
+function channelPath(H: number): string {
+  return `M 12.0 5.2 L 12.0 7.4 A 1.35 1.35 0 0 1 9.3 7.4 L 9.3 2.8 A 1.3 1.3 0 0 0 8.0 1.5 L 4.0 1.5 Q 1.5 1.5 1.5 4.0 L 1.5 ${H - 4} Q 1.5 ${H - 1.5} 4.0 ${H - 1.5} L 37.3 ${H - 1.5} Q 39.8 ${H - 1.5} 39.8 ${H - 4} L 39.8 4.0 Q 39.8 1.5 37.3 1.5 L 33.3 1.5 A 1.3 1.3 0 0 0 32.0 2.8 L 32.0 7.4 A 1.35 1.35 0 0 1 29.3 7.4 L 29.3 5.2`;
 }
 
 function Slots({ y }: { y: number }) {
-  return <>{[6, 16.65, 27.3].map((x) => <rect key={x} x={x} y={y} width="8" height="2.5" rx="1.25" strokeWidth="1.5" opacity="0.55" />)}</>;
+  return <>{[6, 16.65, 27.3].map((x) => <rect key={x} x={x} y={y} width="8" height="2.5" rx="1.25" strokeWidth="1.5" opacity="0.55" vectorEffect="non-scaling-stroke" />)}</>;
 }
 
 function ChannelProfileSVG({ profile, pierced = false, className = "" }: { profile: ChannelProfile; pierced?: boolean; className?: string }) {
-  const W = 41.3;
   const H = profile === "single-shallow" || profile === "back-to-back-shallow" ? 20.6 : 41.3;
-  const channel = <><path d={channelPath(W, H)} />{pierced && <Slots y={H - 2.85} />}</>;
+  const channel = <><path d={channelPath(H)} vectorEffect="non-scaling-stroke" />{pierced && <Slots y={H - 2.85} />}</>;
   const pair = <>{channel}<g transform={`translate(0 ${H * 2}) scale(1 -1)`}>{channel}</g></>;
   const content = profile === "single-deep" || profile === "single-shallow"
     ? channel
@@ -93,16 +102,16 @@ function ChannelProfileSVG({ profile, pierced = false, className = "" }: { profi
       ? <>{pair}<g transform="translate(42.5 0)">{pair}</g></>
       : pair;
   const viewBox = profile === "single-deep"
-    ? "-6 -6 53.3 53.3"
+    ? "-4 -4 49.3 49.3"
     : profile === "single-shallow"
-      ? "-6 -6 53.3 32.6"
+      ? "-4 -4 49.3 28.6"
       : profile === "back-to-back-deep"
-        ? "-6 -6 53.3 94.6"
+        ? "-4 -4 49.3 90.6"
         : profile === "back-to-back-shallow"
-          ? "-6 -6 53.3 53.2"
-          : "-6 -6 95.8 94.6";
+          ? "-4 -4 49.3 49.2"
+          : "-4 -4 91.8 90.6";
 
-  return <svg viewBox={viewBox} className={className} role="img" aria-label={`${profile.replaceAll("-", " ")} channel profile`} fill="none" stroke="#1A0F00" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">{content}</svg>;
+  return <svg viewBox={viewBox} className={className} role="img" aria-label={`${profile.replaceAll("-", " ")} channel profile`} fill="none" stroke="#1A0F00" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">{content}</svg>;
 }
 
 function ReferenceTable({ rows }: { rows: { code: string; description: string }[] }) {
@@ -163,9 +172,6 @@ export default function MetalFramingClient() {
   const filteredFittings = family === "All" ? FITTINGS : FITTINGS.filter((fitting) => fitting.family === family);
   const detail = CHANNEL_DETAIL_IMAGES[variant.code];
   const elementsRow = series.elementsOfSection?.rows.find((row) => String(row[0]) === String(variant.code));
-  const elementsTable = series.elementsOfSection && elementsRow
-    ? { columns: series.elementsOfSection.columns, rows: [elementsRow] }
-    : null;
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
@@ -175,20 +181,6 @@ export default function MetalFramingClient() {
     {tab === "channels" ? <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
         <div className="mb-10 relative aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image fill src={MAIN_IMAGE} alt="U-LI Metal Framing System" className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority /></div>
-        <div className="mb-10 rounded-2xl border border-[#1A0F00]/20 bg-white p-5 sm:p-6">
-          <div className="mb-4">
-            <p className="font-typewriter text-[18px] text-[#1A0F00]">{variant.code} Series</p>
-            <p className="font-raleway text-[13px] text-[#5C4A30]">Weight: {variant.weightKgPerM} kg per metre</p>
-          </div>
-          {detail && <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center mb-5">
-            <img src={detail.iso} alt={`${variant.code} channel`} className="w-full h-auto max-h-[240px] object-contain" />
-            <img src={detail.dims} alt={`${variant.code} cross-section dimensions`} className="w-full h-auto max-h-[240px] object-contain" />
-          </div>}
-          {elementsTable && <div>
-            <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Elements of Section</p>
-            <DataTable table={elementsTable} />
-          </div>}
-        </div>
         <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-5">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Design basis</p><ul className="list-disc pl-5 space-y-1.5">{DESIGN_FUNDAMENTALS.map((item) => <li key={item} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed">{item}</li>)}</ul></CollapsibleSection>
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
         <CollapsibleSection id="elements" title="Elements of Section"><div className="space-y-7">{CHANNEL_SERIES.filter((item) => item.elementsOfSection).map((item) => <div key={item.key}><p className="font-raleway text-[12px] font-bold text-[#1A0F00] mb-2">{item.label}</p><DataTable table={item.elementsOfSection!} /></div>)}</div></CollapsibleSection>
@@ -201,6 +193,17 @@ export default function MetalFramingClient() {
         <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">Configure Channel</h1>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><ChannelProfileSVG profile={item.profile} pierced={item.pierced} className="w-16 h-16" /><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
+        {detail && (
+          <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4">
+            <p className="font-typewriter text-[16px] text-[#1A0F00]">{variant.code} Series</p>
+            <p className="font-raleway text-[12px] text-[#5C4A30] mb-3">Weight: {variant.weightKgPerM} kg per metre</p>
+            <div className="grid grid-cols-2 gap-3 items-center mb-4">
+              <img src={detail.iso} alt={`${variant.code} channel`} className="w-full h-auto max-h-[150px] object-contain" />
+              <img src={detail.dims} alt={`${variant.code} cross-section dimensions`} className="w-full h-auto max-h-[150px] object-contain" />
+            </div>
+            {elementsRow && <ElementsRowTable row={elementsRow} />}
+          </div>
+        )}
         <div className="bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md p-3 mb-5 space-y-1">{[["Code", variant.code], ["Profile", variant.name], ["Width × Height (mm)", `${variant.widthMm} × ${variant.heightMm}`], ["Thickness (mm)", String(variant.thicknessMm)], ["Weight (kg/m)", String(variant.weightKgPerM)]].map(([label, value]) => <div key={label} className="flex justify-between gap-4 font-raleway text-[11px]"><span className="text-[#5C4A30]">{label}</span><span className="font-semibold text-[#1A0F00] text-right">{value}</span></div>)}{variant.notes?.map((note) => <p key={note} className="font-raleway text-[10px] text-[#5C4A30] leading-relaxed pt-2">{note}</p>)}</div>
         <div className="mb-5"><label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">Length (mm)</label><DimensionCombobox value={length} onChange={setLength} options={LENGTH_OPTIONS} /></div>
         {series.key === "stainless" ? <div className="mb-5 rounded-md border border-[#1A0F00]/15 bg-[#F0E6CC]/40 p-3 font-raleway text-[12px] font-semibold text-[#1A0F00]">Material: Stainless Steel 316-S31</div> : <><div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing</p><div className="grid grid-cols-2 gap-2">{[...FINISHES.map((item) => item.name), "Others / Custom Finishing"].map((option) => <button key={option} type="button" onClick={() => { setFinishing(option); if (!option.includes("Powder Coating")) setColour(""); }} className={`${optionClass(finishing === option)} text-left`}>{option}</button>)}</div></div>{powderCoated && <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing Colour</p><div className="flex flex-wrap gap-2">{COLORS.map((option) => { const active = colour === option; return <button key={option} type="button" onClick={() => setColour(active ? "" : option)} className={`flex items-center gap-2 ${optionClass(active)}`}>{option !== "Others / Custom Colour" && <span className="w-3 h-3 rounded-full border border-[#1A0F00]/20" style={{ backgroundColor: COLOR_MAP[option.toLowerCase()] }} />}{option}</button>; })}</div></div>}</>}
