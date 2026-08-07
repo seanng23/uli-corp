@@ -62,6 +62,8 @@ export const FINISHES: { name: string; detail: string }[] = [
   { name: "Powder Coating on Plain Steel (Mill Finish)", detail: "UliStrut® channels, channel combinations, general fittings, cantilever brackets and most clamps supplied on plain steel substrate with either epoxy polyester or pure polyester powder coating finish. All powder coating meets highest international quality standards and manufacturer recommended coating thickness." },
   { name: "Electro-galvanizing (EG)", detail: "all zinc electroplating with passivation in accordance with BS7371 Part1:1991 for threaded mild steel products up to 19mm in diameter, and BS1706:1960 for other mild steel products." },
   { name: "Plain (Mill Finish) Steel (PL)", detail: "UliStrut® channels and fittings untreated, retain an oiled surface from the rolling or pressing process. Alternative steel grades and surface finishes available upon request, but may be subject to minimum order quantities." },
+  { name: "Stainless Steel 316", detail: "Channels and fittings manufactured from 316-S31 Marine Grade Stainless Steel to BS1449 Part2:1983 or BS970 Part1:1983. Specified for offshore, food and brewing environments. Channels cold rolled from 2.0mm or 2.5mm strip, standard length 6 metres. Keep stainless components separated from galvanized or coated mild steel: preferential (galvanic) corrosion occurs where stainless contacts some other metals." },
+  { name: "Stainless Steel 304", detail: "General purpose stainless grade for indoor and less aggressive environments, available upon request. Same channel profiles and hardware range as the 316 system; may be subject to minimum order quantities." },
 ];
 
 export const DESIGN_FUNDAMENTALS: string[] = [
@@ -132,13 +134,6 @@ export const CHANNEL_SERIES: ChannelSeries[] = [
       { code: "UL3300T", name: "Pierced Shallow Channel", profile: "single-shallow", pierced: true, widthMm: 41.3, heightMm: 20.6, thicknessMm: 2.50, weightKgPerM: 1.65, description: "Same cross-section as UL3300, pierced with 14 x 28mm or 10 x 28mm slots at 50mm centers along the back face.", notes: ["UL1000T and UL3300T slots are 14 x 28mm or 10 x 28mm at 50mm centers"],
         beamLoad: { title: "Beam Loading Data UL3300T", columns: BEAM_COLUMNS, rows: [[250,414,207,414,207],[500,207,104,207,104],[750,138,69,138,69],[1000,104,52,80,50],[1250,83,41,51,32],[1500,69,35,35,22],[1750,59,30,26,16],[2000,52,26,20,12],[2250,46,23,16,10],[2500,41,21,13,8],[2750,38,19,11,7],[3000,35,17,9,6]] },
         columnLoad: { title: "Column Loading Data UL3300T", columns: COLUMN_COLUMNS, rows: [[250,2762,2678,2587,802],[500,2379,2138,1865,746],[750,1865,1409,1095,632],[1000,1290,942,717,517],[1250,942,673,"475*",424],[1500,717,"475*","338*",336],[1750,542,"356*","255*",272],[2000,"421*","279*","202*",224],[2250,"338*","226*","-",198],[2500,"279*","-","-","-"],[2750,"235*","-","-","-"],[3000,"200*","-","-","-"]], footnotes: ["* KL/r exceeds 200"] } },
-    ],
-  },
-  {
-    key: "stainless", label: "Stainless Steel", blurb: "Components manufactured from 316-S31 Marine Grade Stainless Steel, to BS1449 Part2:1983 or BS970 Part1:1983. Alternative grades available upon request.",
-    variants: [
-      { code: "UL1000/SS", name: "Stainless Plain Channel", profile: "single-deep", widthMm: 41, heightMm: 41, thicknessMm: 2.5, weightKgPerM: 2.7, description: "Stainless plain channel, 41x41 profile.", notes: ["Channels cold rolled from 2.0mm or 2.5mm strip. Standard length 6 metres."] },
-      { code: "UL3300/SS", name: "Stainless Plain Shallow Channel", profile: "single-shallow", widthMm: 41, heightMm: 21, thicknessMm: 2.0, weightKgPerM: 1.97, description: "Stainless plain shallow channel, 41x21 profile.", notes: ["Channels cold rolled from 2.0mm or 2.5mm strip. Standard length 6 metres."] },
     ],
   },
 ];
