@@ -12,9 +12,7 @@ import {
   type ChannelVariant,
   type Fitting,
   type SpecTable,
-  CHANNEL_ACCESSORIES,
   CHANNEL_SERIES,
-  CLOSURE_STRIPS,
   DESIGN_FUNDAMENTALS,
   DESIGN_LOAD_DATA,
   FINISHES,
@@ -166,7 +164,6 @@ export default function MetalFramingClient() {
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
         <CollapsibleSection id="elements" title="Elements of Section"><div className="space-y-7">{CHANNEL_SERIES.filter((item) => item.elementsOfSection).map((item) => <div key={item.key}><p className="font-raleway text-[12px] font-bold text-[#1A0F00] mb-2">{item.label}</p><DataTable table={item.elementsOfSection!} /></div>)}</div></CollapsibleSection>
         <CollapsibleSection id="loading" title="Loading Data (Beam & Column)"><div className="space-y-10">{CHANNEL_SERIES.map((item) => item.variants.filter((v) => v.beamLoad || v.columnLoad).map((v) => <div key={v.code}><p className="font-raleway text-[13px] font-bold text-[#1A0F00] mb-3">{v.code}</p><div className="space-y-6">{v.beamLoad && <DataTable table={v.beamLoad} />}{v.columnLoad && <DataTable table={v.columnLoad} />}</div></div>))}</div></CollapsibleSection>
-        <CollapsibleSection id="accessories" title="Closure Strips & Channel Accessories"><div className="space-y-6"><ReferenceTable rows={CLOSURE_STRIPS.items} /><ReferenceTable rows={CHANNEL_ACCESSORIES} /></div></CollapsibleSection>
         <CollapsibleSection id="stainless-range" title="Stainless Steel Range"><ReferenceTable rows={STAINLESS_RANGE} /></CollapsibleSection>
       </div>
 
@@ -196,6 +193,7 @@ export default function MetalFramingClient() {
       <CollapsibleSection id="design-load-data" title="Design Load Data"><div className="space-y-6">{DESIGN_LOAD_DATA.map((table, index) => <DataTable key={index} table={table} />)}</div></CollapsibleSection>
       <CollapsibleSection id="screw-torque" title="Design Screw Torque"><DataTable table={SCREW_TORQUE} /></CollapsibleSection>
       <div className="flex flex-wrap gap-2 my-8">{["All", ...FITTING_FAMILIES].map((option) => <button key={option} type="button" onClick={() => setFamily(option)} className={optionClass(family === option)}>{option}</button>)}</div>
+      {family === "Accessories" && <div className="mb-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Typical Channel Assembly</p><img src="/images/products/metal-framing/fittings/accessories-assembly.png" alt="UL2335 channel hanger and UL2540 fluorescent adapter with spring nut, assembled on a channel" className="w-full max-w-2xl mx-auto object-contain" /><p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">The UL2335 channel hanger suspends the channel from a threaded rod; the UL2540 fluorescent adapter locks into the slot with a spring nut to carry a light fitting below.</p></div>}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p><p className="font-raleway text-[11px] text-[#5C4A30] mt-1">{fitting.weightG ? `${fitting.weightG} g` : ""}{fitting.weightG && fitting.dims ? " · " : ""}{fitting.dims ?? ""}</p>{fitting.table && <details><summary className="cursor-pointer text-[11px] font-bold uppercase tracking-widest text-[#ff8905] mt-1">Data</summary><div className="mt-2"><DataTable table={fitting.table} /></div></details>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
     </div>}
   </>;

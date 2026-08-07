@@ -41,7 +41,8 @@ export type FittingFamily =
   | "U Shape Fittings"
   | "Z Shape Fittings"
   | "Beam Clamps"
-  | "Post Base Plates";
+  | "Post Base Plates"
+  | "Accessories";
 
 export type Fitting = {
   code: string;
@@ -142,18 +143,6 @@ export const CHANNEL_SERIES: ChannelSeries[] = [
   },
 ];
 
-export const CLOSURE_STRIPS: { items: { code: string; description: string }[] } = { items: [
-  { code: "UL1184PVC", description: "Snap-in closure strip; 1.6mm PVC; Grey, White; Weight 320g; Length 3000mm." },
-  { code: "FU-EC21.41-PVC-WE", description: "End Cap for shallow 21x41 channel, i.e. UL3300 profile; fits over channel end." },
-  { code: "FU-EC41.41-PVC-WE", description: "End Cap for 41x41 channel, i.e. UL1000 profile." },
-] };
-
-export const CHANNEL_ACCESSORIES: { code: string; description: string }[] = [
-  { code: "UL2335", description: "CHannel Hanger" },
-  { code: "UL2540", description: "Fluorescent Adapter" },
-  { code: "Spring Nut", description: "Long-spring channel nut shown engaging the channel lips" },
-];
-
 export const STAINLESS_RANGE: { code: string; description: string }[] = [
   { code: "UL1000/SS", description: "Stainless plain channel, 41x41 profile" }, { code: "UL3300/SS", description: "Stainless plain shallow channel, 41x21 profile" },
   { code: "UL3300/SS Slotted 10 or 12mm", description: "Slotted version of UL3300/SS (round-end slots in base)" }, { code: "UL1000T/SS Slotted 10 or 12mm", description: "Slotted/pierced version of UL1000/SS" },
@@ -176,7 +165,7 @@ export const DESIGN_LOAD_DATA: SpecTable[] = [
 export const SCREW_TORQUE: SpecTable = { title: "Design Screw Torque", columns: ["BOLT SIZE", "M6", "M8", "M10", "M12"], rows: [["Torque in Nm for Grade 4.6 screws",5,11,22,38],["Torque in Nm for Grade 8.8 screws",7.5,28,55,95]], footnotes: ["A safety factor of 2 applies to all design loads in the section. The design load data and figures illustrated are safe working loads with reference to M12 grade 8.8 electro-galvanized bolts and hardened M12 Spring Nuts fitted to mild steel UliStrut channels."] };
 
 export const FITTINGS_SHARED_SPEC: string = "Hole Ø & Slot Width 14mm; Hole Spacing 20.5mm From End 48mm on Centre; Width 40 or 41mm; Thickness 6mm; applies unless otherwise stated.";
-export const FITTING_FAMILIES: FittingFamily[] = ["Flat Plate Fittings", "Angular Fittings", "U Shape Fittings", "Z Shape Fittings", "Beam Clamps", "Post Base Plates"];
+export const FITTING_FAMILIES: FittingFamily[] = ["Flat Plate Fittings", "Angular Fittings", "U Shape Fittings", "Z Shape Fittings", "Beam Clamps", "Post Base Plates", "Accessories"];
 const IMG = "/images/products/metal-framing/fittings/";
 const WASHER_TABLE: SpecTable = { columns: ["Product Number","Bolt Size","Hole Ø","Weight g"], rows: [["UL1062","M8","9mm",73],["UL1063","M10","11mm",72],["UL1064","M12","14mm",69]] };
 const SHELF_TABLE: SpecTable = { columns: ["Product","A mm","B mm","Weight g"], rows: [["UL1130",168,102,760],["UL1131",219,152,976]] };
@@ -237,4 +226,9 @@ export const FITTINGS: Fitting[] = [
   { code:"UL2074A",family:"Post Base Plates",description:"Tall L/angle-style upstand",weightG:1660,dims:"89mm upstand, 6.0mm plate, plan 152/76/76, 4 holes 14 dia",image:IMG+"ul2074a.png" },
   { code:"UL2075",family:"Post Base Plates",description:"L/angle-style upstand for UL1001 Series; labelled UL1001 Series",weightG:1680,dims:"41mm upstand, 6.0mm plate, plan 152/76/76, 4 holes 14 dia",image:IMG+"ul2075.png" },
   { code:"UL2075A",family:"Post Base Plates",description:"Tall L/angle-style upstand for UL1001 Series",weightG:2050,dims:"89mm upstand, 6.0mm plate, plan 152/76/76, 4 holes 14 dia",image:IMG+"ul2075a.png" },
+  { code:"UL1184PVC",family:"Accessories",description:"Snap-in PVC closure strip; clips into the channel slot to close the open face on exposed or trunking runs",weightG:320,dims:"1.6mm PVC, Grey or White, 3000mm length",image:IMG+"ul1184pvc.png" },
+  { code:"FU-EC21.41-PVC-WE",family:"Accessories",description:"PVC end cap for shallow 21 x 41 channel (UL3300 profile); fits over the cut channel end",image:IMG+"fu-ec2141.png" },
+  { code:"FU-EC41.41-PVC-WE",family:"Accessories",description:"PVC end cap for 41 x 41 channel (UL1000 profile); fits over the cut channel end",image:IMG+"fu-ec4141.png" },
+  { code:"UL2335",family:"Accessories",description:"Channel hanger; wraps the channel and takes a threaded rod from above to suspend a channel run",image:IMG+"ul2335.png" },
+  { code:"UL2540",family:"Accessories",description:"Fluorescent adapter; locks into the channel slot with a spring nut to hang a light fitting beneath the channel",image:IMG+"accessories-assembly.png" },
 ];
