@@ -40,6 +40,8 @@ const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
   "UL1000": { iso: "/images/products/metal-framing/channels/ul1000-iso.png", dims: "/images/products/metal-framing/channels/ul1000-dims.png" },
   "UL1001": { iso: "/images/products/metal-framing/channels/ul1001-iso.png", dims: "/images/products/metal-framing/channels/ul1001-dims.png" },
   "UL1001-C41": { iso: "/images/products/metal-framing/channels/ul1001-c41-iso.png", dims: "/images/products/metal-framing/channels/ul1001-c41-dims.png" },
+  "UL3300": { iso: "/images/products/metal-framing/channels/ul3300-iso.png", dims: "/images/products/metal-framing/channels/ul3300-dims.png" },
+  "UL3301": { iso: "/images/products/metal-framing/channels/ul3301-iso.png", dims: "/images/products/metal-framing/channels/ul3301-dims.png" },
 };
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];
 const COLOR_MAP: Record<string, string> = { grey: "#9aa0a6", white: "#ffffff", orange: "#ff8905" };
