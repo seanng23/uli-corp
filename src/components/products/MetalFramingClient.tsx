@@ -43,6 +43,7 @@ const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
   "UL1000T": { iso: "/images/products/metal-framing/channels/ul1000t-iso.png", dims: "/images/products/metal-framing/channels/ul1000t-dims.png" },
   "UL3300T": { iso: "/images/products/metal-framing/channels/ul3300t-iso.png", dims: "/images/products/metal-framing/channels/ul3300t-dims.png" },
 };
+const FINISHING_OPTIONS = ["Hot-dip Galvanizing (HDG)", "Sheet Galvanizing (Pre-galvanized) (PG)", "Stainless Steel 316", "Stainless Steel 304"];
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];
 const COLOR_MAP: Record<string, string> = { grey: "#9aa0a6", white: "#ffffff", orange: "#ff8905" };
 const thClass = "font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20";
@@ -79,7 +80,6 @@ function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
             <th rowSpan={2} className={thClass}>Channel</th>
             <th rowSpan={2} className={thClass}>Thickness mm</th>
             <th rowSpan={2} className={thClass}>Area of Section mm²</th>
-            <th rowSpan={2} className={thClass}>Weight Steel kg/m</th>
             <th colSpan={3} className={groupedHeaderClass}>Axis X - X</th>
             <th colSpan={3} className={groupedHeaderClass}>Axis Y - Y</th>
           </tr>
@@ -87,7 +87,7 @@ function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
             {["I·10³ mm⁴", "z·10³ mm³", "r mm", "I·10³ mm⁴", "z·10³ mm³", "r mm"].map((heading, index) => <th key={`${heading}-${index}`} className={thClass}>{heading}</th>)}
           </tr>
         </thead>
-        <tbody><tr>{row.map((cell, index) => <td key={index} className={tdClass}>{cell}</td>)}</tr></tbody>
+        <tbody><tr>{row.filter((_, index) => index !== 3).map((cell, index) => <td key={index} className={tdClass}>{cell}</td>)}</tr></tbody>
       </table>
     </div>
   </div>;
@@ -103,7 +103,7 @@ export default function MetalFramingClient() {
   const [series, setSeries] = useState<ChannelSeries>(CHANNEL_SERIES[0]);
   const [variant, setVariant] = useState<ChannelVariant>(CHANNEL_SERIES[0].variants[0]);
   const [length, setLength] = useState("3000");
-  const [finishing, setFinishing] = useState(FINISHES[0].name);
+  const [finishing, setFinishing] = useState(FINISHING_OPTIONS[0]);
   const [colour, setColour] = useState("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -167,23 +167,20 @@ export default function MetalFramingClient() {
       </div>
 
       <div className="lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
-        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">Configure Channel</h1>
+        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">UliStrut® Channel</h1>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
         {detail && (
           <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4">
-            <p className="font-typewriter text-[16px] text-[#1A0F00]">{variant.code} Series</p>
-            <p className="font-raleway text-[12px] text-[#5C4A30] mb-3">Weight: {variant.weightKgPerM} kg per metre</p>
-            <div className="grid grid-cols-2 gap-3 items-center mb-4">
-              <img src={detail.iso} alt={`${variant.code} channel`} className="w-full h-auto max-h-[150px] object-contain" />
-              <img src={detail.dims} alt={`${variant.code} cross-section dimensions`} className="w-full h-auto max-h-[150px] object-contain" />
+            <div className="flex justify-center mb-4">
+              <img src={detail.iso} alt={`${variant.code} channel`} className="w-auto h-auto max-h-[160px] max-w-[280px] object-contain" />
             </div>
             {elementsRow && <ElementsRowTable row={elementsRow} />}
           </div>
         )}
-        <div className="bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md p-3 mb-5 space-y-1">{[["Code", variant.code], ["Profile", variant.name], ["Width × Height (mm)", `${variant.widthMm} × ${variant.heightMm}`], ["Thickness (mm)", String(variant.thicknessMm)], ["Weight (kg/m)", String(variant.weightKgPerM)]].map(([label, value]) => <div key={label} className="flex justify-between gap-4 font-raleway text-[11px]"><span className="text-[#5C4A30]">{label}</span><span className="font-semibold text-[#1A0F00] text-right">{value}</span></div>)}{variant.notes?.map((note) => <p key={note} className="font-raleway text-[10px] text-[#5C4A30] leading-relaxed pt-2">{note}</p>)}</div>
+        <div className="bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md p-3 mb-5 space-y-1">{[["Code", variant.code], ["Profile", variant.name], ["Width × Height (mm)", `${variant.widthMm} × ${variant.heightMm}`], ["Thickness (mm)", String(variant.thicknessMm)]].map(([label, value]) => <div key={label} className="flex justify-between gap-4 font-raleway text-[11px]"><span className="text-[#5C4A30]">{label}</span><span className="font-semibold text-[#1A0F00] text-right">{value}</span></div>)}{variant.notes?.map((note) => <p key={note} className="font-raleway text-[10px] text-[#5C4A30] leading-relaxed pt-2">{note}</p>)}</div>
         <div className="mb-5"><label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">Length (mm)</label><DimensionCombobox value={length} onChange={setLength} options={LENGTH_OPTIONS} /></div>
-        <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing</p><div className="grid grid-cols-2 gap-2">{[...FINISHES.map((item) => item.name), "Others / Custom Finishing"].map((option) => <button key={option} type="button" onClick={() => { setFinishing(option); if (!option.includes("Powder Coating")) setColour(""); }} className={`${optionClass(finishing === option)} text-left`}>{option}</button>)}</div></div>{powderCoated && <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing Colour</p><div className="flex flex-wrap gap-2">{COLORS.map((option) => { const active = colour === option; return <button key={option} type="button" onClick={() => setColour(active ? "" : option)} className={`flex items-center gap-2 ${optionClass(active)}`}>{option !== "Others / Custom Colour" && <span className="w-3 h-3 rounded-full border border-[#1A0F00]/20" style={{ backgroundColor: COLOR_MAP[option.toLowerCase()] }} />}{option}</button>; })}</div></div>}
+        <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing</p><div className="grid grid-cols-2 gap-2">{[...FINISHING_OPTIONS, "Others / Custom Finishing"].map((option) => <button key={option} type="button" onClick={() => { setFinishing(option); if (!option.includes("Powder Coating")) setColour(""); }} className={`${optionClass(finishing === option)} text-left`}>{option}</button>)}</div></div>{powderCoated && <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Finishing Colour</p><div className="flex flex-wrap gap-2">{COLORS.map((option) => { const active = colour === option; return <button key={option} type="button" onClick={() => setColour(active ? "" : option)} className={`flex items-center gap-2 ${optionClass(active)}`}>{option !== "Others / Custom Colour" && <span className="w-3 h-3 rounded-full border border-[#1A0F00]/20" style={{ backgroundColor: COLOR_MAP[option.toLowerCase()] }} />}{option}</button>; })}</div></div>}
         <div className="mb-6"><label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">Quantity</label><div className="flex items-center border border-[#1A0F00]/30 w-fit rounded-md overflow-hidden"><button type="button" onClick={() => setQty((value) => Math.max(1, value - 1))} className="w-9 h-9 font-raleway text-lg border-r border-[#1A0F00]/30">−</button><span className="w-12 text-center font-typewriter text-[15px]">{qty}</span><button type="button" onClick={() => setQty((value) => value + 1)} className="w-9 h-9 font-raleway text-lg border-l border-[#1A0F00]/30">+</button></div></div>
         <button type="button" onClick={addChannel} className="w-full btn-primary justify-center mb-4">{added ? <><CheckCircle size={15} /> Added ✓</> : <><ShoppingBag size={15} /> Add to Enquiry</>}</button><Link href="/enquiry" className="btn-outline w-full justify-center text-center">Go to Enquiry →</Link>
       </div></div>
