@@ -138,7 +138,7 @@ const PAIR_LOAD_TABLE: SpecTable = { title: "Design Loading Data", columns: ["Pr
 const KN_LOAD_TABLE: SpecTable = { title: "Design Load Each (Use in Pairs Only)", columns: ["P/N","kN"], rows: [["UL1000",2.7],["UL1100",2.2]] };
 
 export const FITTINGS: Fitting[] = [
-  { code:"UL1062",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",specs:["Bolt Size M8","Hole Ø 9mm","40mm plate width"],image:IMG+"ul1062-v2.png" },
+  { code:"UL1062",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",specs:["Bolt Size M8","Hole Ø 9mm","40mm plate width"],image:IMG+"ul1062-v3.png" },
   { code:"UL1063",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",weightG:72,dims:"40mm plate width",image:IMG+"ul1062.png",table:WASHER_TABLE },
   { code:"UL1064",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",weightG:69,dims:"40mm plate width",image:IMG+"ul1062.png",table:WASHER_TABLE },
   { code:"UL1065",family:"Flat Plate Fittings",description:"2-hole straight splice plate joining two channels end to end",weightG:157,dims:"89mm length",image:IMG+"ul1065.png" },
