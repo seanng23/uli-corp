@@ -331,7 +331,7 @@ export default function ProductsClientPage({ products }: { products: Product[] }
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 lg:gap-6">
                   {prods.map((p) => (
-                    <ProductCard key={p.slug} product={p} />
+                    <ProductCard key={`${p.slug}-${p.name}`} product={p} />
                   ))}
                 </div>
               </div>

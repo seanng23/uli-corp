@@ -75,10 +75,22 @@ export default async function ProductsPage() {
     }),
     "Metal Framing System": makeCard("Metal Framing System", {
       slug: "metal-framing-system",
-      name: "Metal Framing System",
+      name: "UliStrut® Channel",
       itemNo: "UL1000 · UL3300",
       image: "/images/products/metal-framing-v4.png",
     }),
+  };
+
+  // Extra cards shown alongside a collapsed card, linking to the same page.
+  const companionCards: Record<string, Partial<(typeof renamed)[number]>[]> = {
+    "Metal Framing System": [
+      {
+        slug: "metal-framing-system",
+        name: "Packed Slotted",
+        itemNo: "UL1000T · UL3300T",
+        image: "/images/products/metal-framing-pierced-v1.png",
+      },
+    ],
   };
 
   const products: typeof renamed = [];
@@ -88,6 +100,9 @@ export default async function ProductsPage() {
       const card = collapsed[p.subcategory];
       if (card && !insertedCards.has(p.subcategory)) {
         products.push(card);
+        for (const extra of companionCards[p.subcategory] ?? []) {
+          products.push({ ...card, ...extra });
+        }
         insertedCards.add(p.subcategory);
       }
       continue;
