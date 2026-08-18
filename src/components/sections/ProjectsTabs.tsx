@@ -165,10 +165,10 @@ export default function ProjectsTabs() {
                 {location === "International" && <button type="button" onClick={() => handleLocationChange("Local")} className="mt-3 min-h-[44px] font-raleway text-[14px] font-semibold text-[#cc6e00] underline underline-offset-4 hover:text-[#ff8905] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff8905]">View Local {category} projects →</button>}
               </div>
             ) : (
-              <div key={`${location}-${category}`} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 pt-4">
+              <div key={`${location}-${category}`} className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
                 {visible.map((p, i) => (
                   <motion.div key={p.image} initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: prefersReducedMotion ? 0 : Math.min(i * 0.03, 0.3) }} className="relative overflow-hidden aspect-[4/3]">
-                    <Image src={p.image} alt={p.name} fill loading="eager" className="object-cover object-center" sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw" />
+                    <Image src={p.image} alt={p.name} fill loading="eager" className="object-cover object-center" sizes="(max-width: 768px) 50vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1A0F00]/60 via-[#1A0F00]/10 to-transparent" />
                     {p.location && <span className="absolute top-3 right-3 font-raleway text-[10px] font-bold uppercase tracking-wider text-[#F5EDD6] bg-[#1A0F00]/70 border border-[#F5EDD6]/40 px-2 py-1">{p.location}</span>}
                     <div className="absolute bottom-0 left-0 right-0 p-3 pt-8"><p className="line-clamp-3 font-raleway text-[12px] sm:text-[13px] font-semibold uppercase tracking-wide leading-snug text-[#F5EDD6]">{p.name}</p></div>

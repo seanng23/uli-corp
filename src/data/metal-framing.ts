@@ -143,7 +143,7 @@ export const FITTINGS: Fitting[] = [
   { code:"UL1358",family:"Flat Plate Fittings",description:"4-hole tapered/triangular gusset flat plate (2 holes at wide top edge, 2 holes down the tapering stem)",specs:["89mm top width x 137mm height"],image:IMG+"ul1358-v2.png" },
   { code:"UL1068",family:"Angular Fittings",description:"2-hole 90-degree angle bracket (1 hole per leg)",specs:["41 x 58mm"],image:IMG+"ul1068-v3.png" },
   { code:"UL1026",family:"Angular Fittings",description:"2-hole 90-degree angle bracket, wider/squat profile (1 hole per leg)",specs:["51 x 47mm"],image:IMG+"ul1026-v2.png" },
-  { code:"UL1326",family:"Angular Fittings",description:"3-hole 90-degree angle bracket: 1 hole on short leg, 2 holes on long leg",specs:["41 x 105mm","hole offset 36.5mm"],image:IMG+"ul1326-v2.png" },
+  { code:"UL1326",family:"Angular Fittings",description:"3-hole 90-degree angle bracket: 1 hole on short leg, 2 holes on long leg",specs:["41 x 105mm","hole offset 36.5mm"],image:IMG+"ul1326-v3.png" },
   { code:"UL1325",family:"Angular Fittings",description:"4-hole 90-degree angle bracket: 2 holes on top leg, 2 holes on long down leg",specs:["89 x 105mm","hole offset 36.5mm"],image:IMG+"ul1325-v2.png" },
   { code:"UL1749",family:"Angular Fittings",description:"2-hole 90-degree angle bracket with slotted hole on one leg",specs:["66 x 51mm","base 38mm"],image:IMG+"ul1749-v2.png" },
   { code:"UL1747",family:"Angular Fittings",description:"3-hole 90-degree angle bracket, long horizontal leg with 2 holes + slotted vertical leg",specs:["66mm","98mm long leg","base 38mm"],image:IMG+"ul1747-v2.png" },
