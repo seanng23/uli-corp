@@ -13,7 +13,6 @@ import {
   type Fitting,
   type SpecTable,
   CHANNEL_SERIES,
-  DESIGN_FUNDAMENTALS,
   DESIGN_LOAD_DATA,
   FINISHES,
   FITTING_FAMILIES,
@@ -21,7 +20,6 @@ import {
   FITTINGS_SHARED_SPEC,
   LENGTH_OPTIONS,
   SCREW_TORQUE,
-  STAINLESS_RANGE,
 } from "@/data/metal-framing";
 
 type ChannelProfile = ChannelVariant["profile"];
@@ -93,10 +91,6 @@ function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
   </div>;
 }
 
-function ReferenceTable({ rows }: { rows: { code: string; description: string }[] }) {
-  return <DataTable table={{ columns: ["Code", "Description"], rows: rows.map((item) => [item.code, item.description]) }} />;
-}
-
 export default function MetalFramingClient() {
   const { addToCart } = useCart();
   const [tab, setTab] = useState<"channels" | "fittings">("channels");
@@ -159,11 +153,8 @@ export default function MetalFramingClient() {
     {tab === "channels" ? <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
         <div className="mb-10 relative aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image fill src={MAIN_IMAGE} alt="U-LI Metal Framing System" className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority /></div>
-        <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-5">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Design basis</p><ul className="list-disc pl-5 space-y-1.5">{DESIGN_FUNDAMENTALS.map((item) => <li key={item} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed">{item}</li>)}</ul></CollapsibleSection>
+        <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions and weights are subject to a manufacturing tolerance of ±10%. All dimensions are in millimetres (mm).</p></CollapsibleSection>
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
-        <CollapsibleSection id="elements" title="Elements of Section"><div className="space-y-7">{CHANNEL_SERIES.filter((item) => item.elementsOfSection).map((item) => <div key={item.key}><p className="font-raleway text-[12px] font-bold text-[#1A0F00] mb-2">{item.label}</p><DataTable table={item.elementsOfSection!} /></div>)}</div></CollapsibleSection>
-        <CollapsibleSection id="loading" title="Loading Data (Beam & Column)"><div className="space-y-10">{CHANNEL_SERIES.map((item) => item.variants.filter((v) => v.beamLoad || v.columnLoad).map((v) => <div key={v.code}><p className="font-raleway text-[13px] font-bold text-[#1A0F00] mb-3">{v.code}</p><div className="space-y-6">{v.beamLoad && <DataTable table={v.beamLoad} />}{v.columnLoad && <DataTable table={v.columnLoad} />}</div></div>))}</div></CollapsibleSection>
-        <CollapsibleSection id="stainless-range" title="Stainless Steel Range"><ReferenceTable rows={STAINLESS_RANGE} /></CollapsibleSection>
       </div>
 
       <div className="lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">

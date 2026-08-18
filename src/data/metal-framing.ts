@@ -56,23 +56,10 @@ export type Fitting = {
 };
 
 export const FINISHES: { name: string; detail: string }[] = [
-  { name: "ULI Duplex System", detail: "A cost effective alternative to stainless steel for cable support systems. Hot-dip galvanized mild steel protected by a cross-polymer (powder) coating applied by electrostatic spray. Synergy of hot-dip galvanizing + powder coating: zinc = sacrificial cathodic protection; organic coating extends zinc life. Final colour/gloss (e.g. semimatt black) achieved through powder coating; polyester specified for maximum UV resistance; polyester powder coatings are thermally cross-linked, high mar-resistance, no loss of film mechanical properties at elevated temperature; in fire, no running or dripping (unlike thermoplastic coatings); does not promote combustion; no liberation of halogens at high temperature. Comprehensive brochure available on request." },
   { name: "Hot-dip Galvanizing (HDG)", detail: "steel chemically cleaned of all contaminants then dipped in molten zinc; coating of iron/zinc-alloys usually over-coated with a layer of relatively pure zinc. Applied in accordance with ASTM A123:1989 / BS EN ISO 1461:2009(E) which supersedes BS729:1971. Zinc coating thickness varies from 45µm (up to 2mm thick material, for bolts and nuts) to 55µm (for at least 5mm thick material)." },
   { name: "Sheet Galvanizing (Pre-galvanized) (PG)", detail: "sheet metal (steel strip) hot-dip galvanized in a continuous process; even zinc coated sheet with bright smooth metallic finish. Steel is galvanized prior to manufacturing (roll-forming or press operations) of channels or fittings. All \"pre-galvanized\" steel used is in accordance with BS2989:1982 and usually grade Z275." },
-  { name: "Powder Coating on Plain Steel (Mill Finish)", detail: "UliStrut® channels, channel combinations, general fittings, cantilever brackets and most clamps supplied on plain steel substrate with either epoxy polyester or pure polyester powder coating finish. All powder coating meets highest international quality standards and manufacturer recommended coating thickness." },
-  { name: "Electro-galvanizing (EG)", detail: "all zinc electroplating with passivation in accordance with BS7371 Part1:1991 for threaded mild steel products up to 19mm in diameter, and BS1706:1960 for other mild steel products." },
-  { name: "Plain (Mill Finish) Steel (PL)", detail: "UliStrut® channels and fittings untreated, retain an oiled surface from the rolling or pressing process. Alternative steel grades and surface finishes available upon request, but may be subject to minimum order quantities." },
   { name: "Stainless Steel 316", detail: "Channels and fittings manufactured from 316-S31 Marine Grade Stainless Steel to BS1449 Part2:1983 or BS970 Part1:1983. Specified for offshore, food and brewing environments. Channels cold rolled from 2.0mm or 2.5mm strip, standard length 6 metres. Keep stainless components separated from galvanized or coated mild steel: preferential (galvanic) corrosion occurs where stainless contacts some other metals." },
   { name: "Stainless Steel 304", detail: "General purpose stainless grade for indoor and less aggressive environments, available upon request. Same channel profiles and hardware range as the 316 system; may be subject to minimum order quantities." },
-];
-
-export const DESIGN_FUNDAMENTALS: string[] = [
-  "All load data for U-LI mild steel channels calculated in accordance with BS5950 Part5:1987 - Code of Practice for Design of Cold-formed Sections.",
-  "Beam loads and corresponding deflection for all UliStrut® channels are calculated using the factor of safety SF=1.6.",
-  "Maximum allowable deflection according to SAB0162 Part2:1993 is span/200 (also contributes to aesthetical appeal).",
-  "All UliStrut® mild steel channels have a guaranteed minimum Yield Stress of 250Mpa.",
-  "Slenderness related to ratio of effective length to the applicable (lesser) radius of gyration - KL/r. For end connection conditions determining effective length factor K, U-LI strongly recommends the engineer perform a detailed study of the end connection before selection of K Factor.",
-  "Illustrations not necessarily to scale. All dimensions are in millimetres (mm).",
 ];
 
 const BEAM_COLUMNS = [
@@ -136,17 +123,6 @@ export const CHANNEL_SERIES: ChannelSeries[] = [
         columnLoad: { title: "Column Loading Data UL3300T", columns: COLUMN_COLUMNS, rows: [[250,2762,2678,2587,802],[500,2379,2138,1865,746],[750,1865,1409,1095,632],[1000,1290,942,717,517],[1250,942,673,"475*",424],[1500,717,"475*","338*",336],[1750,542,"356*","255*",272],[2000,"421*","279*","202*",224],[2250,"338*","226*","-",198],[2500,"279*","-","-","-"],[2750,"235*","-","-","-"],[3000,"200*","-","-","-"]], footnotes: ["* KL/r exceeds 200"] } },
     ],
   },
-];
-
-export const STAINLESS_RANGE: { code: string; description: string }[] = [
-  { code: "UL1000/SS", description: "Stainless plain channel, 41x41 profile" }, { code: "UL3300/SS", description: "Stainless plain shallow channel, 41x21 profile" },
-  { code: "UL3300/SS Slotted 10 or 12mm", description: "Slotted version of UL3300/SS (round-end slots in base)" }, { code: "UL1000T/SS Slotted 10 or 12mm", description: "Slotted/pierced version of UL1000/SS" },
-  { code: "UL1000CI/SS", description: "Concrete Insert channel (stainless), 41x41" }, { code: "UL3300CI/SS", description: "Concrete Insert channel (stainless), shallow" },
-  { code: "UL1000/SS", description: "single channel insert" }, { code: "UL3300/SS", description: "shallow channel insert" }, { code: "UL1000/2A/SS", description: "combination: two channels back-to-back (welded, slots out)" }, { code: "UL1000/2C/SS", description: "combination: two channels side-by-side/face-to-face arrangement (as illustrated)" },
-  { code: "UNLM*/SS", description: "channel nut with long spring; * Denotes standard thread size: 6, 8, 10, 12mm" }, { code: "UNSM*/SS", description: "channel nut with short spring; * Denotes standard thread size: 6, 8, 10, 12mm" }, { code: "UNPM*/SS", description: "plain channel nut (no spring); * Denotes standard thread size: 6, 8, 10, 12mm" },
-  { code: "SS. Hexagon Head Set Screw", description: "M6 x 20, M6 x 25, M6 x 30, M8 x 20, M8 x 25, M8 x 30, M10 x 20 | M10 x 25, M10 x 30, M10 x 40, M12 x 22, M12 x 25, M12 x 30, M12 x 35" },
-  { code: "SS. Cone Pointed Set Screw", description: "M10 x 40" }, { code: "SS. Pan Head Bolt A4", description: "M6 x 12, 16, 20, 25, 30, 35" }, { code: "SS. Lock Washers", description: "M6, M8, M10, M12" }, { code: "SS. Flat Wahsers", description: "M16, M8, M10, M12" }, { code: "SS. Hexagon Nuts", description: "M16, M8, M10, M12" },
-  { code: "SS. Cantilever Arms", description: "Length A: 150mm, 300mm, 450mm, 600mm, 750mm. Other lengths are available upon request." },
 ];
 
 export const LENGTH_OPTIONS: string[] = ["3000", "6000"];
