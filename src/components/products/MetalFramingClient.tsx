@@ -13,13 +13,11 @@ import {
   type Fitting,
   type SpecTable,
   CHANNEL_SERIES,
-  DESIGN_LOAD_DATA,
   FINISHES,
   FITTING_FAMILIES,
   FITTINGS,
   FITTINGS_SHARED_SPEC,
   LENGTH_OPTIONS,
-  SCREW_TORQUE,
 } from "@/data/metal-framing";
 
 type ChannelProfile = ChannelVariant["profile"];
@@ -177,11 +175,9 @@ export default function MetalFramingClient() {
       </div></div>
     </div></div> : <div id="fittings" className="site-container py-10 lg:py-12">
       <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">General Fittings</h2><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed">{FITTINGS_SHARED_SPEC}</p></div>
-      <CollapsibleSection id="design-load-data" title="Design Load Data"><div className="space-y-6">{DESIGN_LOAD_DATA.map((table, index) => <DataTable key={index} table={table} />)}</div></CollapsibleSection>
-      <CollapsibleSection id="screw-torque" title="Design Screw Torque"><DataTable table={SCREW_TORQUE} /></CollapsibleSection>
       <div className="flex flex-wrap gap-2 my-8">{["All", ...FITTING_FAMILIES].map((option) => <button key={option} type="button" onClick={() => setFamily(option)} className={optionClass(family === option)}>{option}</button>)}</div>
       {family === "Accessories" && <div className="mb-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Typical Channel Assembly</p><img src="/images/products/metal-framing/fittings/accessories-assembly.png" alt="UL2335 channel hanger and UL2540 fluorescent adapter with spring nut, assembled on a channel" className="w-full max-w-2xl mx-auto object-contain" /><p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">The UL2335 channel hanger suspends the channel from a threaded rod; the UL2540 fluorescent adapter locks into the slot with a spring nut to carry a light fitting below.</p></div>}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p><p className="font-raleway text-[11px] text-[#5C4A30] mt-1">{fitting.weightG ? `${fitting.weightG} g` : ""}{fitting.weightG && fitting.dims ? " · " : ""}{fitting.dims ?? ""}</p>{fitting.table && <details><summary className="cursor-pointer text-[11px] font-bold uppercase tracking-widest text-[#ff8905] mt-1">Data</summary><div className="mt-2"><DataTable table={fitting.table} /></div></details>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p>{fitting.specs ? <div className="mt-1">{fitting.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div> : fitting.dims ? <p className="font-raleway text-[11px] text-[#5C4A30] mt-1">{fitting.dims}</p> : null}{fitting.table && <details><summary className="cursor-pointer text-[11px] font-bold uppercase tracking-widest text-[#ff8905] mt-1">Data</summary><div className="mt-2"><DataTable table={fitting.table} /></div></details>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
     </div>}
   </>;
 }

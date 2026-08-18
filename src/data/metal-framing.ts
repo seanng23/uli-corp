@@ -50,6 +50,7 @@ export type Fitting = {
   description: string;
   weightG?: number;
   dims?: string;
+  specs?: string[];
   image: string;
   table?: SpecTable;
   notes?: string[];
@@ -128,13 +129,6 @@ export const CHANNEL_SERIES: ChannelSeries[] = [
 export const LENGTH_OPTIONS: string[] = ["3000", "6000"];
 export const THICKNESS_NOTE: string = "Standard steel thickness for mild steel channels shown: 2.50mm. Stainless concrete-insert channels: 2.0mm or 2.5mm strip, standard length 6 metres.";
 
-export const DESIGN_LOAD_DATA: SpecTable[] = [
-  { title: "Bank 1: Safe working load applied as indicated", columns: ["Fitting", "UL1068", "UL1026", "UL1068", "UL1326", "UL1326"], rows: [["Safe working load (kg)",640,640,160,160,1280]], footnotes: ["Both ends of beams supported.", "Loads are for: UL1000 2.5mm thick channels. M12 hardened spring nuts.", "Safety factor = 2 based on ultimate strength of connection."] },
-  { title: "Bank 2: Safe working load applied as indicated", columns: ["Fitting", "UL1713", "UL1130/UL1131", "UL1186-45°", "UL1546-45°", "UL1331/UL1332"], rows: [["Safe working load (kg)",130,"390/490","Compression 640, Tension 60","Compression 640, Tension 60",760]], footnotes: ["Both ends of beams supported.", "Loads are for: UL1000 2.5mm thick channels. M12 hardened spring nuts.", "Safety factor = 2 based on ultimate strength of connection."] },
-];
-
-export const SCREW_TORQUE: SpecTable = { title: "Design Screw Torque", columns: ["BOLT SIZE", "M6", "M8", "M10", "M12"], rows: [["Torque in Nm for Grade 4.6 screws",5,11,22,38],["Torque in Nm for Grade 8.8 screws",7.5,28,55,95]], footnotes: ["A safety factor of 2 applies to all design loads in the section. The design load data and figures illustrated are safe working loads with reference to M12 grade 8.8 electro-galvanized bolts and hardened M12 Spring Nuts fitted to mild steel UliStrut channels."] };
-
 export const FITTINGS_SHARED_SPEC: string = "Hole Ø & Slot Width 14mm; Hole Spacing 20.5mm From End 48mm on Centre; Width 40 or 41mm; Thickness 6mm; applies unless otherwise stated.";
 export const FITTING_FAMILIES: FittingFamily[] = ["Flat Plate Fittings", "Angular Fittings", "U Shape Fittings", "Z Shape Fittings", "Beam Clamps", "Post Base Plates", "Accessories"];
 const IMG = "/images/products/metal-framing/fittings/";
@@ -144,7 +138,7 @@ const PAIR_LOAD_TABLE: SpecTable = { title: "Design Loading Data", columns: ["Pr
 const KN_LOAD_TABLE: SpecTable = { title: "Design Load Each (Use in Pairs Only)", columns: ["P/N","kN"], rows: [["UL1000",2.7],["UL1100",2.2]] };
 
 export const FITTINGS: Fitting[] = [
-  { code:"UL1062",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",weightG:73,dims:"40mm plate width",image:IMG+"ul1062.png",table:WASHER_TABLE },
+  { code:"UL1062",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",specs:["Bolt Size M8","Hole Ø 9mm","40mm plate width"],image:IMG+"ul1062-v2.png" },
   { code:"UL1063",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",weightG:72,dims:"40mm plate width",image:IMG+"ul1062.png",table:WASHER_TABLE },
   { code:"UL1064",family:"Flat Plate Fittings",description:"single-hole flat square washer plate sitting on channel face (square plate washer)",weightG:69,dims:"40mm plate width",image:IMG+"ul1062.png",table:WASHER_TABLE },
   { code:"UL1065",family:"Flat Plate Fittings",description:"2-hole straight splice plate joining two channels end to end",weightG:157,dims:"89mm length",image:IMG+"ul1065.png" },
