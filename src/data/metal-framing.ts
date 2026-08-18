@@ -187,6 +187,6 @@ export const FITTINGS: Fitting[] = [
   { code:"UL1184PVC",family:"Accessories",description:"Snap-in PVC closure strip; clips into the channel slot to close the open face on exposed or trunking runs",specs:["1.6mm PVC","Grey or White","3000mm length"],image:IMG+"ul1184pvc-v2.png" },
   { code:"FU-EC21.41-PVC-WE",family:"Accessories",description:"PVC end cap for shallow 21 x 41 channel (UL3300 profile); fits over the cut channel end",image:IMG+"fu-ec2141-v2.png" },
   { code:"FU-EC41.41-PVC-WE",family:"Accessories",description:"PVC end cap for 41 x 41 channel (UL1000 profile); fits over the cut channel end",image:IMG+"fu-ec4141.png" },
-  { code:"UL2335",family:"Accessories",description:"Channel hanger; wraps the channel and takes a threaded rod from above to suspend a channel run",image:IMG+"ul2335-v3.png" },
+  { code:"UL2335",family:"Accessories",description:"Channel hanger; wraps the channel and takes a threaded rod from above to suspend a channel run",image:IMG+"accessories-assembly.png" },
   { code:"UL2540",family:"Accessories",description:"Fluorescent adapter; locks into the channel slot with a spring nut to hang a light fitting beneath the channel",image:IMG+"accessories-assembly.png" },
 ];
