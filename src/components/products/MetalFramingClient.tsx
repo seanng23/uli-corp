@@ -57,14 +57,6 @@ function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: 
   </div>;
 }
 
-function DataTable({ table }: { table: SpecTable }) {
-  return <div>
-    {table.title && <p className="font-raleway text-[12px] font-bold text-[#1A0F00] mb-2">{table.title}</p>}
-    <div className="overflow-x-auto"><table className="w-full text-left min-w-[620px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{table.columns.map((heading, index) => <th key={`${heading}-${index}`} className={thClass}>{heading}</th>)}</tr></thead><tbody>{table.rows.map((row, rowIndex) => <tr key={rowIndex} className={rowIndex % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>{row.map((cell, cellIndex) => <td key={cellIndex} className={tdClass}>{cell}</td>)}</tr>)}</tbody></table></div>
-    {table.footnotes?.map((note) => <p key={note} className="font-raleway text-[10px] text-[#5C4A30] leading-relaxed mt-1.5">{note}</p>)}
-  </div>;
-}
-
 function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
   const groupedHeaderClass = `${thClass} text-center`;
   return <div>
@@ -132,7 +124,7 @@ export default function MetalFramingClient() {
   }
 
   function addFitting(fitting: Fitting) {
-    const specs: Record<string, string> = { "Product No.": fitting.code, Family: fitting.family, ...(fitting.weightG ? { "Weight (g)": String(fitting.weightG) } : {}) };
+    const specs: Record<string, string> = { "Product No.": fitting.code, Family: fitting.family };
     addToCart({ id: generateItemId("mf-fitting-" + fitting.code, specs), productName: `${fitting.code} · ${fitting.family}`, category: "Metal Framing Systems", slug: "metal-framing-system", image: fitting.image, quantity: 1, specs });
     setAddedFitting(fitting.code);
     setTimeout(() => setAddedFitting(null), 2000);
@@ -177,7 +169,7 @@ export default function MetalFramingClient() {
       <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">General Fittings</h2><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed">{FITTINGS_SHARED_SPEC}</p></div>
       <div className="flex flex-wrap gap-2 my-8">{["All", ...FITTING_FAMILIES].map((option) => <button key={option} type="button" onClick={() => setFamily(option)} className={optionClass(family === option)}>{option}</button>)}</div>
       {family === "Accessories" && <div className="mb-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Typical Channel Assembly</p><img src="/images/products/metal-framing/fittings/accessories-assembly.png" alt="UL2335 channel hanger and UL2540 fluorescent adapter with spring nut, assembled on a channel" className="w-full max-w-2xl mx-auto object-contain" /><p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">The UL2335 channel hanger suspends the channel from a threaded rod; the UL2540 fluorescent adapter locks into the slot with a spring nut to carry a light fitting below.</p></div>}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p>{fitting.specs ? <div className="mt-1">{fitting.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div> : fitting.dims ? <p className="font-raleway text-[11px] text-[#5C4A30] mt-1">{fitting.dims}</p> : null}{fitting.table && <details><summary className="cursor-pointer text-[11px] font-bold uppercase tracking-widest text-[#ff8905] mt-1">Data</summary><div className="mt-2"><DataTable table={fitting.table} /></div></details>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p>{fitting.specs && <div className="mt-1">{fitting.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
     </div>}
   </>;
 }
