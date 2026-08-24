@@ -189,3 +189,47 @@ export const FITTINGS: Fitting[] = [
   { code:"UL2335",family:"Accessories",description:"Channel hanger; wraps the channel and takes a threaded rod from above to suspend a channel run",image:IMG+"accessories-assembly.png" },
   { code:"UL2540",family:"Accessories",description:"Fluorescent adapter; locks into the channel slot with a spring nut to hang a light fitting beneath the channel",image:IMG+"accessories-assembly.png" },
 ];
+
+export type CatalogueItem = {
+  code: string;
+  description: string;
+  specs?: string[];
+  image: string;
+};
+
+const CB = "/images/products/metal-framing/cantilever/";
+export const CANTILEVER_BRACKETS: CatalogueItem[] = [
+  { code:"UL254",description:"Single channel cantilever arm welded to a 9mm backing plate (50mm wide, 120mm high)",specs:["Arm lengths 150 / 200 / 250 / 350 / 450 / 550 / 600 / 650mm"],image:CB+"cb-ul254.png" },
+  { code:"UL254S",description:"Single channel cantilever arm with 45-degree raker brace, on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm"],image:CB+"cb-ul254s.png" },
+  { code:"UL254 Double",description:"Double channel cantilever arm welded to a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm"],image:CB+"cb-ul254d.png" },
+  { code:"UL251",description:"Single channel cantilever arm on a narrow 9mm backing plate (40mm wide, 90mm high)",specs:["Arm lengths 150 / 200 / 250 / 350 / 450 / 550 / 600 / 650mm"],image:CB+"cb-ul251.png" },
+  { code:"UL223",description:"Single channel cantilever arm on a 6mm backing plate that slots over the upright channel",specs:["Arm lengths 150 / 200 / 250 / 350mm"],image:CB+"cb-ul223.png" },
+  { code:"UL223A",description:"Single channel cantilever arm on a 6mm backing plate, longer arm range",specs:["Arm lengths 450 / 550 / 600 / 650mm"],image:CB+"cb-ul223a.png" },
+  { code:"UL2491 - UL2500",description:"Flat triangular gusset cantilever bracket bolted through the channel face; left-hand and right-hand versions",specs:["Arm lengths 153 / 229 / 305 / 381 / 457 / 609mm","L = left hand, R = right hand"],image:CB+"cb-ul2491.png" },
+];
+
+const FA = "/images/products/metal-framing/fasteners/";
+export const FASTENERS: CatalogueItem[] = [
+  { code:"Long Spring Nut",description:"Spring nut with long spring; toothed grooves bite into the channel return lips for slip and pull-out resistance",specs:["Thread sizes M6 / M8 / M10 / M12"],image:FA+"fa-springnut-long.png" },
+  { code:"Short Spring Nut",description:"Spring nut with short spring; same toothed grip on the channel return lips",specs:["Thread sizes M6 / M8 / M10 / M12"],image:FA+"fa-springnut-short.png" },
+  { code:"UL2663S",description:"Hex head set screw, Grade 8.8 or Grade 4.6",specs:["M6 / M8 / M10 / M12","Lengths 20 - 70mm"],image:FA+"fa-ul2663s.png" },
+  { code:"UL2542S",description:"Slotted round head machine screw",specs:["M6","Lengths 12 / 20 / 25mm"],image:FA+"fa-ul2542s.png" },
+  { code:"UL2542 Double",description:"Hex head screw with cone point",specs:["M10 / M12","Length 45mm"],image:FA+"fa-ul2542d.png" },
+  { code:"Threaded Rod",description:"Continuous threaded rod, Grade 4.6",specs:["M6 / M8 / M10 / M12","2000mm lengths"],image:FA+"fa-threaded-rod.png" },
+  { code:"Flat Washer",description:"Flat round washer",specs:["M6 / M8 / M10 / M12"],image:FA+"fa-flat-washer.png" },
+  { code:"Spring Washer",description:"Single coil spring lock washer",specs:["M6 / M8 / M10 / M12"],image:FA+"fa-spring-washer.png" },
+  { code:"Fender Washer",description:"Large outside-diameter washer for spreading load over slots",specs:["M6 / M8 / M10 / M12"],image:FA+"fa-fender-washer.png" },
+  { code:"Hex Nut",description:"Hexagon nut, Grade 8 or Grade 4",specs:["M6 / M8 / M10 / M12"],image:FA+"fa-hex-nut.png" },
+  { code:"Coupling Nut",description:"Hex coupling nut for joining lengths of threaded rod",specs:["M6 x 25 / M8 x 25 / M10 x 30 / M12 x 30mm"],image:FA+"fa-coupling-nut.png" },
+];
+
+const CL = "/images/products/metal-framing/clamps/";
+export const CLAMPS: CatalogueItem[] = [
+  { code:"UL2400",description:"Offset hanger bracket for pipe clamp assemblies",specs:["Hole size 14mm","Material 40 x 6mm"],image:CL+"cl-ul2400.png" },
+  { code:"UL2239 Series",description:"Two-bolt split pipe clamp with offset hanger bracket",specs:["Nominal bores 50 - 300mm (UL2239/20 - UL2239/120)"],image:CL+"cl-ul2239.png" },
+  { code:"SS Series",description:"Saddle pipe clamp; bolts to the channel slot over the pipe",specs:["Nominal bores 15 - 200mm (SS1 - SS1/12)"],image:CL+"cl-ss-series.png" },
+  { code:"K Series",description:"K pipe / cable clamp; jaw hooks over cable ladder rungs or UliStrut® channel",specs:["Pipe / cable diameter 14 - 78mm (K2026 - K2044)"],image:CL+"cl-k-clamp.png" },
+  { code:"U Series",description:"U pipe / cable clamp with serrated jaw; fits cable ladder rungs and angle iron",specs:["Pipe / cable diameter 14 - 78mm (U2026 - U2044)"],image:CL+"cl-u-clamp.png" },
+  { code:"Two-Piece Clamps",description:"Two-piece pipe / cable clamp; halves interlock around the pipe and lock into the channel slot",specs:["Pipe diameter 7.5 - 285mm","Standard finish Pre-galvanized (PG)"],image:CL+"cl-two-piece.png" },
+  { code:"UL75 Series",description:"Swivel loop hanger; suspends pipe from a threaded rod",specs:["Nominal bores 15 - 200mm (UL75/15 - UL75/200)","Standard finish Pre-galvanized (PG)"],image:CL+"cl-ul75.png" },
+];

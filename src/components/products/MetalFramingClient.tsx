@@ -8,11 +8,15 @@ import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import {
+  type CatalogueItem,
   type ChannelSeries,
   type ChannelVariant,
   type Fitting,
   type SpecTable,
+  CANTILEVER_BRACKETS,
   CHANNEL_SERIES,
+  CLAMPS,
+  FASTENERS,
   FINISHES,
   FITTING_FAMILIES,
   FITTINGS,
@@ -80,9 +84,28 @@ function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
   </div>;
 }
 
+type TabKey = "channels" | "fittings" | "cantilever" | "fasteners" | "clamps";
+const TAB_LABELS: [TabKey, string][] = [
+  ["channels", "Channels & Combinations"],
+  ["fittings", "General Fittings"],
+  ["cantilever", "Cantilever Brackets"],
+  ["fasteners", "Fasteners"],
+  ["clamps", "Clamps & Trolley Assemblies"],
+];
+
+function CatalogueCard({ item, added, onAdd }: { item: { code: string; description: string; specs?: string[]; image: string }; added: boolean; onAdd: () => void }) {
+  return <div className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col">
+    <img src={item.image} alt={item.code} loading="lazy" className="h-36 w-full object-contain mb-2" />
+    <p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{item.code}</p>
+    <p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{item.description}</p>
+    {item.specs && <div className="mt-1">{item.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div>}
+    <div className="mt-auto pt-2"><button type="button" onClick={onAdd} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{added ? "Added ✓" : "Add to Enquiry"}</button></div>
+  </div>;
+}
+
 export default function MetalFramingClient() {
   const { addToCart } = useCart();
-  const [tab, setTab] = useState<"channels" | "fittings">("channels");
+  const [tab, setTab] = useState<TabKey>("channels");
   const [series, setSeries] = useState<ChannelSeries>(CHANNEL_SERIES[0]);
   const [variant, setVariant] = useState<ChannelVariant>(CHANNEL_SERIES[0].variants[0]);
   const [length, setLength] = useState("3000");
@@ -93,11 +116,14 @@ export default function MetalFramingClient() {
   const [family, setFamily] = useState<string>("All");
   const [addedFitting, setAddedFitting] = useState<string | null>(null);
 
-  useEffect(() => { if (window.location.hash === "#fittings") setTab("fittings"); }, []);
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (TAB_LABELS.some(([key]) => key === hash)) setTab(hash as TabKey);
+  }, []);
 
-  function switchTab(next: "channels" | "fittings") {
+  function switchTab(next: TabKey) {
     setTab(next);
-    history.replaceState(null, "", next === "fittings" ? "#fittings" : "#channels");
+    history.replaceState(null, "", `#${next}`);
   }
 
   function selectSeries(next: ChannelSeries) {
@@ -129,6 +155,13 @@ export default function MetalFramingClient() {
     setTimeout(() => setAddedFitting(null), 2000);
   }
 
+  function addCatalogueItem(item: CatalogueItem, category: string) {
+    const specs: Record<string, string> = { "Product No.": item.code, Category: category };
+    addToCart({ id: generateItemId("mf-item-" + item.code, specs), productName: `${item.code} · ${category}`, category: "Metal Framing Systems", slug: "metal-framing-system", image: item.image, quantity: 1, specs });
+    setAddedFitting(item.code);
+    setTimeout(() => setAddedFitting(null), 2000);
+  }
+
   const powderCoated = finishing.includes("Powder Coating");
   const filteredFittings = family === "All" ? FITTINGS : FITTINGS.filter((fitting) => fitting.family === family);
   const detail = CHANNEL_DETAIL_IMAGES[variant.code];
@@ -137,9 +170,9 @@ export default function MetalFramingClient() {
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
     <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
-    <div className="site-container"><div className="flex border-b border-[#1A0F00]/15">{[["channels", "Channels & Combinations"], ["fittings", "General Fittings"]].map(([key, label]) => <button key={key} type="button" onClick={() => switchTab(key as "channels" | "fittings")} className={`font-raleway text-[13px] font-bold uppercase tracking-widest px-5 py-4 border-b-[3px] transition-colors ${tab === key ? "text-[#1A0F00] border-[#ff8905]" : "text-[#5C4A30]/70 hover:text-[#1A0F00] border-transparent"}`}>{label}</button>)}</div></div>
+    <div className="site-container"><div className="flex flex-wrap border-b border-[#1A0F00]/15">{TAB_LABELS.map(([key, label]) => <button key={key} type="button" onClick={() => switchTab(key)} className={`font-raleway text-[13px] font-bold uppercase tracking-widest px-5 py-4 border-b-[3px] transition-colors ${tab === key ? "text-[#1A0F00] border-[#ff8905]" : "text-[#5C4A30]/70 hover:text-[#1A0F00] border-transparent"}`}>{label}</button>)}</div></div>
 
-    {tab === "channels" ? <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
+    {tab === "channels" && <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
         <div className="mb-10 relative aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image fill src={MAIN_IMAGE} alt="U-LI Metal Framing System" className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority /></div>
         <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions and weights are subject to a manufacturing tolerance of ±10%. All dimensions are in millimetres (mm).</p></CollapsibleSection>
@@ -164,11 +197,28 @@ export default function MetalFramingClient() {
         <div className="mb-6"><label className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5">Quantity</label><div className="flex items-center border border-[#1A0F00]/30 w-fit rounded-md overflow-hidden"><button type="button" onClick={() => setQty((value) => Math.max(1, value - 1))} className="w-9 h-9 font-raleway text-lg border-r border-[#1A0F00]/30">−</button><span className="w-12 text-center font-typewriter text-[15px]">{qty}</span><button type="button" onClick={() => setQty((value) => value + 1)} className="w-9 h-9 font-raleway text-lg border-l border-[#1A0F00]/30">+</button></div></div>
         <button type="button" onClick={addChannel} className="w-full btn-primary justify-center mb-4">{added ? <><CheckCircle size={15} /> Added ✓</> : <><ShoppingBag size={15} /> Add to Enquiry</>}</button><Link href="/enquiry" className="btn-outline w-full justify-center text-center">Go to Enquiry →</Link>
       </div></div>
-    </div></div> : <div id="fittings" className="site-container py-10 lg:py-12">
+    </div></div>}
+
+    {tab === "fittings" && <div id="fittings" className="site-container py-10 lg:py-12">
       <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">General Fittings</h2></div>
       <div className="flex flex-wrap gap-2 my-8">{["All", ...FITTING_FAMILIES].map((option) => <button key={option} type="button" onClick={() => setFamily(option)} className={optionClass(family === option)}>{option}</button>)}</div>
       {family === "Accessories" && <div className="mb-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Typical Channel Assembly</p><img src="/images/products/metal-framing/fittings/accessories-assembly.png" alt="UL2335 channel hanger and UL2540 fluorescent adapter with spring nut, assembled on a channel" className="w-full max-w-2xl mx-auto object-contain" /><p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">The UL2335 channel hanger suspends the channel from a threaded rod; the UL2540 fluorescent adapter locks into the slot with a spring nut to carry a light fitting below.</p></div>}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p>{fitting.specs && <div className="mt-1">{fitting.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <CatalogueCard key={fitting.code} item={fitting} added={addedFitting === fitting.code} onAdd={() => addFitting(fitting)} />)}</div>
+    </div>}
+
+    {tab === "cantilever" && <div id="cantilever" className="site-container py-10 lg:py-12">
+      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">Cantilever Brackets</h2></div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{CANTILEVER_BRACKETS.map((item) => <CatalogueCard key={item.code} item={item} added={addedFitting === item.code} onAdd={() => addCatalogueItem(item, "Cantilever Brackets")} />)}</div>
+    </div>}
+
+    {tab === "fasteners" && <div id="fasteners" className="site-container py-10 lg:py-12">
+      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">Fasteners</h2></div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{FASTENERS.map((item) => <CatalogueCard key={item.code} item={item} added={addedFitting === item.code} onAdd={() => addCatalogueItem(item, "Fasteners")} />)}</div>
+    </div>}
+
+    {tab === "clamps" && <div id="clamps" className="site-container py-10 lg:py-12">
+      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">Clamps & Trolley Assemblies</h2></div>
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{CLAMPS.map((item) => <CatalogueCard key={item.code} item={item} added={addedFitting === item.code} onAdd={() => addCatalogueItem(item, "Clamps & Trolley Assemblies")} />)}</div>
     </div>}
   </>;
 }
