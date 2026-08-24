@@ -213,7 +213,7 @@ export const FASTENERS: CatalogueItem[] = [
   { code:"Long Spring Nut",description:"Spring nut with long spring; toothed grooves bite into the channel return lips for slip and pull-out resistance",specs:["Thread sizes M6 / M8 / M10 / M12"],image:FA+"fa-springnut-long.png" },
   { code:"Short Spring Nut",description:"Spring nut with short spring; same toothed grip on the channel return lips",specs:["Thread sizes M6 / M8 / M10 / M12"],image:FA+"fa-springnut-short.png" },
   { code:"UL2663S",description:"Hex head set screw, Grade 8.8 or Grade 4.6",specs:["M6 / M8 / M10 / M12","Lengths 20 - 70mm"],image:FA+"fa-ul2663s.png" },
-  { code:"UL2542S",description:"Slotted round head machine screw",specs:["M6","Lengths 12 / 20 / 25mm"],image:FA+"fa-ul2542s.png" },
+  { code:"UL2542S",description:"Slotted round head machine screw",specs:["M6","Lengths 12 / 20 / 25mm"],image:FA+"fa-ul2542s-v2.png" },
   { code:"UL2542 Double",description:"Hex head screw with cone point",specs:["M10 / M12","Length 45mm"],image:FA+"fa-ul2542d.png" },
   { code:"Threaded Rod",description:"Continuous threaded rod, Grade 4.6",specs:["M6 / M8 / M10 / M12","2000mm lengths"],image:FA+"fa-threaded-rod.png" },
   { code:"Flat Washer",description:"Flat round washer",specs:["M6 / M8 / M10 / M12"],image:FA+"fa-flat-washer.png" },
@@ -226,7 +226,7 @@ export const FASTENERS: CatalogueItem[] = [
 const CL = "/images/products/metal-framing/clamps/";
 export const CLAMPS: CatalogueItem[] = [
   { code:"UL2400",description:"Offset hanger bracket for pipe clamp assemblies",specs:["Hole size 14mm","Material 40 x 6mm"],image:CL+"cl-ul2400.png" },
-  { code:"UL2239 Series",description:"Two-bolt split pipe clamp with offset hanger bracket",specs:["Nominal bores 50 - 300mm (UL2239/20 - UL2239/120)"],image:CL+"cl-ul2239.png" },
+  { code:"UL2239 Series",description:"Two-bolt split pipe clamp with offset hanger bracket",specs:["Nominal bores 50 - 300mm (UL2239/20 - UL2239/120)"],image:CL+"cl-ul2239-v2.png" },
   { code:"SS Series",description:"Saddle pipe clamp; bolts to the channel slot over the pipe",specs:["Nominal bores 15 - 200mm (SS1 - SS1/12)"],image:CL+"cl-ss-series.png" },
   { code:"K Series",description:"K pipe / cable clamp; jaw hooks over cable ladder rungs or UliStrut® channel",specs:["Pipe / cable diameter 14 - 78mm (K2026 - K2044)"],image:CL+"cl-k-clamp.png" },
   { code:"U Series",description:"U pipe / cable clamp with serrated jaw; fits cable ladder rungs and angle iron",specs:["Pipe / cable diameter 14 - 78mm (U2026 - U2044)"],image:CL+"cl-u-clamp.png" },
