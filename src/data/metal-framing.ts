@@ -126,7 +126,6 @@ export const CHANNEL_SERIES: ChannelSeries[] = [
 export const LENGTH_OPTIONS: string[] = ["3000", "6000"];
 export const THICKNESS_NOTE: string = "Standard steel thickness for mild steel channels shown: 2.50mm. Stainless concrete-insert channels: 2.0mm or 2.5mm strip, standard length 6 metres.";
 
-export const FITTINGS_SHARED_SPEC: string = "Hole Ø & Slot Width 14mm; Hole Spacing 20.5mm From End 48mm on Centre; Width 40 or 41mm; Thickness 6mm; applies unless otherwise stated.";
 export const FITTING_FAMILIES: FittingFamily[] = ["Flat Plate Fittings", "Angular Fittings", "U Shape Fittings", "Z Shape Fittings", "Beam Clamps", "Post Base Plates", "Accessories"];
 const IMG = "/images/products/metal-framing/fittings/";
 

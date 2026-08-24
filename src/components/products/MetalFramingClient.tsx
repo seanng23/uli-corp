@@ -16,7 +16,6 @@ import {
   FINISHES,
   FITTING_FAMILIES,
   FITTINGS,
-  FITTINGS_SHARED_SPEC,
   LENGTH_OPTIONS,
 } from "@/data/metal-framing";
 
@@ -166,7 +165,7 @@ export default function MetalFramingClient() {
         <button type="button" onClick={addChannel} className="w-full btn-primary justify-center mb-4">{added ? <><CheckCircle size={15} /> Added ✓</> : <><ShoppingBag size={15} /> Add to Enquiry</>}</button><Link href="/enquiry" className="btn-outline w-full justify-center text-center">Go to Enquiry →</Link>
       </div></div>
     </div></div> : <div id="fittings" className="site-container py-10 lg:py-12">
-      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">General Fittings</h2><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed">{FITTINGS_SHARED_SPEC}</p></div>
+      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">General Fittings</h2></div>
       <div className="flex flex-wrap gap-2 my-8">{["All", ...FITTING_FAMILIES].map((option) => <button key={option} type="button" onClick={() => setFamily(option)} className={optionClass(family === option)}>{option}</button>)}</div>
       {family === "Accessories" && <div className="mb-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Typical Channel Assembly</p><img src="/images/products/metal-framing/fittings/accessories-assembly.png" alt="UL2335 channel hanger and UL2540 fluorescent adapter with spring nut, assembled on a channel" className="w-full max-w-2xl mx-auto object-contain" /><p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">The UL2335 channel hanger suspends the channel from a threaded rod; the UL2540 fluorescent adapter locks into the slot with a spring nut to carry a light fitting below.</p></div>}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{filteredFittings.map((fitting) => <div key={fitting.code} className="border border-[#1A0F00]/15 rounded-lg bg-white p-3 flex flex-col"><img src={fitting.image} alt={fitting.code} loading="lazy" className="h-36 w-full object-contain mb-2" /><p className="font-raleway font-bold text-[13px] text-[#1A0F00]">{fitting.code}</p><p className="font-raleway text-[12px] text-[#5C4A30] leading-snug line-clamp-3">{fitting.description}</p>{fitting.specs && <div className="mt-1">{fitting.specs.map((spec) => <p key={spec} className="font-raleway text-[11px] text-[#5C4A30]">{spec}</p>)}</div>}<div className="mt-auto pt-2"><button type="button" onClick={() => addFitting(fitting)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedFitting === fitting.code ? "Added ✓" : "Add to Enquiry"}</button></div></div>)}</div>
