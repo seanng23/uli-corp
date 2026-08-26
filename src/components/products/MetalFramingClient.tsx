@@ -12,7 +12,7 @@ import {
   type ChannelSeries,
   type ChannelVariant,
   type Fitting,
-  type SpecTable,
+
   CANTILEVER_BRACKETS,
   CHANNEL_SERIES,
   CLAMPS,
@@ -57,30 +57,6 @@ function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: 
       {open ? <ChevronUp size={16} strokeWidth={2.5} className="text-[#1A0F00] flex-shrink-0" /> : <ChevronDown size={16} strokeWidth={2.5} className="text-[#1A0F00] flex-shrink-0" />}
     </button>
     {open && <div className="pb-6">{children}</div>}
-  </div>;
-}
-
-function ElementsRowTable({ row }: { row: SpecTable["rows"][number] }) {
-  const groupedHeaderClass = `${thClass} text-center`;
-  return <div>
-    <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">Elements of Section</p>
-    <div className="overflow-x-auto">
-      <table className="w-full text-left min-w-[560px] border border-[#1A0F00]/20">
-        <thead className="bg-[#F0E6CC]">
-          <tr>
-            <th rowSpan={2} className={thClass}>Channel</th>
-            <th rowSpan={2} className={thClass}>Thickness mm</th>
-            <th rowSpan={2} className={thClass}>Area of Section mm²</th>
-            <th colSpan={3} className={groupedHeaderClass}>Axis X - X</th>
-            <th colSpan={3} className={groupedHeaderClass}>Axis Y - Y</th>
-          </tr>
-          <tr>
-            {["I·10³ mm⁴", "z·10³ mm³", "r mm", "I·10³ mm⁴", "z·10³ mm³", "r mm"].map((heading, index) => <th key={`${heading}-${index}`} className={thClass}>{heading}</th>)}
-          </tr>
-        </thead>
-        <tbody><tr>{row.filter((_, index) => index !== 3).map((cell, index) => <td key={index} className={tdClass}>{cell}</td>)}</tr></tbody>
-      </table>
-    </div>
   </div>;
 }
 
@@ -165,7 +141,6 @@ export default function MetalFramingClient() {
   const powderCoated = finishing.includes("Powder Coating");
   const filteredFittings = family === "All" ? FITTINGS : FITTINGS.filter((fitting) => fitting.family === family);
   const detail = CHANNEL_DETAIL_IMAGES[variant.code];
-  const elementsRow = series.elementsOfSection?.rows.find((row) => String(row[0]) === String(variant.code));
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
@@ -185,10 +160,9 @@ export default function MetalFramingClient() {
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
         {detail && (
           <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center">
               <img src={detail.iso} alt={`${variant.code} channel`} className="w-auto h-auto max-h-[160px] max-w-[280px] object-contain" />
             </div>
-            {elementsRow && <ElementsRowTable row={elementsRow} />}
           </div>
         )}
         <div className="bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md p-3 mb-5 space-y-1">{[["Code", variant.code], ["Profile", variant.name], ["Width × Height (mm)", `${variant.widthMm} × ${variant.heightMm}`], ["Thickness (mm)", String(variant.thicknessMm)]].map(([label, value]) => <div key={label} className="flex justify-between gap-4 font-raleway text-[11px]"><span className="text-[#5C4A30]">{label}</span><span className="font-semibold text-[#1A0F00] text-right">{value}</span></div>)}{variant.notes?.map((note) => <p key={note} className="font-raleway text-[10px] text-[#5C4A30] leading-relaxed pt-2">{note}</p>)}</div>
