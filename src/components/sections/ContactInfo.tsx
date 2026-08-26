@@ -69,8 +69,8 @@ export default function ContactInfo() {
               </li>
               <li className="flex items-start gap-2 font-raleway text-[14px] text-[#1A0F00]">
                 <EmailIcon />
-                <a href="mailto:salescss@uli.com.my" className="hover:text-[#ff8905] transition-colors">
-                  salescss@uli.com.my
+                <a href="mailto:hello@uli.com.my" className="hover:text-[#ff8905] transition-colors">
+                  hello@uli.com.my
                 </a>
               </li>
             </ul>
@@ -87,16 +87,16 @@ export default function ContactInfo() {
               <div className="space-y-5">
                 <div>
                   <p className="font-raleway font-bold text-[14px] text-[#1A0F00] mb-1">
-                    General Equiries
+                    General Enquiries
                   </p>
-                  <a href="mailto:info@uli.com.my" className="font-raleway text-[14px] text-[#ff8905] hover:underline transition-colors">
-                    info@uli.com.my
+                  <a href="mailto:hello@uli.com.my" className="font-raleway text-[14px] text-[#ff8905] hover:underline transition-colors">
+                    hello@uli.com.my
                   </a>
                 </div>
 
                 <div>
                   <p className="font-raleway font-bold text-[14px] text-[#1A0F00] mb-2">
-                    General Equiries
+                    Sales
                   </p>
                   <ul className="space-y-1">
                     {[

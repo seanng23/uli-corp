@@ -217,10 +217,10 @@ export default function MediaPage() {
           </Link>
           . Media enquiries may be directed to{" "}
           <a
-            href="mailto:salescss@uli.com.my"
+            href="mailto:hello@uli.com.my"
             className="text-[#ff8905] font-semibold hover:underline"
           >
-            salescss@uli.com.my
+            hello@uli.com.my
           </a>
           .
         </p>

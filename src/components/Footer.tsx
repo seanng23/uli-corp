@@ -96,7 +96,7 @@ export default function Footer() {
               <p className="flex items-center gap-2"><Printer size={13} className="text-[#ff8905] shrink-0" /> 603-5870 3310</p>
               <p className="flex items-center gap-2">
                 <Mail size={13} className="text-[#ff8905] shrink-0" />
-                <a href="mailto:salescss@uli.com.my" className="hover:text-[#ff8905] transition-colors">salescss@uli.com.my</a>
+                <a href="mailto:hello@uli.com.my" className="hover:text-[#ff8905] transition-colors">hello@uli.com.my</a>
               </p>
             </div>
           </div>

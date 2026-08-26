@@ -28,7 +28,7 @@ export async function submitContact(
     return { status: "error", message: "Please fill in all required fields." };
   }
 
-  const to = process.env.CONTACT_EMAIL ?? "salescss@uli.com.my";
+  const to = process.env.CONTACT_EMAIL ?? "hello@uli.com.my";
 
   try {
     await resend.emails.send({

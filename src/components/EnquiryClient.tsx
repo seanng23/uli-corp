@@ -59,7 +59,7 @@ export default function EnquiryClient() {
       setSubmitted(true);
       clearCart();
     } catch {
-      setError("Something went wrong. Please try again or email us directly at info@uli.com.my");
+      setError("Something went wrong. Please try again or email us directly at hello@uli.com.my");
     } finally {
       setSubmitting(false);
     }
@@ -244,7 +244,7 @@ export default function EnquiryClient() {
               </button>
 
               <p className="font-raleway text-[11px] text-[#5C4A30] text-center">
-                Your enquiry will be sent to our sales team at info@uli.com.my
+                Your enquiry will be sent to our sales team at hello@uli.com.my
               </p>
             </form>
           </div>

@@ -11,6 +11,6 @@ export const company = {
     countryCode: "MY",
   },
   phones: ["603-5870 3300", "603-5870 3310"],
-  email: "salescss@uli.com.my",
+  email: "hello@uli.com.my",
   url: "https://uli.com.my",
 } as const;

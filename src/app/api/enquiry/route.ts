@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: "U-LI Enquiries <enquiries@resend.dev>",
-      to: ["info@uli.com.my"],
+      to: ["hello@uli.com.my"],
       replyTo: form.email,
       subject: `[${ref}] New Product Enquiry — ${form.company || form.name}`,
       html,
