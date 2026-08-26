@@ -16,6 +16,7 @@ import {
   CANTILEVER_BRACKETS,
   CHANNEL_SERIES,
   CLAMPS,
+  CONCRETE_INSERTS,
   FASTENERS,
   FINISHES,
   FITTING_FAMILIES,
@@ -64,13 +65,14 @@ function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: 
   </div>;
 }
 
-type TabKey = "channels" | "fittings" | "cantilever" | "fasteners" | "clamps";
+type TabKey = "channels" | "fittings" | "cantilever" | "fasteners" | "clamps" | "inserts";
 const TAB_LABELS: [TabKey, string][] = [
   ["channels", "Channels & Combinations"],
   ["fittings", "General Fittings"],
   ["cantilever", "Cantilever Brackets"],
   ["fasteners", "Fasteners"],
   ["clamps", "Clamps & Trolley Assemblies"],
+  ["inserts", "Channel Concrete Inserts"],
 ];
 
 function CatalogueCard({ item, added, onAdd }: { item: { code: string; description: string; specs?: string[]; image: string }; added: boolean; onAdd: () => void }) {
@@ -213,6 +215,17 @@ export default function MetalFramingClient() {
     {tab === "clamps" && <div id="clamps" className="site-container py-10 lg:py-12">
       <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">Clamps & Trolley Assemblies</h2></div>
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">{CLAMPS.map((item) => <CatalogueCard key={item.code} item={item} added={addedFitting === item.code} onAdd={() => addCatalogueItem(item, "Clamps & Trolley Assemblies")} />)}</div>
+    </div>}
+
+    {tab === "inserts" && <div id="inserts" className="site-container py-10 lg:py-12">
+      <div className="mb-8"><h2 className="font-typewriter text-[clamp(1.5rem,2.5vw,2.2rem)] text-[#1A0F00] mb-3">Channel Concrete Inserts</h2></div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl">{CONCRETE_INSERTS.map((item) => <CatalogueCard key={item.code} item={item} added={addedFitting === item.code} onAdd={() => addCatalogueItem(item, "Channel Concrete Inserts")} />)}</div>
+      <div className="mt-8 border border-[#1A0F00]/15 rounded-lg bg-white p-5 max-w-3xl">
+        <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Supplied Ready for Casting</p>
+        <img src="/images/products/metal-framing/inserts/ci-endcap.png" alt="Channel concrete insert with foam filler and end caps" className="w-full max-w-xl mx-auto object-contain" />
+        <p className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-3 text-center">Each insert comes with a foam filler and end caps to keep concrete out of the channel during casting.</p>
+      </div>
+      <p className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed mt-6 max-w-3xl">Curved channels and brackets are also available. Contact U-LI for design and calculation.</p>
     </div>}
   </>;
 }
