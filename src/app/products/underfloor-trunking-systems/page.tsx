@@ -1,0 +1,14 @@
+import type { Metadata } from "next";
+import FloorTrunkingClient from "@/components/products/FloorTrunkingClient";
+import { UNDERFLOOR } from "@/data/floor-trunking";
+
+export const metadata: Metadata = {
+  title: "Underfloor Trunking Systems",
+  description:
+    "U-LI Underfloor Trunking Systems: uPVC ducts, galvanized steel underfloor trunking, junction boxes, service boxes, vertical access boxes and accessories for power and data distribution across screed floors and concrete slabs.",
+  alternates: { canonical: "/products/underfloor-trunking-systems" },
+};
+
+export default function UnderfloorTrunkingSystemsPage() {
+  return <FloorTrunkingClient system={UNDERFLOOR} />;
+}

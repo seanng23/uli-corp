@@ -1,12 +1,13 @@
 import Image from "next/image";
 import ProductsClientPage from "@/components/products/ProductsClientPage";
 import { getAllProducts } from "@/sanity/lib/queries";
+import { products as staticProducts } from "@/data/products";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Browse U-LI's complete range of ISO-certified Cable Support Systems, Metal Framing Systems, and Floor Trunking Systems.",
+    "Browse U-LI's complete range of ISO-certified Cable Support Systems, Metal Framing Systems, and Floor Trunking Distribution Systems.",
   alternates: { canonical: "/products" },
 };
 
@@ -21,6 +22,8 @@ const ITEM_CODE_OVERRIDES: Record<string, string> = {
 };
 
 // Categories without a finished product page yet — hidden from the listing.
+// "Floor Trunking" is the stale CMS entry; the listing injects the three
+// Floor Trunking Distribution Systems cards from the static catalogue instead.
 const EXCLUDED_SUBCATEGORIES = new Set([
   "Threaded Rod & Hanger",
   "Floor Trunking",
@@ -108,6 +111,15 @@ export default async function ProductsPage() {
       continue;
     }
     products.push(p);
+  }
+
+  // Floor Trunking Distribution Systems cards come from the static catalogue
+  // (their pages are dedicated routes, not CMS-driven product templates).
+  const existingSlugs = new Set(products.map((p) => p.slug));
+  for (const p of staticProducts) {
+    if (p.categorySlug === "floor-trunking-systems" && !existingSlugs.has(p.slug)) {
+      products.push({ ...p, itemNo: p.itemNo ?? "", thumbnails: [] });
+    }
   }
 
   return (

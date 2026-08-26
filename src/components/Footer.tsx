@@ -22,7 +22,7 @@ const columns: Col[] = [
     links: [
       { label: "Cable Support Systems", href: "/products" },
       { label: "Metal Framing Systems", href: "/products" },
-      { label: "Floor Trunking Systems", href: "/products" },
+      { label: "Floor Trunking Distribution Systems", href: "/products" },
       { label: "Wire Mesh Tray Systems", href: "/products" },
       { label: "Conduits Pipe & Accessories", href: "/products" },
       { label: "Custom Made", href: "/products" },

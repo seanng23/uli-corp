@@ -7,9 +7,16 @@ export const revalidate = 60;
 
 type Props = { params: Promise<{ slug: string }> };
 
+// Slugs served by dedicated static routes instead of this generic template.
+const DEDICATED_ROUTES = new Set([
+  "underfloor-trunking-systems",
+  "raisedfloor-trunking-systems",
+  "flushfloor-trunking-systems",
+]);
+
 export async function generateStaticParams() {
   const slugs = await getAllProductSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs.filter((slug) => !DEDICATED_ROUTES.has(slug)).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
