@@ -26,6 +26,10 @@ import {
 type ChannelProfile = ChannelVariant["profile"];
 
 const MAIN_IMAGE = "/images/products/metal-framing-v4.png";
+const GALLERY_IMAGES: { src: string; alt: string }[] = [
+  { src: "/images/products/metal-framing-v4.png", alt: "UliStrut® channel" },
+  { src: "/images/products/metal-framing-pierced-v1.png", alt: "Packed slotted pierced channel" },
+];
 const PROFILE_IMAGES: Record<ChannelProfile, { src: string; heightClass: string }> = {
   "single-deep": { src: "/images/products/metal-framing/profiles/single-deep.png", heightClass: "h-10" },
   "back-to-back-deep": { src: "/images/products/metal-framing/profiles/back-to-back-deep.png", heightClass: "h-20" },
@@ -91,6 +95,7 @@ export default function MetalFramingClient() {
   const [added, setAdded] = useState(false);
   const [family, setFamily] = useState<string>("All");
   const [addedFitting, setAddedFitting] = useState<string | null>(null);
+  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -149,7 +154,21 @@ export default function MetalFramingClient() {
 
     {tab === "channels" && <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="min-w-0">
-        <div className="mb-10 relative aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20"><Image fill src={MAIN_IMAGE} alt="U-LI Metal Framing System" className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority /></div>
+        <div className="mb-10 flex gap-4 items-start">
+          <div className="flex flex-col gap-3 w-[104px] shrink-0">
+            {GALLERY_IMAGES.map((img, i) => {
+              const isActive = activeImage === i;
+              return (
+                <button key={img.src} type="button" onClick={() => setActiveImage(i)} aria-label={`View ${img.alt}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${isActive ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}>
+                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center" sizes="104px" />
+                </button>
+              );
+            })}
+          </div>
+          <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
+            <Image fill src={GALLERY_IMAGES[activeImage].src} alt={GALLERY_IMAGES[activeImage].alt} className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority />
+          </div>
+        </div>
         <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions and weights are subject to a manufacturing tolerance of ±10%. All dimensions are in millimetres (mm).</p></CollapsibleSection>
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
       </div>
