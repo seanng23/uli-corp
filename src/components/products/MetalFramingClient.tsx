@@ -159,8 +159,9 @@ export default function MetalFramingClient() {
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
         {detail && (
-          <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4">
-            <div className="flex justify-center">
+          <div className="mb-5 rounded-xl border border-[#1A0F00]/15 bg-white p-4 relative">
+            <p className="absolute top-3 left-4 font-raleway text-[12px] font-bold text-[#1A0F00]">{variant.code}</p>
+            <div className="flex justify-center pt-2">
               <img src={detail.iso} alt={`${variant.code} channel`} className="w-auto h-auto max-h-[160px] max-w-[280px] object-contain" />
             </div>
           </div>
