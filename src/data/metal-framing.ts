@@ -206,15 +206,15 @@ export const CANTILEVER_BRACKETS: CatalogueItem[] = [
   { code:"UL223",description:"Single channel cantilever arm on a 6mm backing plate that slots over the upright channel",specs:["Arm lengths 150 / 200 / 250 / 350mm"],image:CB+"cb-ul223.png" },
   { code:"UL223A",description:"Single channel cantilever arm on a 6mm backing plate, longer arm range",specs:["Arm lengths 450 / 550 / 600 / 650mm"],image:CB+"cb-ul223a.png" },
   { code:"UL2491 - UL2500",description:"Flat triangular gusset cantilever bracket bolted through the channel face; left-hand and right-hand versions",specs:["Arm lengths 153 / 229 / 305 / 381 / 457 / 609mm","L = left hand, R = right hand"],image:CB+"cb-ul2491.png" },
-  { code:"UL254/A1",description:"Angular cantilever arm on a 9mm backing plate; for inclined faces and channel concrete inserts",specs:["Arm lengths 150 / 200 / 250 / 350 / 450 / 550 / 600 / 650mm","Various angles available"],image:CB+"cb-ul254a1.png" },
-  { code:"UL254/A2",description:"Angular cantilever arm with raker brace, on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a2.png" },
-  { code:"UL254/A3",description:"Angular double channel cantilever arm on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a3.png" },
+  { code:"UL254/A1",description:"Angular cantilever arm on a 9mm backing plate; for inclined faces and channel concrete inserts",specs:["Arm lengths 150 / 200 / 250 / 350 / 450 / 550 / 600 / 650mm","Various angles available"],image:CB+"cb-ul254a1-v2.png" },
+  { code:"UL254/A2",description:"Angular cantilever arm with raker brace, on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a2-v2.png" },
+  { code:"UL254/A3",description:"Angular double channel cantilever arm on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a3-v2.png" },
 ];
 
 const CI = "/images/products/metal-framing/inserts/";
 export const CONCRETE_INSERTS: CatalogueItem[] = [
-  { code:"UL33/C",description:"Cast-in channel concrete insert with welded anchors; takes UliStrut® fittings without drilling into the structure",specs:["41 x 56mm profile, 2.5mm thick","Insert lengths 200 - 2000mm","Other insert lengths available"],image:CI+"ci-ul33c.png" },
-  { code:"UL10/C",description:"Cast-in channel concrete insert with welded anchors, deep UL1000-profile channel",specs:["41 x 76mm profile, 2.5mm thick","Insert lengths 200 - 2000mm","Other insert lengths available"],image:CI+"ci-ul10c.png" },
+  { code:"UL33/C",description:"Cast-in channel concrete insert with welded anchors; takes UliStrut® fittings without drilling into the structure",specs:["41 x 56mm profile, 2.5mm thick","Insert lengths 200 - 2000mm","Other insert lengths available"],image:CI+"ci-ul33c-v2.png" },
+  { code:"UL10/C",description:"Cast-in channel concrete insert with welded anchors, deep UL1000-profile channel",specs:["41 x 76mm profile, 2.5mm thick","Insert lengths 200 - 2000mm","Other insert lengths available"],image:CI+"ci-ul10c-v2.png" },
 ];
 
 const FA = "/images/products/metal-framing/fasteners/";
