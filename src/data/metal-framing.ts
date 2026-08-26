@@ -208,7 +208,7 @@ export const CANTILEVER_BRACKETS: CatalogueItem[] = [
   { code:"UL2491 - UL2500",description:"Flat triangular gusset cantilever bracket bolted through the channel face; left-hand and right-hand versions",specs:["Arm lengths 153 / 229 / 305 / 381 / 457 / 609mm","L = left hand, R = right hand"],image:CB+"cb-ul2491.png" },
   { code:"UL254/A1",description:"Angular cantilever arm on a 9mm backing plate; for inclined faces and channel concrete inserts",specs:["Arm lengths 150 / 200 / 250 / 350 / 450 / 550 / 600 / 650mm","Various angles available"],image:CB+"cb-ul254a1-v2.png" },
   { code:"UL254/A2",description:"Angular cantilever arm with raker brace, on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a2-v2.png" },
-  { code:"UL254/A3",description:"Angular double channel cantilever arm on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a3-v2.png" },
+  { code:"UL254/A3",description:"Angular double channel cantilever arm on a 9mm backing plate",specs:["Arm lengths 650 / 800 / 850 / 1050mm","Various angles available"],image:CB+"cb-ul254a3-v3.png" },
 ];
 
 const CI = "/images/products/metal-framing/inserts/";
