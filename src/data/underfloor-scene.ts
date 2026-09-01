@@ -30,7 +30,11 @@ export type SceneVariant = {
   label: string;
   sublabel: string;
   image: string;
+  imageWidth: number;
+  imageHeight: number;
   hotspots: SceneHotspot[];
+  /** Info keys for components of this system that the drawing does not show. */
+  extras: string[];
 };
 
 const UF = "/images/products/floor-trunking/underfloor/";
@@ -49,6 +53,8 @@ export const SCENE_INFO: Record<string, SceneInfo> = {
   "junction-box": { ...family("UL-UJX"), enquire: true },
   "service-box": { ...family("UL-USX"), enquire: true },
   "vertical-access-box": { ...family("UL-UVX"), enquire: true },
+  "service-box-boxtype": { ...family("UL-USBTH"), enquire: true },
+  "vab-slanting": { ...family("UL-UVSX"), enquire: true },
   "trunking-joint": { ...family("UL-UTJX"), enquire: true },
   "ohm-bracket": { ...family("UL-UOHMX"), enquire: true },
   "trunking-end-cap": {
@@ -93,38 +99,45 @@ export const SCENE_INFO: Record<string, SceneInfo> = {
   },
 };
 
-// Hotspot positions are percentages on each rendered scene image.
+// Hotspot positions are percentages on each scene drawing.
 export const SCENE_VARIANTS: SceneVariant[] = [
   {
     key: "gi",
     label: "GI Metal Trunking",
     sublabel: "Pre-galvanized steel",
-    image: UF + "scene-gi-v2.png",
+    image: UF + "scene-gi-line-v1.png",
+    imageWidth: 2008,
+    imageHeight: 1287,
     hotspots: [
-      { x: 52, y: 50, infoKey: "junction-box", label: "Junction Box" },
-      { x: 74, y: 33, infoKey: "metal-trunking", label: "Metal Trunking" },
-      { x: 18, y: 17, infoKey: "service-box", label: "Service Box" },
-      { x: 85, y: 82, infoKey: "service-box", label: "Service Box, 1 Compartment" },
-      { x: 85, y: 15, infoKey: "vertical-access-box", label: "Vertical Access Box" },
-      { x: 24, y: 47, infoKey: "trunking-joint", label: "Trunking Joint" },
-      { x: 36, y: 94, infoKey: "trunking-end-cap", label: "Trunking End Cap" },
-      { x: 60, y: 29, infoKey: "leveling-bar", label: "Leveling Bar" },
+      { x: 49, y: 53, infoKey: "junction-box", label: "Junction Box" },
+      { x: 66, y: 37, infoKey: "metal-trunking", label: "Metal Trunking" },
+      { x: 17, y: 25, infoKey: "service-box", label: "Service Box" },
+      { x: 81, y: 86, infoKey: "service-box", label: "Service Box, 1 Compartment" },
+      { x: 84, y: 17, infoKey: "vertical-access-box", label: "Vertical Access Box" },
+      { x: 27, y: 75, infoKey: "trunking-joint", label: "Trunking Joint" },
+      { x: 15, y: 85, infoKey: "trunking-end-cap", label: "Trunking End Cap" },
+      { x: 73, y: 45, infoKey: "leveling-bar", label: "Leveling Bar" },
+      { x: 87, y: 7, infoKey: "surface-trunking", label: "50H Surface Trunking" },
     ],
+    extras: ["service-box-boxtype", "vab-slanting", "ohm-bracket"],
   },
   {
     key: "upvc",
     label: "uPVC Duct",
     sublabel: "Heavy gauge uPVC",
-    image: UF + "scene-upvc-v1.png",
+    image: UF + "scene-upvc-line-v1.png",
+    imageWidth: 2472,
+    imageHeight: 1369,
     hotspots: [
-      { x: 50, y: 48, infoKey: "junction-box", label: "Junction Box" },
-      { x: 65, y: 36, infoKey: "upvc-duct", label: "uPVC Duct" },
-      { x: 16, y: 30, infoKey: "service-box", label: "Service Box" },
-      { x: 85, y: 72, infoKey: "service-box", label: "Service Box, 1 Compartment" },
-      { x: 83, y: 18, infoKey: "vertical-access-box", label: "Vertical Access Box" },
-      { x: 65, y: 63, infoKey: "ohm-bracket", label: "OHM Bracket" },
-      { x: 16, y: 72, infoKey: "duct-end-cap", label: "Duct End Cap" },
-      { x: 81, y: 13, infoKey: "surface-trunking", label: "50H Surface Trunking" },
+      { x: 48, y: 56, infoKey: "junction-box", label: "Junction Box" },
+      { x: 63, y: 33, infoKey: "upvc-duct", label: "uPVC Duct" },
+      { x: 21, y: 29, infoKey: "service-box", label: "Service Box" },
+      { x: 79, y: 88, infoKey: "service-box", label: "Service Box, 1 Compartment" },
+      { x: 79, y: 19, infoKey: "vertical-access-box", label: "Vertical Access Box" },
+      { x: 34, y: 76, infoKey: "ohm-bracket", label: "OHM Bracket" },
+      { x: 15, y: 88, infoKey: "duct-end-cap", label: "Duct End Cap" },
+      { x: 80, y: 12, infoKey: "surface-trunking", label: "50H Surface Trunking" },
     ],
+    extras: ["service-box-boxtype", "vab-slanting"],
   },
 ];

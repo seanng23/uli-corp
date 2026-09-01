@@ -9,18 +9,20 @@ import { generateItemId } from "@/lib/cart-store";
 import { UNDERFLOOR } from "@/data/floor-trunking";
 import { SCENE_INFO, SCENE_VARIANTS, type SceneVariant } from "@/data/underfloor-scene";
 
+type Selection = { type: "hotspot"; index: number } | { type: "extra"; key: string };
+
 export default function UnderfloorSceneClient() {
   const { addToCart } = useCart();
   const [variant, setVariant] = useState<SceneVariant>(SCENE_VARIANTS[0]);
-  const [selected, setSelected] = useState(0);
+  const [selection, setSelection] = useState<Selection>({ type: "hotspot", index: 0 });
   const [added, setAdded] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const hotspot = variant.hotspots[selected];
-  const info = SCENE_INFO[hotspot.infoKey];
+  const infoKey = selection.type === "hotspot" ? variant.hotspots[selection.index].infoKey : selection.key;
+  const info = SCENE_INFO[infoKey];
 
-  function selectHotspot(index: number) {
-    setSelected(index);
+  function select(next: Selection) {
+    setSelection(next);
     setAdded(false);
     if (window.innerWidth < 1024) {
       panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -29,7 +31,7 @@ export default function UnderfloorSceneClient() {
 
   function switchVariant(next: SceneVariant) {
     setVariant(next);
-    setSelected(0);
+    setSelection({ type: "hotspot", index: 0 });
     setAdded(false);
   }
 
@@ -82,45 +84,67 @@ export default function UnderfloorSceneClient() {
             })}
           </div>
 
-          {/* Interactive render */}
-          <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white select-none">
-            <Image src={variant.image} alt={`Typical underfloor installation, ${variant.label}`} width={1024} height={1024} className="w-full h-auto block" priority />
-            {variant.hotspots.map((h, i) => {
-              const active = i === selected;
-              return (
-                <button
-                  key={`${variant.key}-${i}`}
-                  type="button"
-                  onClick={() => selectHotspot(i)}
-                  aria-label={h.label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 group"
-                  style={{ left: `${h.x}%`, top: `${h.y}%` }}
-                >
-                  {!active && <span className="absolute inset-0 rounded-full bg-[#ff8905]/60 animate-ping" aria-hidden="true" />}
-                  <span className={`relative flex items-center justify-center w-7 h-7 rounded-full font-raleway text-[12px] font-bold border-2 transition-all ${active ? "bg-[#1A0F00] border-white text-white scale-110 shadow-lg" : "bg-[#ff8905] border-white/90 text-white shadow-md group-hover:scale-110"}`}>
-                    {i + 1}
-                  </span>
-                  <span className={`pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-1.5 whitespace-nowrap rounded-md bg-[#1A0F00] text-[#F5EDD6] font-raleway text-[11px] font-semibold px-2.5 py-1 transition-opacity z-10 ${active ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
-                    {h.label}
-                  </span>
-                </button>
-              );
-            })}
+          {/* Interactive drawing */}
+          <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white p-2 sm:p-4 select-none">
+            <div className="relative">
+              <Image src={variant.image} alt={`Typical underfloor installation drawing, ${variant.label}`} width={variant.imageWidth} height={variant.imageHeight} className="w-full h-auto block" priority />
+              {variant.hotspots.map((h, i) => {
+                const active = selection.type === "hotspot" && selection.index === i;
+                return (
+                  <button
+                    key={`${variant.key}-${i}`}
+                    type="button"
+                    onClick={() => select({ type: "hotspot", index: i })}
+                    aria-label={h.label}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 group"
+                    style={{ left: `${h.x}%`, top: `${h.y}%` }}
+                  >
+                    {!active && <span className="absolute inset-0 rounded-full bg-[#ff8905]/60 animate-ping" aria-hidden="true" />}
+                    <span className={`relative flex items-center justify-center w-7 h-7 rounded-full font-raleway text-[12px] font-bold border-2 transition-all ${active ? "bg-[#1A0F00] border-white text-white scale-110 shadow-lg" : "bg-[#ff8905] border-white/90 text-white shadow-md group-hover:scale-110"}`}>
+                      {i + 1}
+                    </span>
+                    <span className={`pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-1.5 whitespace-nowrap rounded-md bg-[#1A0F00] text-[#F5EDD6] font-raleway text-[11px] font-semibold px-2.5 py-1 transition-opacity z-10 ${active ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+                      {h.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">Typical underfloor installation ({variant.label.toLowerCase()}). Tap a numbered marker to view that component. Product render for illustration; components are supplied to specification.</p>
+          <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">Typical underfloor installation ({variant.label.toLowerCase()}). Tap a numbered marker to view that component.</p>
 
           {/* Legend */}
           <div className="mt-5 flex flex-wrap gap-2">
             {variant.hotspots.map((h, i) => {
-              const active = i === selected;
+              const active = selection.type === "hotspot" && selection.index === i;
               return (
-                <button key={`${variant.key}-legend-${i}`} type="button" onClick={() => selectHotspot(i)} className={`flex items-center gap-2 rounded-full border px-3 py-1.5 font-raleway text-[12px] font-semibold transition-colors ${active ? "bg-[#ff8905] border-[#ff8905] text-white" : "border-[#1A0F00]/25 text-[#1A0F00] hover:border-[#1A0F00]"}`}>
+                <button key={`${variant.key}-legend-${i}`} type="button" onClick={() => select({ type: "hotspot", index: i })} className={`flex items-center gap-2 rounded-full border px-3 py-1.5 font-raleway text-[12px] font-semibold transition-colors ${active ? "bg-[#ff8905] border-[#ff8905] text-white" : "border-[#1A0F00]/25 text-[#1A0F00] hover:border-[#1A0F00]"}`}>
                   <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${active ? "bg-white text-[#ff8905]" : "bg-[#ff8905] text-white"}`}>{i + 1}</span>
                   {h.label}
                 </button>
               );
             })}
           </div>
+
+          {/* Components not shown in the drawing */}
+          {variant.extras.length > 0 && (
+            <div className="mt-8">
+              <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Not shown in the drawing</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {variant.extras.map((key) => {
+                  const extra = SCENE_INFO[key];
+                  const active = selection.type === "extra" && selection.key === key;
+                  return (
+                    <button key={key} type="button" onClick={() => select({ type: "extra", key })} className={`text-left border rounded-lg bg-white p-3 transition-all ${active ? "border-[#ff8905] ring-2 ring-[#ff8905]/25" : "border-[#1A0F00]/15 hover:border-[#1A0F00]/40"}`}>
+                      <img src={extra.image} alt={extra.name} loading="lazy" className="h-20 w-full object-contain mb-2" />
+                      <span className="block font-raleway text-[12px] font-bold text-[#1A0F00] leading-snug">{extra.name}</span>
+                      <span className="block font-raleway text-[11px] font-semibold text-[#ff8905]">{extra.code}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Info panel */}
