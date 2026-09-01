@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import FloorTrunkingClient from "@/components/products/FloorTrunkingClient";
-import { UNDERFLOOR } from "@/data/floor-trunking";
+import UnderfloorSceneClient from "@/components/products/UnderfloorSceneClient";
 
 export const metadata: Metadata = {
   title: "Underfloor Trunking Systems",
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function UnderfloorTrunkingSystemsPage() {
-  return <FloorTrunkingClient system={UNDERFLOOR} />;
+  return <UnderfloorSceneClient />;
 }
