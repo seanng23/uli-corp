@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronUp, FileText, Award, ShoppingBag, CheckCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, FileText, Award, ShoppingBag, CheckCircle } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
@@ -162,7 +162,7 @@ export default function ProductInnerClient({ product }: Props) {
         <div className="contents lg:block">
         <div className="order-1 lg:order-none lg:mb-10">
           <div className="flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start">
-            <div className="grid grid-cols-4 gap-3 w-full lg:flex lg:flex-col lg:w-[104px] lg:shrink-0">
+            <div className="hidden lg:flex lg:flex-col gap-3 lg:w-[104px] lg:shrink-0">
               {galleryImages.map((img, i) => {
                 const isActive = activeImage === i;
                 return (
@@ -207,6 +207,32 @@ export default function ProductInnerClient({ product }: Props) {
                   height={223}
                   className="absolute top-5 left-5 w-[92px] h-auto drop-shadow-md"
                 />
+              )}
+              {/* Mobile only: previous / next arrows and position dots instead of a thumbnail row */}
+              {galleryImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    aria-label="Previous image"
+                    onClick={() => setActiveImage((i) => (i - 1 + galleryImages.length) % galleryImages.length)}
+                    className="lg:hidden absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#1A0F00]/80 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+                  >
+                    <ChevronLeft size={26} strokeWidth={2.5} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next image"
+                    onClick={() => setActiveImage((i) => (i + 1) % galleryImages.length)}
+                    className="lg:hidden absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-[#1A0F00]/80 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform"
+                  >
+                    <ChevronRight size={26} strokeWidth={2.5} />
+                  </button>
+                  <div className="lg:hidden absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                    {galleryImages.map((_, i) => (
+                      <span key={i} className={`w-2 h-2 rounded-full ${i === activeImage ? "bg-[#ff8905]" : "bg-white/90 border border-[#1A0F00]/30"}`} />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -313,6 +339,31 @@ export default function ProductInnerClient({ product }: Props) {
               </table>
             </CollapsibleSection>
           )}
+          {/* Mobile only: Data Sheet + collapsible Certificate below the sections */}
+          <div className="lg:hidden border-t border-[#1A0F00]/20">
+            <button type="button" className="flex items-center gap-2.5 w-full py-4 font-raleway text-[13px] font-bold uppercase tracking-widest text-[#1A0F00]">
+              <FileText size={16} strokeWidth={2} />
+              Data Sheet
+            </button>
+          </div>
+          <div className="lg:hidden">
+            <CollapsibleSection id="certificate" title="Certificate">
+              <button
+                onClick={() => setCertOpen(true)}
+                aria-label="Enlarge certificate"
+                className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden"
+              >
+                <Image
+                  src="/images/product-certificate.png"
+                  alt="U-LI Product Certificate"
+                  width={400}
+                  height={550}
+                  className="w-full h-auto"
+                />
+              </button>
+              <p className="font-raleway text-[11px] text-[#5C4A30] mt-2">Tap the certificate to enlarge.</p>
+            </CollapsibleSection>
+          </div>
         </div>
         </div>
 
@@ -571,7 +622,7 @@ export default function ProductInnerClient({ product }: Props) {
           </div>
 
           {/* Table of Contents — separate section */}
-          <div className="mt-8">
+          <div className="hidden lg:block mt-8">
             <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">
               Table of Contents
             </p>
@@ -607,8 +658,8 @@ export default function ProductInnerClient({ product }: Props) {
             </ul>
           </div>
 
-          {/* Documents — separate section */}
-          <div className="mt-8 pt-6 border-t border-[#1A0F00]/15">
+          {/* Documents — separate section (desktop; on mobile they sit under Accessories) */}
+          <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15">
             <button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide">
               <FileText size={14} strokeWidth={2} />
               Data Sheet
