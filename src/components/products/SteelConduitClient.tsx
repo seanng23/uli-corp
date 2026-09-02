@@ -11,6 +11,8 @@ import {
   CABLE_MGMT,
   ELECTRICAL_WIRING,
 } from "@/data/steel-conduit";
+import ProductGallery from "./ProductGallery";
+import MobileDocuments from "./MobileDocuments";
 
 const MAIN_IMAGE = "/images/products/steel-conduit-v2.png";
 const SYSTEMS = ["Cable Management", "Electrical Wiring"];
@@ -137,19 +139,9 @@ export default function SteelConduitClient() {
 
       <div className="site-container py-10 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
-          <div className="min-w-0">
-            <div className="mb-10 flex gap-4 items-start">
-              <div className="flex flex-col gap-3 w-[104px] shrink-0">
-                {galleryImages.map((img, i) => (
-                  <button key={i} type="button" onClick={() => setActiveImage(i)} aria-label={`View image ${i + 1}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${activeImage === i ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}>
-                    <Image src={img} alt={`Steel conduit thumbnail ${i + 1}`} fill className="object-cover object-center" sizes="104px" />
-                  </button>
-                ))}
-              </div>
-              <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
-                <Image src={galleryImages[activeImage]} alt="U-LI Steel Conduit" fill priority className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" />
-              </div>
-            </div>
+          <div className="contents lg:block">
+            <ProductGallery images={galleryImages} alt="U-LI Steel Conduit" active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
+            <div className="order-3 lg:order-none">
 
             <CollapsibleSection id="description" title="Description" defaultOpen>
               <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">Electrical steel conduits for enclosed cable protection in industrial, commercial, and residential installations. Supplied in 3.81-metre lengths threaded at both ends, with a coupling fitted on one end and a plastic end cap protecting the other. Available as a conduit system for cable management certified to MS IEC 61386-1 / MS 61386-21 (Class 3 and Class 4), or as steel conduit for electrical wiring certified to BS 31 : 1940 by SIRIM QAS International. Colour epoxy powder-coated conduits are supplied upon request in 3.0-metre lengths.</p>
@@ -181,9 +173,11 @@ export default function SteelConduitClient() {
                 </table>
               </div>
             </CollapsibleSection>
+                      <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
+            </div>
           </div>
 
-          <div>
+          <div className="order-2 lg:order-none">
             <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
               <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Steel Conduit</h1>
               <p className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#5C4A30] mb-5">Item No: <span className="text-[#1A0F00]">C-ULI</span></p>
@@ -225,8 +219,8 @@ export default function SteelConduitClient() {
               {added && <Link href="/enquiry" className="btn-outline w-full justify-center text-center">View Enquiry →</Link>}
             </div>
 
-            <div className="mt-8"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">Table of Contents</p><ul className="space-y-2">{[["description", "Description"], ["cable-management", "Conduit System for Cable Management"], ["electrical-wiring", "Steel Conduit for Electrical Wiring"], ["accessories", "Accessories"]].map(([id, label]) => <li key={id}><a href={`#${id}`} className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors">{label}</a></li>)}</ul></div>
-            <div className="mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><div className="mt-6"><p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3"><Award size={14} strokeWidth={2} className="text-[#ff8905]" />Certificate</p><button onClick={() => setCertOpen(true)} aria-label="Enlarge certificate" className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={400} height={550} className="w-full h-auto" /><span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors"><span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">Click to enlarge</span></span></button></div></div>
+            <div className="hidden lg:block mt-8"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">Table of Contents</p><ul className="space-y-2">{[["description", "Description"], ["cable-management", "Conduit System for Cable Management"], ["electrical-wiring", "Steel Conduit for Electrical Wiring"], ["accessories", "Accessories"]].map(([id, label]) => <li key={id}><a href={`#${id}`} className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors">{label}</a></li>)}</ul></div>
+            <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><div className="mt-6"><p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3"><Award size={14} strokeWidth={2} className="text-[#ff8905]" />Certificate</p><button onClick={() => setCertOpen(true)} aria-label="Enlarge certificate" className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={400} height={550} className="w-full h-auto" /><span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors"><span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">Click to enlarge</span></span></button></div></div>
           </div>
         </div>
       </div>

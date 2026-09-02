@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -23,6 +22,7 @@ import {
   FITTINGS,
   LENGTH_OPTIONS,
 } from "@/data/metal-framing";
+import ProductGallery from "./ProductGallery";
 
 type ChannelProfile = ChannelVariant["profile"];
 
@@ -155,27 +155,15 @@ export default function MetalFramingClient() {
     <div className="site-container"><div className="flex flex-wrap border-b border-[#1A0F00]/15">{TAB_LABELS.map(([key, label]) => <button key={key} type="button" onClick={() => switchTab(key)} className={`font-raleway text-[13px] font-bold uppercase tracking-widest px-5 py-4 border-b-[3px] transition-colors ${tab === key ? "text-[#1A0F00] border-[#ff8905]" : "text-[#5C4A30]/70 hover:text-[#1A0F00] border-transparent"}`}>{label}</button>)}</div></div>
 
     {tab === "channels" && <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
-      <div className="min-w-0">
-        <div className="mb-10 flex gap-4 items-start">
-          <div className="flex flex-col gap-3 w-[104px] shrink-0">
-            {GALLERY_IMAGES.map((img, i) => {
-              const isActive = activeImage === i;
-              return (
-                <button key={img.src} type="button" onClick={() => setActiveImage(i)} aria-label={`View ${img.alt}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${isActive ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}>
-                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center" sizes="104px" />
-                </button>
-              );
-            })}
-          </div>
-          <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
-            <Image fill src={GALLERY_IMAGES[activeImage].src} alt={GALLERY_IMAGES[activeImage].alt} className="object-cover object-center" sizes="(max-width:1024px) 100vw, 50vw" priority />
-          </div>
-        </div>
+      <div className="contents lg:block">
+        <ProductGallery images={GALLERY_IMAGES} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
+            <div className="order-3 lg:order-none">
         <CollapsibleSection id="description" title="Description" defaultOpen><p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">UliStrut® metal framing / slotted strut channel system comprises roll-formed carbon steel channels in UL1000 (41.3 × 41.3) and UL3300 (41.3 × 20.6) profiles with back-to-back and 2×2 combinations, pierced (T) versions and stainless steel variants; used for supports, racks, and electrical/mechanical services.</p><p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions and weights are subject to a manufacturing tolerance of ±10%. All dimensions are in millimetres (mm).</p></CollapsibleSection>
         <CollapsibleSection id="finishes" title="Finishes"><dl className="space-y-4">{FINISHES.map((item) => <div key={item.name}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{item.name}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-1">{item.detail}</dd></div>)}</dl><p className="font-raleway text-[11px] text-[#5C4A30] mt-4">Alternative steel grades and surface finishes are available upon request and may be subject to minimum order quantities.</p></CollapsibleSection>
       </div>
+          </div>
 
-      <div className="lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
+      <div className="order-2 lg:order-none lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
         <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">UliStrut® Channel</h1>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>

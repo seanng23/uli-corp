@@ -14,6 +14,8 @@ import {
   CABLE_TRAY_LENGTHS,
   type TrayDim,
 } from "@/data/cable-tray";
+import ProductGallery from "./ProductGallery";
+import MobileDocuments from "./MobileDocuments";
 
 const MAIN_IMAGE = "/images/products/cable-tray.png";
 const STANDARDS = CABLE_TRAY_STANDARDS;
@@ -228,41 +230,10 @@ export default function CableTrayClient() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
 
           {/* LEFT — image gallery + collapsible sections */}
-          <div>
+          <div className="contents lg:block">
             {/* Image gallery — thumbnails left, main image right */}
-            <div className="mb-10 flex gap-4 items-start">
-              <div className="flex flex-col gap-3 w-[104px] shrink-0">
-                {galleryImages.map((img, i) => {
-                  const isActive = activeImage === i;
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setActiveImage(i)}
-                      aria-label={`View image ${i + 1}`}
-                      className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${
-                        isActive
-                          ? "border-[#ff8905] border-2"
-                          : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"
-                      }`}
-                    >
-                      <Image src={img} alt={`Cable tray thumbnail ${i + 1}`} fill className="object-cover object-center" sizes="104px" />
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
-                <Image
-                  src={galleryImages[activeImage]}
-                  alt={`U-LI Cable Tray ${profile.code}`}
-                  fill
-                  priority
-                  className="object-cover object-center"
-                  sizes="(max-width:1024px) 100vw, 50vw"
-                />
-              </div>
-            </div>
+            <ProductGallery images={galleryImages} alt={`U-LI Cable Tray ${profile.code}`} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
+            <div className="order-3 lg:order-none">
 
             {/* Collapsible sections */}
             <CollapsibleSection id="description" title="Description" defaultOpen>
@@ -337,10 +308,12 @@ export default function CableTrayClient() {
                 ))}
               </div>
             </CollapsibleSection>
+                      <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
+            </div>
           </div>
 
           {/* RIGHT — configurator panel (glass) */}
-          <div>
+          <div className="order-2 lg:order-none">
             <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
               {/* Title */}
               <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-4">
@@ -499,7 +472,7 @@ export default function CableTrayClient() {
             </div>
 
             {/* Table of Contents — separate section */}
-            <div className="mt-8">
+            <div className="hidden lg:block mt-8">
               <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">
                 Table of Contents
               </p>
@@ -512,7 +485,7 @@ export default function CableTrayClient() {
             </div>
 
             {/* Documents — separate section */}
-            <div className="mt-8 pt-6 border-t border-[#1A0F00]/15">
+            <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15">
               <button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide">
                 <FileText size={14} strokeWidth={2} />
                 Data Sheet

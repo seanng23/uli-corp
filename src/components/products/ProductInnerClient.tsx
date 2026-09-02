@@ -8,6 +8,7 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
+import MobileDocuments from "./MobileDocuments";
 
 type Props = { product: Product };
 
@@ -339,31 +340,7 @@ export default function ProductInnerClient({ product }: Props) {
               </table>
             </CollapsibleSection>
           )}
-          {/* Mobile only: Data Sheet + collapsible Certificate below the sections */}
-          <div className="lg:hidden border-t border-[#1A0F00]/20">
-            <button type="button" className="flex items-center gap-2.5 w-full py-4 font-raleway text-[13px] font-bold uppercase tracking-widest text-[#1A0F00]">
-              <FileText size={16} strokeWidth={2} />
-              Data Sheet
-            </button>
-          </div>
-          <div className="lg:hidden">
-            <CollapsibleSection id="certificate" title="Certificate">
-              <button
-                onClick={() => setCertOpen(true)}
-                aria-label="Enlarge certificate"
-                className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden"
-              >
-                <Image
-                  src="/images/product-certificate.png"
-                  alt="U-LI Product Certificate"
-                  width={400}
-                  height={550}
-                  className="w-full h-auto"
-                />
-              </button>
-              <p className="font-raleway text-[11px] text-[#5C4A30] mt-2">Tap the certificate to enlarge.</p>
-            </CollapsibleSection>
-          </div>
+          <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
         </div>
         </div>
 

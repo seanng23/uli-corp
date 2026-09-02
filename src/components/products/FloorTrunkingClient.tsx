@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import type { FloorTrunkingFamily, FloorTrunkingSystem, FloorTrunkingTab } from "@/data/floor-trunking";
+import ProductGallery from "./ProductGallery";
 
 function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: string; title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -61,21 +61,7 @@ export default function FloorTrunkingClient({ system }: { system: FloorTrunkingS
 
     {/* Header: gallery + description */}
     <div className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_1fr] gap-10 lg:gap-14 items-start">
-      <div className="flex gap-4 items-start">
-        <div className="flex flex-col gap-3 w-[104px] shrink-0">
-          {system.gallery.map((img, i) => {
-            const isActive = activeImage === i;
-            return (
-              <button key={img.src} type="button" onClick={() => setActiveImage(i)} aria-label={`View ${img.alt}`} className={`relative aspect-square w-full overflow-hidden rounded-lg border transition-colors cursor-pointer ${isActive ? "border-[#ff8905] border-2" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/40"}`}>
-                <Image src={img.src} alt={img.alt} fill className="object-cover object-center" sizes="104px" />
-              </button>
-            );
-          })}
-        </div>
-        <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20 bg-white">
-          <Image fill src={system.gallery[activeImage].src} alt={system.gallery[activeImage].alt} className="object-contain object-center" sizes="(max-width:1024px) 100vw, 480px" priority />
-        </div>
-      </div>
+      <ProductGallery images={system.gallery} active={activeImage} onChange={setActiveImage} fit="contain" mainSizes="(max-width:1024px) 100vw, 480px" />
       <div className="min-w-0">
         <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}</h1>
         {system.description.map((para) => <p key={para} className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">{para}</p>)}
