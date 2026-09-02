@@ -136,12 +136,12 @@ export default function UnderfloorSceneClient() {
                     type="button"
                     onClick={() => selectComponent(h.componentKey)}
                     aria-label={h.label}
-                    className={`absolute -translate-y-1/2 group flex items-center gap-1.5 rounded-full border shadow-md transition-all ${left ? "flex-row-reverse pr-[3px] pl-2.5 -translate-x-[calc(100%-15px)]" : "pl-[3px] pr-2.5 -translate-x-[15px]"} py-[3px] ${active ? "bg-[#1A0F00] border-[#1A0F00] z-10" : "bg-white/95 border-[#1A0F00]/20 hover:border-[#1A0F00]/60 hover:z-10"}`}
+                    className={`absolute -translate-y-1/2 group flex items-center gap-1.5 rounded-full border shadow-md transition-all ${left ? "flex-row-reverse pr-[3px] pl-2.5 -translate-x-[calc(100%-15px)]" : "pl-[3px] pr-2.5 -translate-x-[15px]"} py-[3px] ${active ? "bg-[#ff8905] border-[#ff8905] z-10" : "bg-white/95 border-[#1A0F00]/20 hover:border-[#1A0F00]/60 hover:z-10"}`}
                     style={{ left: `${h.x}%`, top: `${h.y}%` }}
                   >
                     {!active && <span className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#ff8905]/50 animate-ping ${left ? "right-[3px]" : "left-[3px]"}`} aria-hidden="true" />}
-                    <span className={`relative flex items-center justify-center w-6 h-6 rounded-full font-raleway text-[11px] font-bold transition-transform group-hover:scale-110 ${active ? "bg-white text-[#1A0F00]" : "bg-[#ff8905] text-white"}`}>{i + 1}</span>
-                    <span className={`hidden sm:inline whitespace-nowrap font-raleway text-[11px] font-bold leading-none ${active ? "text-[#F5EDD6]" : "text-[#1A0F00]"}`}>{h.label}</span>
+                    <span className={`relative flex items-center justify-center w-6 h-6 rounded-full font-raleway text-[11px] font-bold transition-transform group-hover:scale-110 ${active ? "bg-white text-[#ff8905]" : "bg-[#ff8905] text-white"}`}>{i + 1}</span>
+                    <span className={`hidden sm:inline whitespace-nowrap font-raleway text-[11px] font-bold leading-none ${active ? "text-white" : "text-[#1A0F00]"}`}>{h.label}</span>
                   </button>
                 );
               })}

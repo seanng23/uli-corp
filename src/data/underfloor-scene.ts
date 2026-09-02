@@ -172,48 +172,6 @@ export const COMPONENTS: Record<string, ComponentDef> = {
       { type: "combo", key: "height", label: "Height (mm)", options: DEPTHS, default: "25" },
     ],
   },
-  "end-cap": {
-    key: "end-cap",
-    name: "Trunking End Cap",
-    code: "UL-UTECL",
-    description:
-      "Closes off the open end of an underfloor trunking run before screeding, keeping concrete and debris out of the compartments.",
-    image: UF + "uft-end-cap-v1.png",
-    enquire: true,
-    fields: [{ type: "combo", key: "width", label: "Width (mm)", options: WIDTHS, default: "275" }],
-  },
-  "leveling-bar": {
-    key: "leveling-bar",
-    name: "Leveling Bar",
-    code: "Leveling Bar",
-    description:
-      "Steel bar set beneath the trunking run to keep it flat and level on an uneven slab before screeding. Junction and service boxes are levelled separately with M8 leveling screws (ULLS38 to ULLS95).",
-    image: UF + "uft-leveling-bar-v1.png",
-    enquire: true,
-    fields: [{ type: "combo", key: "width", label: "To Suit Trunking Width (mm)", options: WIDTHS, default: "275" }],
-  },
-  "duct-end-cap": {
-    key: "duct-end-cap",
-    name: "UL-UDECL",
-    code: "UL-UDECL",
-    description: "Shown in the uPVC installation drawing.",
-    note: "Details for this component are still being confirmed.",
-    image: UF + "uft-duct-end-cap-v1.png",
-    enquire: false,
-    fields: [],
-  },
-  "surface-trunking": {
-    key: "surface-trunking",
-    name: "Surface Trunking Riser",
-    code: "50H Surface Trunking",
-    description:
-      "The vertical access box rises into U-LI 50H surface trunking, carrying final sub-circuits up the wall to the distribution board. Surface trunking is part of the U-LI Cable Support Systems range.",
-    image: "/images/products/cable-trunking-v5.png",
-    enquire: false,
-    fields: [],
-    linkHref: "/products/cable-trunking",
-    linkLabel: "View Cable Trunking →",
-  },
 };
 
 export const SCENE_VARIANTS: SceneVariant[] = [
@@ -231,8 +189,6 @@ export const SCENE_VARIANTS: SceneVariant[] = [
       { x: 81, y: 86, componentKey: "service-box", label: "Underfloor Service Box", side: "left" },
       { x: 80, y: 25, componentKey: "vab", label: "Vertical Access Box" },
       { x: 27, y: 75, componentKey: "joint", label: "Underfloor Trunking Joint" },
-      { x: 15, y: 85, componentKey: "end-cap", label: "Trunking End Cap" },
-      { x: 73, y: 45, componentKey: "leveling-bar", label: "Leveling Bar", side: "left" },
     ],
   },
   {
@@ -248,7 +204,7 @@ export const SCENE_VARIANTS: SceneVariant[] = [
       { x: 21, y: 29, componentKey: "service-box", label: "Underfloor Service Box" },
       { x: 79, y: 88, componentKey: "service-box", label: "Underfloor Service Box", side: "left" },
       { x: 79, y: 19, componentKey: "vab", label: "Vertical Access Box" },
-      { x: 15, y: 88, componentKey: "duct-end-cap", label: "UL-UDECL ?" },
+      { x: 55, y: 68, componentKey: "joint", label: "Underfloor Trunking Joint", side: "left" },
     ],
   },
 ];
@@ -274,13 +230,27 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
     code: "UL-UOHMX-[W]",
     image: UF + "uft-ohm-bracket-v1.png",
     description: "Hold-down bracket that fixes underfloor trunking and uPVC duct runs to the slab before screeding.",
-    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 150, 200, 225, 275, 300, 350 mm", "Example: UL-UOHMH-225 = 38H × 225W"],
+    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 150, 200, 225, 275, 300, 350 mm"],
   },
   {
     name: "UF Trunking Joint",
     code: "UL-UTJX-[W]",
     image: UF + "uft-joint-v1.png",
     description: "Coupling joint that connects underfloor trunking lengths end to end.",
-    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 50, 75, 100, 150, 200, 225, 275, 300, 350 mm", "Example: UL-UTJL-200 = 25H × 200W"],
+    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 50, 75, 100, 150, 200, 225, 275, 300, 350 mm"],
+  },
+  {
+    name: "Trunking End Cap",
+    code: "UL-UTECL-[W] / UL-UDECL-[W]",
+    image: UF + "uft-end-cap-v1.png",
+    description: "Closes off the open end of a trunking or duct run before screeding, keeping concrete and debris out of the compartments.",
+    specs: ["UL-UTECL: GI metal trunking end cap", "UL-UDECL: uPVC duct end cap", "Widths: 50 to 350 mm, to suit the run"],
+  },
+  {
+    name: "Leveling Bar",
+    code: "Leveling Bar",
+    image: UF + "uft-leveling-bar-v1.png",
+    description: "Steel bar set beneath the trunking run to keep it flat and level on an uneven slab before screeding.",
+    specs: ["Supplied to suit the trunking width"],
   },
 ];
