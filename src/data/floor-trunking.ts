@@ -194,7 +194,7 @@ export const UNDERFLOOR: FloorTrunkingSystem = {
           image: UF + "uft-ohm-bracket-v1.png",
         },
         {
-          code: "UL-UTJX",
+          code: "UL-UTJL",
           name: "UF Trunking Joint",
           description:
             "Coupling joint that connects underfloor trunking lengths end-to-end.",
