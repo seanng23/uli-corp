@@ -158,7 +158,9 @@ export default function ProductInnerClient({ product }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
 
         {/* Gallery: mobile = square main image with a thumbnail row below (Shopee style); desktop = thumbnail strip left of the main image */}
-        <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
+        {/* Left column: on mobile the wrapper is display:contents so the gallery and the sections become grid items ordered around the configurator */}
+        <div className="contents lg:block">
+        <div className="order-1 lg:order-none lg:mb-10">
           <div className="flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start">
             <div className="grid grid-cols-4 gap-3 w-full lg:flex lg:flex-col lg:w-[104px] lg:shrink-0">
               {galleryImages.map((img, i) => {
@@ -211,7 +213,7 @@ export default function ProductInnerClient({ product }: Props) {
         </div>
 
         {/* Description / Properties / Accessories: bottom of the page on mobile, under the gallery on desktop */}
-        <div className="order-3 lg:order-none lg:col-start-1 lg:row-start-2">
+        <div className="order-3 lg:order-none">
           <CollapsibleSection id="description" title="Description" defaultOpen>
             <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">
               {product.description}
@@ -312,9 +314,10 @@ export default function ProductInnerClient({ product }: Props) {
             </CollapsibleSection>
           )}
         </div>
+        </div>
 
         {/* RIGHT — configurator panel (on mobile it comes straight after the gallery, before the description) */}
-        <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-1 lg:row-span-2">
+        <div className="order-2 lg:order-none">
           <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
             {/* Product name */}
             <div className="flex items-center gap-3 mb-2">
