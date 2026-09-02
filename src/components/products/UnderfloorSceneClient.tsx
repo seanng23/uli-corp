@@ -13,6 +13,7 @@ import {
   SCENE_VARIANTS,
   UNDERFLOOR_ACCESSORIES,
   type ComponentDef,
+  type Field,
   type SceneVariant,
 } from "@/data/underfloor-scene";
 
@@ -26,6 +27,10 @@ function defaultsFor(component: ComponentDef): Record<string, string> {
     if (field.type !== "static") values[field.key] = field.default;
   }
   return values;
+}
+
+function visibleFields(component: ComponentDef, values: Record<string, string>): Field[] {
+  return component.fields.filter((field) => !field.showIf || field.showIf(values));
 }
 
 function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: string; title: string; children: React.ReactNode; defaultOpen?: boolean }) {
@@ -52,6 +57,8 @@ export default function UnderfloorSceneClient() {
   const values = allValues[componentKey] ?? defaultsFor(component);
   const code = component.codeFor ? component.codeFor(values) : component.code;
   const image = component.imageFor ? component.imageFor(values) : component.image;
+  const description = component.descriptionFor ? component.descriptionFor(values) : component.description;
+  const fields = visibleFields(component, values);
 
   function setValue(key: string, value: string) {
     setAllValues((prev) => ({ ...prev, [componentKey]: { ...(prev[componentKey] ?? defaultsFor(component)), [key]: value } }));
@@ -76,7 +83,7 @@ export default function UnderfloorSceneClient() {
 
   function addToEnquiry() {
     const specs: Record<string, string> = { "Item No.": code, System: UNDERFLOOR.name, Material: variant.label };
-    for (const field of component.fields) {
+    for (const field of fields) {
       if (field.type === "static") specs[field.label] = field.value;
       else if (values[field.key]) specs[field.label] = values[field.key];
     }
@@ -99,7 +106,7 @@ export default function UnderfloorSceneClient() {
 
     <div className="site-container py-8 lg:py-10">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-start">
-        {/* Left: drawing + legend + extras + info sections */}
+        {/* Left: drawing + info sections */}
         <div className="min-w-0">
           <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">Underfloor Trunking Systems</h1>
 
@@ -116,17 +123,25 @@ export default function UnderfloorSceneClient() {
             })}
           </div>
 
-          {/* Interactive drawing */}
+          {/* Interactive drawing with in-picture labels */}
           <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white p-2 sm:p-4 select-none">
             <div className="relative">
               <Image src={variant.image} alt={`Typical underfloor installation drawing, ${variant.label}`} width={variant.imageWidth} height={variant.imageHeight} className="w-full h-auto block" priority />
               {variant.hotspots.map((h, i) => {
                 const active = componentKey === h.componentKey;
+                const left = h.side === "left";
                 return (
-                  <button key={`${variant.key}-${i}`} type="button" onClick={() => selectComponent(h.componentKey)} aria-label={h.label} className="absolute -translate-x-1/2 -translate-y-1/2 group" style={{ left: `${h.x}%`, top: `${h.y}%` }}>
-                    {!active && <span className="absolute inset-0 rounded-full bg-[#ff8905]/60 animate-ping" aria-hidden="true" />}
-                    <span className={`relative flex items-center justify-center w-7 h-7 rounded-full font-raleway text-[12px] font-bold border-2 transition-all ${active ? "bg-[#1A0F00] border-white text-white scale-110 shadow-lg" : "bg-[#ff8905] border-white/90 text-white shadow-md group-hover:scale-110"}`}>{i + 1}</span>
-                    <span className={`pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-1.5 whitespace-nowrap rounded-md bg-[#1A0F00] text-[#F5EDD6] font-raleway text-[11px] font-semibold px-2.5 py-1 transition-opacity z-10 ${active ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>{h.label}</span>
+                  <button
+                    key={`${variant.key}-${i}`}
+                    type="button"
+                    onClick={() => selectComponent(h.componentKey)}
+                    aria-label={h.label}
+                    className={`absolute -translate-y-1/2 group flex items-center gap-1.5 rounded-full border shadow-md transition-all ${left ? "flex-row-reverse pr-[3px] pl-2.5 -translate-x-[calc(100%-15px)]" : "pl-[3px] pr-2.5 -translate-x-[15px]"} py-[3px] ${active ? "bg-[#1A0F00] border-[#1A0F00] z-10" : "bg-white/95 border-[#1A0F00]/20 hover:border-[#1A0F00]/60 hover:z-10"}`}
+                    style={{ left: `${h.x}%`, top: `${h.y}%` }}
+                  >
+                    {!active && <span className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#ff8905]/50 animate-ping ${left ? "right-[3px]" : "left-[3px]"}`} aria-hidden="true" />}
+                    <span className={`relative flex items-center justify-center w-6 h-6 rounded-full font-raleway text-[11px] font-bold transition-transform group-hover:scale-110 ${active ? "bg-white text-[#1A0F00]" : "bg-[#ff8905] text-white"}`}>{i + 1}</span>
+                    <span className={`hidden sm:inline whitespace-nowrap font-raleway text-[11px] font-bold leading-none ${active ? "text-[#F5EDD6]" : "text-[#1A0F00]"}`}>{h.label}</span>
                   </button>
                 );
               })}
@@ -134,8 +149,8 @@ export default function UnderfloorSceneClient() {
           </div>
           <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">Typical underfloor installation ({variant.label.toLowerCase()}). Tap a numbered marker to configure that component.</p>
 
-          {/* Legend */}
-          <div className="mt-5 flex flex-wrap gap-2">
+          {/* Mobile-only legend: labels are hidden inside the drawing on small screens */}
+          <div className="mt-4 flex flex-wrap gap-2 sm:hidden">
             {variant.hotspots.map((h, i) => {
               const active = componentKey === h.componentKey;
               return (
@@ -146,26 +161,6 @@ export default function UnderfloorSceneClient() {
               );
             })}
           </div>
-
-          {/* Components not shown in the drawing */}
-          {variant.extras.length > 0 && (
-            <div className="mt-8">
-              <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Not shown in the drawing</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {variant.extras.map((key) => {
-                  const extra = COMPONENTS[key];
-                  const active = componentKey === key;
-                  return (
-                    <button key={key} type="button" onClick={() => selectComponent(key)} className={`text-left border rounded-lg bg-white p-3 transition-all ${active ? "border-[#ff8905] ring-2 ring-[#ff8905]/25" : "border-[#1A0F00]/15 hover:border-[#1A0F00]/40"}`}>
-                      <img src={extra.image} alt={extra.name} loading="lazy" className="h-20 w-full object-contain mb-2" />
-                      <span className="block font-raleway text-[12px] font-bold text-[#1A0F00] leading-snug">{extra.name}</span>
-                      <span className="block font-raleway text-[11px] font-semibold text-[#ff8905]">{extra.code}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
 
           {/* Bottom info sections */}
           <div className="mt-10">
@@ -185,15 +180,23 @@ export default function UnderfloorSceneClient() {
               </dl>
             </CollapsibleSection>
             <CollapsibleSection id="accessories" title="Accessories">
-              <ul className="space-y-1.5">
-                {UNDERFLOOR_ACCESSORIES.map((a) => <li key={a.no} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed"><span className="font-bold text-[#1A0F00] mr-2">{a.no}.</span>{a.description}</li>)}
-              </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                {UNDERFLOOR_ACCESSORIES.map((item) => (
+                  <div key={item.name} className="border border-[#1A0F00]/15 rounded-lg bg-white p-4 flex flex-col">
+                    {item.image && <img src={item.image} alt={item.name} loading="lazy" className="h-32 w-full object-contain mb-3" />}
+                    <p className="font-raleway font-bold text-[13px] text-[#1A0F00] leading-snug">{item.name}</p>
+                    <p className="font-raleway text-[11px] font-semibold text-[#ff8905] mb-2">{item.code}</p>
+                    <p className="font-raleway text-[12px] text-[#5C4A30] leading-snug mb-2">{item.description}</p>
+                    <ul className="mt-auto space-y-0.5">{item.specs.map((spec) => <li key={spec} className="font-raleway text-[11px] text-[#5C4A30] leading-snug">{spec}</li>)}</ul>
+                  </div>
+                ))}
+              </div>
             </CollapsibleSection>
           </div>
         </div>
 
-        {/* Right: configurator */}
-        <div ref={panelRef} className="lg:sticky lg:top-24 scroll-mt-24">
+        {/* Right: configurator (scrolls with the page; not sticky, so the drawing stays in view while reading details) */}
+        <div ref={panelRef} className="scroll-mt-24">
           <div className="border border-white/40 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)] p-6">
             <h2 className="font-typewriter text-[clamp(1.3rem,1.9vw,1.6rem)] leading-tight text-[#1A0F00] mb-1">{component.name}</h2>
             <p className="font-raleway text-[12px] text-[#5C4A30] mb-4"><span className="font-bold uppercase tracking-wider text-[#1A0F00]">Item No:</span> <span className="font-semibold text-[#ff8905]">{code}</span></p>
@@ -202,10 +205,10 @@ export default function UnderfloorSceneClient() {
               <img src={image} alt={`${component.name} drawing`} className="h-44 w-full object-contain" />
             </div>
 
-            <p className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed mb-4">{component.description}</p>
+            <p className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed mb-4">{description}</p>
             {component.note && <p className="font-raleway text-[12px] font-semibold text-[#1A0F00] bg-[#F0E6CC]/60 border border-[#1A0F00]/15 rounded-md px-3 py-2 mb-4">? {component.note}</p>}
 
-            {component.fields.map((field) => {
+            {fields.map((field) => {
               if (field.type === "static") {
                 return <div key={field.label} className="mb-4 flex justify-between gap-4 bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md px-3 py-2"><span className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00]">{field.label}</span><span className="font-raleway text-[12px] font-semibold text-[#1A0F00] text-right">{field.value}</span></div>;
               }

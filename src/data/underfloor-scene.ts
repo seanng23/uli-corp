@@ -3,10 +3,13 @@
 // Codes follow the installation drawings where the catalogue tables differ
 // (e.g. the trunking joint is UL-UTJL, not UL-UTJX).
 
-export type ChipsField = { type: "chips"; key: string; label: string; options: string[]; default: string };
-export type ComboField = { type: "combo"; key: string; label: string; options: string[]; default: string };
-export type SelectField = { type: "select"; key: string; label: string; options: string[]; default: string };
-export type StaticField = { type: "static"; label: string; value: string };
+type Values = Record<string, string>;
+/** Optional visibility rule so one component can show different fields per type (e.g. service box Normal vs Box Type). */
+type Conditional = { showIf?: (values: Values) => boolean };
+export type ChipsField = { type: "chips"; key: string; label: string; options: string[]; default: string } & Conditional;
+export type ComboField = { type: "combo"; key: string; label: string; options: string[]; default: string } & Conditional;
+export type SelectField = { type: "select"; key: string; label: string; options: string[]; default: string } & Conditional;
+export type StaticField = { type: "static"; label: string; value: string } & Conditional;
 export type Field = ChipsField | ComboField | SelectField | StaticField;
 
 export type ComponentDef = {
@@ -21,12 +24,15 @@ export type ComponentDef = {
   imageFor?: (values: Record<string, string>) => string;
   /** Swap the item code based on a field value, e.g. VAB type. */
   codeFor?: (values: Record<string, string>) => string;
+  /** Swap the description based on a field value, e.g. service box type. */
+  descriptionFor?: (values: Record<string, string>) => string;
   note?: string;
   linkHref?: string;
   linkLabel?: string;
 };
 
-export type SceneHotspot = { x: number; y: number; componentKey: string; label: string };
+/** The label pill is anchored with its number badge on (x, y); `side` says which way the text extends. */
+export type SceneHotspot = { x: number; y: number; componentKey: string; label: string; side?: "left" | "right" };
 
 export type SceneVariant = {
   key: "gi" | "upvc";
@@ -36,7 +42,6 @@ export type SceneVariant = {
   imageWidth: number;
   imageHeight: number;
   hotspots: SceneHotspot[];
-  extras: string[];
 };
 
 const UF = "/images/products/floor-trunking/underfloor/";
@@ -103,31 +108,31 @@ export const COMPONENTS: Record<string, ComponentDef> = {
     key: "service-box",
     name: "Underfloor Service Box",
     code: "UL-USX",
+    codeFor: (v) => (v.boxType === "Box Type" ? "UL-USBTH" : "UL-USX"),
     description:
       "Segregates power, data and telephone circuits at the workstation. Comprises a base box, cover and frame, and tailored service outlet plates; side plates come with pre-punched slots for the trunking entry. Overall height 56 to 85 mm, adjustable up to 150 mm with leveling screws.",
+    descriptionFor: (v) =>
+      v.boxType === "Box Type"
+        ? "Special box-type service box designed for optimised spacing, with conduit knock-out holes in the base box. Standard frame is ABS with a GI grey cover; box height H is 60 to 110 mm."
+        : "Segregates power, data and telephone circuits at the workstation. Comprises a base box, cover and frame, and tailored service outlet plates; side plates come with pre-punched slots for the trunking entry. Overall height 56 to 85 mm, adjustable up to 150 mm with leveling screws.",
     image: UF + "uft-service-box-v1.png",
+    imageFor: (v) => UF + (v.boxType === "Box Type" ? "uft-service-box-boxtype-v1.png" : "uft-service-box-v1.png"),
     enquire: true,
     fields: [
-      { type: "select", key: "size", label: "Size (mm)", options: ["125 × 125", "150 × 150", "200 × 200", "250 × 250", "300 × 300", "325 × 325", "125 × 250", "150 × 300"], default: "300 × 300" },
-      COMPARTMENTS,
-      { type: "combo", key: "entry", label: "Entry Height (mm)", options: DEPTHS, default: "25" },
-      { type: "combo", key: "recess", label: "Cover Recess (mm)", options: ["0", "6", "9", "10", "12", "15", "20", "25", "32"], default: "0" },
-      { type: "chips", key: "finish", label: "Trap & Frame", options: ["GI/Grey Cover, ABS Frame & Handle (Normal 1)", "GI/Grey Cover & Frame, ABS Handle (Normal 2)", "GI/Grey, Flap Type (HD1)", "SS Cover & Frame, Flap Type (HD2)", "SS + Infilled GI, Flap Type (HD3)"], default: "GI/Grey Cover, ABS Frame & Handle (Normal 1)" },
-      STANDARD,
-    ],
-  },
-  "service-box-boxtype": {
-    key: "service-box-boxtype",
-    name: "Underfloor Service Box, Box Type",
-    code: "UL-USBTH",
-    description:
-      "Special box-type service box designed for optimised spacing, with conduit knock-out holes in the base box.",
-    image: UF + "uft-service-box-boxtype-v1.png",
-    enquire: true,
-    fields: [
-      { type: "select", key: "size", label: "Size (mm)", options: ["125 × 125", "150 × 150", "200 × 200", "250 × 250", "300 × 300", "125 × 250", "150 × 300"], default: "250 × 250" },
-      COMPARTMENTS,
-      { type: "combo", key: "height", label: "Height (mm)", options: ["60", "70", "80", "90", "100", "110"], default: "80" },
+      { type: "chips", key: "boxType", label: "Type", options: ["Normal", "Box Type"], default: "Normal" },
+      // Normal (UL-USX)
+      { type: "select", key: "size", label: "Size (mm)", options: ["125 × 125", "150 × 150", "200 × 200", "250 × 250", "300 × 300", "325 × 325", "125 × 250", "150 × 300"], default: "300 × 300", showIf: (v) => v.boxType !== "Box Type" },
+      { type: "chips", key: "compartments", label: "Compartments", options: ["1", "2", "3"], default: "3", showIf: (v) => v.boxType !== "Box Type" },
+      { type: "combo", key: "entry", label: "Entry Height (mm)", options: DEPTHS, default: "25", showIf: (v) => v.boxType !== "Box Type" },
+      { type: "combo", key: "recess", label: "Cover Recess (mm)", options: ["0", "6", "9", "10", "12", "15", "20", "25", "32"], default: "0", showIf: (v) => v.boxType !== "Box Type" },
+      { type: "chips", key: "finish", label: "Trap & Frame", options: ["GI/Grey Cover, ABS Frame & Handle (Normal 1)", "GI/Grey Cover & Frame, ABS Handle (Normal 2)", "GI/Grey, Flap Type (HD1)", "SS Cover & Frame, Flap Type (HD2)", "SS + Infilled GI, Flap Type (HD3)"], default: "GI/Grey Cover, ABS Frame & Handle (Normal 1)", showIf: (v) => v.boxType !== "Box Type" },
+      // Box Type (UL-USBTH), catalogue section 5.2
+      { type: "select", key: "boxSize", label: "Size (mm)", options: ["125 × 125 (1C)", "150 × 150 (1C)", "125 × 250 (1C)", "150 × 300 (1C)", "200 × 200 (1C or 2C)", "250 × 250 (2C or 3C)", "300 × 300 (2C or 3C)"], default: "250 × 250 (2C or 3C)", showIf: (v) => v.boxType === "Box Type" },
+      { type: "chips", key: "boxCompartments", label: "Compartments", options: ["1", "2", "3"], default: "3", showIf: (v) => v.boxType === "Box Type" },
+      { type: "combo", key: "boxHeight", label: "Box Height H (mm)", options: ["60", "70", "80", "90", "100", "110"], default: "80", showIf: (v) => v.boxType === "Box Type" },
+      { type: "chips", key: "boxRecess", label: "Cover Recess (mm)", options: ["0", "6", "9", "10"], default: "0", showIf: (v) => v.boxType === "Box Type" },
+      { type: "chips", key: "boxMaterial", label: "Material", options: ["P", "PM", "M", "SS"], default: "M", showIf: (v) => v.boxType === "Box Type" },
+      { type: "static", label: "Trap & Frame", value: "ABS frame, GI + grey cover (standard)", showIf: (v) => v.boxType === "Box Type" },
       STANDARD,
     ],
   },
@@ -187,19 +192,6 @@ export const COMPONENTS: Record<string, ComponentDef> = {
     enquire: true,
     fields: [{ type: "combo", key: "width", label: "To Suit Trunking Width (mm)", options: WIDTHS, default: "275" }],
   },
-  "ohm-bracket": {
-    key: "ohm-bracket",
-    name: "UF Trunking OHM Bracket",
-    code: "UL-UOHML",
-    description:
-      "Hold-down bracket that fixes underfloor trunking and uPVC duct runs to the slab before screeding.",
-    image: UF + "uft-ohm-bracket-v1.png",
-    enquire: true,
-    fields: [
-      { type: "combo", key: "width", label: "Width (mm)", options: ["150", "200", "225", "250", "275", "300", "350"], default: "300" },
-      { type: "combo", key: "height", label: "Height (mm)", options: DEPTHS, default: "25" },
-    ],
-  },
   "duct-end-cap": {
     key: "duct-end-cap",
     name: "UL-UDECL",
@@ -236,14 +228,12 @@ export const SCENE_VARIANTS: SceneVariant[] = [
       { x: 49, y: 53, componentKey: "junction-box", label: "Underfloor Junction Box" },
       { x: 66, y: 37, componentKey: "trunking", label: "Underfloor Metal Trunking" },
       { x: 17, y: 25, componentKey: "service-box", label: "Underfloor Service Box" },
-      { x: 81, y: 86, componentKey: "service-box", label: "Underfloor Service Box" },
-      { x: 84, y: 17, componentKey: "vab", label: "Vertical Access Box" },
+      { x: 81, y: 86, componentKey: "service-box", label: "Underfloor Service Box", side: "left" },
+      { x: 80, y: 25, componentKey: "vab", label: "Vertical Access Box" },
       { x: 27, y: 75, componentKey: "joint", label: "Underfloor Trunking Joint" },
       { x: 15, y: 85, componentKey: "end-cap", label: "Trunking End Cap" },
-      { x: 73, y: 45, componentKey: "leveling-bar", label: "Leveling Bar" },
-      { x: 87, y: 7, componentKey: "surface-trunking", label: "50H Surface Trunking" },
+      { x: 73, y: 45, componentKey: "leveling-bar", label: "Leveling Bar", side: "left" },
     ],
-    extras: ["service-box-boxtype", "ohm-bracket"],
   },
   {
     key: "upvc",
@@ -256,20 +246,41 @@ export const SCENE_VARIANTS: SceneVariant[] = [
       { x: 48, y: 56, componentKey: "junction-box", label: "Underfloor Junction Box" },
       { x: 63, y: 33, componentKey: "upvc-duct", label: "Underfloor uPVC Duct" },
       { x: 21, y: 29, componentKey: "service-box", label: "Underfloor Service Box" },
-      { x: 79, y: 88, componentKey: "service-box", label: "Underfloor Service Box" },
+      { x: 79, y: 88, componentKey: "service-box", label: "Underfloor Service Box", side: "left" },
       { x: 79, y: 19, componentKey: "vab", label: "Vertical Access Box" },
-      { x: 34, y: 76, componentKey: "ohm-bracket", label: "OHM Bracket" },
       { x: 15, y: 88, componentKey: "duct-end-cap", label: "UL-UDECL ?" },
-      { x: 80, y: 12, componentKey: "surface-trunking", label: "50H Surface Trunking" },
     ],
-    extras: ["service-box-boxtype"],
   },
 ];
 
-export const UNDERFLOOR_ACCESSORIES: { no: number; description: string }[] = [
-  { no: 1, description: "Leveling Screws — ULLS38 / ULLS48 / ULLS60 / ULLS95 (M8, box heights 56 to 140 mm)" },
-  { no: 2, description: "UF Trunking OHM Bracket (UL-UOHML)" },
-  { no: 3, description: "UF Trunking Joint (UL-UTJL)" },
-  { no: 4, description: "UF Trunking End Cap (UL-UTECL)" },
-  { no: 5, description: "Leveling Bar (to suit trunking width)" },
+/** Catalogue section 6.0 Underfloor Accessories: generic reference cards, not configurable. */
+export type AccessoryCard = { name: string; code: string; image?: string; description: string; specs: string[] };
+
+export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
+  {
+    name: "Leveling Screws",
+    code: "ULLS38 / ULLS48 / ULLS60 / ULLS95",
+    description:
+      "M8 leveling screws are the primary component setting the overall height of a junction or service box. Floor finish (carpet, tiles, marble) and the pillar height at the trunking entry decide which length is needed.",
+    specs: [
+      "ULLS38 (M8 × 38): 56–72 mm at 25H · 65–80 at 32H · 70–85 at 38H",
+      "ULLS48 (M8 × 48): 66–82 mm at 25H · 75–90 at 32H · 80–95 at 38H",
+      "ULLS60 (M8 × 60): 80–95 mm at 25H · 85–100 at 32H · 90–105 at 38H",
+      "ULLS95 (M8 × 95): 110–125 mm at 25H · 120–135 at 32H · 125–140 at 38H",
+    ],
+  },
+  {
+    name: "UF Trunking OHM Bracket",
+    code: "UL-UOHMX-[W]",
+    image: UF + "uft-ohm-bracket-v1.png",
+    description: "Hold-down bracket that fixes underfloor trunking and uPVC duct runs to the slab before screeding.",
+    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 150, 200, 225, 275, 300, 350 mm", "Example: UL-UOHMH-225 = 38H × 225W"],
+  },
+  {
+    name: "UF Trunking Joint",
+    code: "UL-UTJX-[W]",
+    image: UF + "uft-joint-v1.png",
+    description: "Coupling joint that connects underfloor trunking lengths end to end.",
+    specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 50, 75, 100, 150, 200, 225, 275, 300, 350 mm", "Example: UL-UTJL-200 = 25H × 200W"],
+  },
 ];
