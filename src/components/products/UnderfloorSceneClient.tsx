@@ -105,13 +105,10 @@ export default function UnderfloorSceneClient() {
     <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
 
     <div className="site-container py-8 lg:py-10">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-start">
-        {/* Left: drawing + info sections */}
-        <div className="min-w-0">
-          <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">Underfloor Trunking Systems</h1>
+      <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">Underfloor Trunking Systems</h1>
 
-          {/* Variant toggle */}
-          <div className="flex flex-wrap gap-2 mb-4">
+      {/* Variant toggle: full width above both columns so the drawing and the configurator start level */}
+      <div className="flex flex-wrap gap-2 mb-5">
             {SCENE_VARIANTS.map((v) => {
               const active = variant.key === v.key;
               return (
@@ -121,8 +118,12 @@ export default function UnderfloorSceneClient() {
                 </button>
               );
             })}
-          </div>
+      </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-start">
+        {/* Left column: display:contents on mobile so the drawing, the configurator and the info sections can be ordered */}
+        <div className="contents lg:block min-w-0">
+        <div className="order-1 lg:order-none min-w-0">
           {/* Interactive drawing with in-picture labels */}
           <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white p-2 sm:p-4 select-none">
             <div className="relative">
@@ -148,22 +149,10 @@ export default function UnderfloorSceneClient() {
             </div>
           </div>
           <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">Typical underfloor installation ({variant.label.toLowerCase()}). Tap a numbered marker to configure that component.</p>
+        </div>
 
-          {/* Mobile-only legend: labels are hidden inside the drawing on small screens */}
-          <div className="mt-4 flex flex-wrap gap-2 sm:hidden">
-            {variant.hotspots.map((h, i) => {
-              const active = componentKey === h.componentKey;
-              return (
-                <button key={`${variant.key}-legend-${i}`} type="button" onClick={() => selectComponent(h.componentKey)} className={`flex items-center gap-2 rounded-full border px-3 py-1.5 font-raleway text-[12px] font-semibold transition-colors ${active ? "bg-[#ff8905] border-[#ff8905] text-white" : "border-[#1A0F00]/25 text-[#1A0F00] hover:border-[#1A0F00]"}`}>
-                  <span className={`flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${active ? "bg-white text-[#ff8905]" : "bg-[#ff8905] text-white"}`}>{i + 1}</span>
-                  {h.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Bottom info sections */}
-          <div className="mt-10">
+          {/* Bottom info sections (after the configurator on mobile) */}
+          <div className="order-3 lg:order-none lg:mt-10">
             <CollapsibleSection id="description" title="Description" defaultOpen>
               {UNDERFLOOR.description.map((para) => <p key={para} className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">{para}</p>)}
               <p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions are in millimetres and subject to a manufacturing tolerance of ±10%. Custom sizes and thicknesses are subject to confirmation and availability.</p>
@@ -196,7 +185,7 @@ export default function UnderfloorSceneClient() {
         </div>
 
         {/* Right: configurator (scrolls with the page; not sticky, so the drawing stays in view while reading details) */}
-        <div ref={panelRef} className="scroll-mt-24">
+        <div ref={panelRef} className="order-2 lg:order-none scroll-mt-24">
           <div className="border border-white/40 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)] p-6">
             <h2 className="font-typewriter text-[clamp(1.3rem,1.9vw,1.6rem)] leading-tight text-[#1A0F00] mb-1">{component.name}</h2>
             <p className="font-raleway text-[12px] text-[#5C4A30] mb-4"><span className="font-bold uppercase tracking-wider text-[#1A0F00]">Item No:</span> <span className="font-semibold text-[#ff8905]">{code}</span></p>
