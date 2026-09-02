@@ -157,12 +157,10 @@ export default function ProductInnerClient({ product }: Props) {
       <div className="site-container py-10 lg:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
 
-        {/* LEFT — image gallery + collapsible sections */}
-        <div>
-          {/* Image gallery — thumbnails left, main image right */}
-          <div className="mb-10 flex gap-4 items-start">
-            {/* Thumbnails — vertical strip on the left */}
-            <div className="flex flex-col gap-3 w-[104px] shrink-0">
+        {/* Gallery: mobile = square main image with a thumbnail row below (Shopee style); desktop = thumbnail strip left of the main image */}
+        <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
+          <div className="flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start">
+            <div className="grid grid-cols-4 gap-3 w-full lg:flex lg:flex-col lg:w-[104px] lg:shrink-0">
               {galleryImages.map((img, i) => {
                 const isActive = activeImage === i;
                 return (
@@ -190,7 +188,7 @@ export default function ProductInnerClient({ product }: Props) {
             </div>
 
             {/* Main image — rounded bordered box (transparent bg) with U-LI logo badge */}
-            <div className="relative flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
+            <div className="relative w-full lg:flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
               <Image
                 src={galleryImages[activeImage]}
                 alt={product.name}
@@ -210,8 +208,10 @@ export default function ProductInnerClient({ product }: Props) {
               )}
             </div>
           </div>
+        </div>
 
-          {/* Collapsible sections */}
+        {/* Description / Properties / Accessories: bottom of the page on mobile, under the gallery on desktop */}
+        <div className="order-3 lg:order-none lg:col-start-1 lg:row-start-2">
           <CollapsibleSection id="description" title="Description" defaultOpen>
             <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed">
               {product.description}
@@ -313,8 +313,8 @@ export default function ProductInnerClient({ product }: Props) {
           )}
         </div>
 
-        {/* RIGHT — configurator panel */}
-        <div>
+        {/* RIGHT — configurator panel (on mobile it comes straight after the gallery, before the description) */}
+        <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-1 lg:row-span-2">
           <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
             {/* Product name */}
             <div className="flex items-center gap-3 mb-2">
