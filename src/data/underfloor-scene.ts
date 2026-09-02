@@ -2,54 +2,13 @@
 // with a per-component configurator (like the other product configurator pages).
 // Codes follow the installation drawings where the catalogue tables differ
 // (e.g. the trunking joint is UL-UTJL, not UL-UTJX).
-
-type Values = Record<string, string>;
-/** Optional visibility rule so one component can show different fields per type (e.g. service box Normal vs Box Type). */
-type Conditional = { showIf?: (values: Values) => boolean };
-export type ChipsField = { type: "chips"; key: string; label: string; options: string[]; default: string } & Conditional;
-export type ComboField = { type: "combo"; key: string; label: string; options: string[]; default: string } & Conditional;
-export type SelectField = { type: "select"; key: string; label: string; options: string[]; default: string } & Conditional;
-export type StaticField = { type: "static"; label: string; value: string } & Conditional;
-export type Field = ChipsField | ComboField | SelectField | StaticField;
-
-export type ComponentDef = {
-  key: string;
-  name: string;
-  code: string;
-  description: string;
-  image: string;
-  fields: Field[];
-  enquire: boolean;
-  /** Swap the drawing based on a field value, e.g. compartments. */
-  imageFor?: (values: Record<string, string>) => string;
-  /** Swap the item code based on a field value, e.g. VAB type. */
-  codeFor?: (values: Record<string, string>) => string;
-  /** Swap the description based on a field value, e.g. service box type. */
-  descriptionFor?: (values: Record<string, string>) => string;
-  note?: string;
-  linkHref?: string;
-  linkLabel?: string;
-};
-
-/** The label pill is anchored with its number badge on (x, y); `side` says which way the text extends. */
-export type SceneHotspot = { x: number; y: number; componentKey: string; label: string; side?: "left" | "right" };
-
-export type SceneVariant = {
-  key: "gi" | "upvc";
-  label: string;
-  sublabel: string;
-  image: string;
-  imageWidth: number;
-  imageHeight: number;
-  hotspots: SceneHotspot[];
-};
+import { UNDERFLOOR } from "./floor-trunking";
+import { COMPARTMENTS, STANDARD, type AccessoryCard, type ComponentDef, type FloorScene, type SceneVariant } from "./floor-scene";
 
 const UF = "/images/products/floor-trunking/underfloor/";
 
 const WIDTHS = ["50", "75", "100", "150", "200", "225", "250", "275", "300", "350"];
 const DEPTHS = ["25", "32", "38"];
-const STANDARD: ChipsField = { type: "chips", key: "standard", label: "Standard", options: ["MS IEC 61084", "SS 249", "JKR EMAL", "Others"], default: "MS IEC 61084" };
-const COMPARTMENTS: ChipsField = { type: "chips", key: "compartments", label: "Compartments", options: ["1", "2", "3"], default: "3" };
 
 export const COMPONENTS: Record<string, ComponentDef> = {
   trunking: {
@@ -179,6 +138,7 @@ export const SCENE_VARIANTS: SceneVariant[] = [
     key: "gi",
     label: "GI Metal Trunking",
     sublabel: "Pre-galvanized steel",
+    caption: "Typical underfloor installation (GI metal trunking).",
     image: UF + "scene-gi-line-v1.png",
     imageWidth: 2008,
     imageHeight: 1287,
@@ -195,6 +155,7 @@ export const SCENE_VARIANTS: SceneVariant[] = [
     key: "upvc",
     label: "uPVC Duct",
     sublabel: "Heavy gauge uPVC",
+    caption: "Typical underfloor installation (uPVC duct).",
     image: UF + "scene-upvc-line-v1.png",
     imageWidth: 2472,
     imageHeight: 1369,
@@ -210,8 +171,6 @@ export const SCENE_VARIANTS: SceneVariant[] = [
 ];
 
 /** Catalogue section 6.0 Underfloor Accessories: generic reference cards, not configurable. */
-export type AccessoryCard = { name: string; code: string; image?: string; description: string; specs: string[] };
-
 export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Leveling Screws",
@@ -254,3 +213,18 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
     specs: ["Supplied to suit the trunking width"],
   },
 ];
+
+export const UNDERFLOOR_SCENE: FloorScene = {
+  system: UNDERFLOOR,
+  idPrefix: "ft-underfloor-",
+  components: COMPONENTS,
+  variants: SCENE_VARIANTS,
+  properties: [
+    ["Material", "Galvanised steel sheet, 1.6 mm standard thickness; heavy gauge high-impact uPVC ducts (2.5 to 3.2 mm)"],
+    ["Standard Depths", "25 / 32 / 38 mm (L / M / H)"],
+    ["Compartments", "Single, double or triple"],
+    ["Standard Lengths", "2440 mm or 3000 mm (GI trunking); 2900 mm (uPVC duct)"],
+    ["Standards", "MS IEC 61084 · SS 249 · JKR EMAL · Others"],
+  ],
+  accessories: UNDERFLOOR_ACCESSORIES,
+};

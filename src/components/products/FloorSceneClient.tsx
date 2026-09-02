@@ -6,30 +6,29 @@ import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
-import { UNDERFLOOR } from "@/data/floor-trunking";
 import DimensionCombobox from "./DimensionCombobox";
-import {
-  COMPONENTS,
-  SCENE_VARIANTS,
-  UNDERFLOOR_ACCESSORIES,
-  type ComponentDef,
-  type Field,
-  type SceneVariant,
-} from "@/data/underfloor-scene";
+import type { ComponentDef, Field, FloorScene, SceneHotspot, SceneVariant, Values } from "@/data/floor-scene";
+import { UNDERFLOOR_SCENE } from "@/data/underfloor-scene";
+import { RAISEDFLOOR_SCENE } from "@/data/raisedfloor-scene";
+import { FLUSHFLOOR_SCENE } from "@/data/flushfloor-scene";
+
+/** Scenes are resolved here, on the client, because the configs carry functions (imageFor, showIf) that cannot cross the server/client prop boundary. */
+const SCENES = { underfloor: UNDERFLOOR_SCENE, raisedfloor: RAISEDFLOOR_SCENE, flushfloor: FLUSHFLOOR_SCENE } satisfies Record<string, FloorScene>;
+export type FloorSceneKey = keyof typeof SCENES;
 
 const chipClass = (active: boolean) =>
   `px-3 py-2 rounded-md font-raleway text-[11px] font-semibold border transition-all duration-150 leading-snug text-left ${active ? "bg-[#ff8905] border-[#ff8905] text-white" : "bg-transparent border-[#1A0F00]/30 text-[#1A0F00] hover:border-[#1A0F00]"}`;
 const fieldLabel = "font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] block mb-1.5";
 
-function defaultsFor(component: ComponentDef): Record<string, string> {
-  const values: Record<string, string> = {};
+function defaultsFor(component: ComponentDef): Values {
+  const values: Values = {};
   for (const field of component.fields) {
     if (field.type !== "static") values[field.key] = field.default;
   }
   return values;
 }
 
-function visibleFields(component: ComponentDef, values: Record<string, string>): Field[] {
+function visibleFields(component: ComponentDef, values: Values): Field[] {
   return component.fields.filter((field) => !field.showIf || field.showIf(values));
 }
 
@@ -44,16 +43,22 @@ function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: 
   </div>;
 }
 
-export default function UnderfloorSceneClient() {
+/**
+ * Interactive floor-trunking page: the catalogue installation drawing with numbered in-picture labels
+ * on the left and a per-component configurator on the right. Used by Underfloor, Raisedfloor and Flushfloor.
+ */
+export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey }) {
+  const scene = SCENES[sceneKey];
+  const { system, components } = scene;
   const { addToCart } = useCart();
-  const [variant, setVariant] = useState<SceneVariant>(SCENE_VARIANTS[0]);
-  const [componentKey, setComponentKey] = useState<string>(SCENE_VARIANTS[0].hotspots[0].componentKey);
-  const [allValues, setAllValues] = useState<Record<string, Record<string, string>>>({});
+  const [variant, setVariant] = useState<SceneVariant>(scene.variants[0]);
+  const [componentKey, setComponentKey] = useState<string>(scene.variants[0].hotspots[0].componentKey);
+  const [allValues, setAllValues] = useState<Record<string, Values>>({});
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const component = COMPONENTS[componentKey];
+  const component = components[componentKey];
   const values = allValues[componentKey] ?? defaultsFor(component);
   const code = component.codeFor ? component.codeFor(values) : component.code;
   const image = component.imageFor ? component.imageFor(values) : component.image;
@@ -65,8 +70,17 @@ export default function UnderfloorSceneClient() {
     setAdded(false);
   }
 
-  function selectComponent(key: string) {
-    setComponentKey(key);
+  function isActive(h: SceneHotspot) {
+    if (componentKey !== h.componentKey) return false;
+    return !h.preset || Object.entries(h.preset).every(([key, value]) => values[key] === value);
+  }
+
+  function selectHotspot(h: SceneHotspot) {
+    setComponentKey(h.componentKey);
+    if (h.preset) {
+      const preset = h.preset;
+      setAllValues((prev) => ({ ...prev, [h.componentKey]: { ...(prev[h.componentKey] ?? defaultsFor(components[h.componentKey])), ...preset } }));
+    }
     setQty(1);
     setAdded(false);
     if (window.innerWidth < 1024) {
@@ -82,16 +96,17 @@ export default function UnderfloorSceneClient() {
   }
 
   function addToEnquiry() {
-    const specs: Record<string, string> = { "Item No.": code, System: UNDERFLOOR.name, Material: variant.label };
+    const specs: Record<string, string> = { "Item No.": code, System: system.name };
+    if (scene.variants.length > 1) specs.Material = variant.label;
     for (const field of fields) {
       if (field.type === "static") specs[field.label] = field.value;
       else if (values[field.key]) specs[field.label] = values[field.key];
     }
     addToCart({
-      id: generateItemId("ft-underfloor-" + code + "-" + variant.key, specs),
+      id: generateItemId(scene.idPrefix + code + "-" + variant.key, specs),
       productName: `${component.name} (${code})`,
-      category: UNDERFLOOR.cartCategory,
-      slug: UNDERFLOOR.slug,
+      category: system.cartCategory,
+      slug: system.slug,
       image,
       quantity: qty,
       specs,
@@ -101,24 +116,26 @@ export default function UnderfloorSceneClient() {
   }
 
   return <>
-    <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Underfloor Trunking Systems</span></nav></div>
+    <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">{system.name}</span></nav></div>
     <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
 
     <div className="site-container py-8 lg:py-10">
-      <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">Underfloor Trunking Systems</h1>
+      <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}</h1>
 
-      {/* Variant toggle: full width above both columns so the drawing and the configurator start level */}
-      <div className="flex flex-wrap gap-2 mb-5">
-            {SCENE_VARIANTS.map((v) => {
-              const active = variant.key === v.key;
-              return (
-                <button key={v.key} type="button" onClick={() => switchVariant(v)} className={`rounded-full border px-5 py-2.5 text-left transition-all ${active ? "bg-[#1A0F00] border-[#1A0F00]" : "bg-transparent border-[#1A0F00]/25 hover:border-[#1A0F00]"}`}>
-                  <span className={`block font-raleway text-[13px] font-bold ${active ? "text-[#F5EDD6]" : "text-[#1A0F00]"}`}>{v.label}</span>
-                  <span className={`block font-raleway text-[10px] uppercase tracking-wider ${active ? "text-[#F5EDD6]/70" : "text-[#5C4A30]"}`}>{v.sublabel}</span>
-                </button>
-              );
-            })}
-      </div>
+      {/* Variant toggle (only when there is more than one drawing): full width above both columns so the drawing and the configurator start level */}
+      {scene.variants.length > 1 && (
+        <div className="flex flex-wrap gap-2 mb-5">
+          {scene.variants.map((v) => {
+            const active = variant.key === v.key;
+            return (
+              <button key={v.key} type="button" onClick={() => switchVariant(v)} className={`rounded-full border px-5 py-2.5 text-left transition-all ${active ? "bg-[#1A0F00] border-[#1A0F00]" : "bg-transparent border-[#1A0F00]/25 hover:border-[#1A0F00]"}`}>
+                <span className={`block font-raleway text-[13px] font-bold ${active ? "text-[#F5EDD6]" : "text-[#1A0F00]"}`}>{v.label}</span>
+                <span className={`block font-raleway text-[10px] uppercase tracking-wider ${active ? "text-[#F5EDD6]/70" : "text-[#5C4A30]"}`}>{v.sublabel}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-start">
         {/* Left column: display:contents on mobile so the drawing, the configurator and the info sections can be ordered */}
@@ -127,15 +144,15 @@ export default function UnderfloorSceneClient() {
           {/* Interactive drawing with in-picture labels */}
           <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white p-2 sm:p-4 select-none">
             <div className="relative">
-              <Image src={variant.image} alt={`Typical underfloor installation drawing, ${variant.label}`} width={variant.imageWidth} height={variant.imageHeight} className="w-full h-auto block" priority />
+              <Image src={variant.image} alt={`${variant.caption} Installation drawing.`} width={variant.imageWidth} height={variant.imageHeight} className="w-full h-auto block" priority />
               {variant.hotspots.map((h, i) => {
-                const active = componentKey === h.componentKey;
+                const active = isActive(h);
                 const left = h.side === "left";
                 return (
                   <button
                     key={`${variant.key}-${i}`}
                     type="button"
-                    onClick={() => selectComponent(h.componentKey)}
+                    onClick={() => selectHotspot(h)}
                     aria-label={h.label}
                     className={`absolute -translate-y-1/2 group flex items-center gap-1.5 rounded-full border shadow-md transition-all ${left ? "flex-row-reverse pr-[3px] pl-2.5 -translate-x-[calc(100%-15px)]" : "pl-[3px] pr-2.5 -translate-x-[15px]"} py-[3px] ${active ? "bg-[#ff8905] border-[#ff8905] z-10" : "bg-white/95 border-[#1A0F00]/20 hover:border-[#1A0F00]/60 hover:z-10"}`}
                     style={{ left: `${h.x}%`, top: `${h.y}%` }}
@@ -148,29 +165,28 @@ export default function UnderfloorSceneClient() {
               })}
             </div>
           </div>
-          <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">Typical underfloor installation ({variant.label.toLowerCase()}). Tap a numbered marker to configure that component.</p>
+          <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">{variant.caption} Tap a numbered marker to configure that component.</p>
         </div>
 
           {/* Bottom info sections (after the configurator on mobile) */}
           <div className="order-3 lg:order-none lg:mt-10">
             <CollapsibleSection id="description" title="Description" defaultOpen>
-              {UNDERFLOOR.description.map((para) => <p key={para} className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">{para}</p>)}
+              {system.description.map((para) => <p key={para} className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">{para}</p>)}
               <p className="font-raleway text-[12px] text-[#5C4A30]">All dimensions are in millimetres and subject to a manufacturing tolerance of ±10%. Custom sizes and thicknesses are subject to confirmation and availability.</p>
             </CollapsibleSection>
+            {system.features && (
+              <CollapsibleSection id="key-features" title="Key Features">
+                <ul className="space-y-1.5">{system.features.map((f) => <li key={f} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-[#ff8905] before:font-bold">{f}</li>)}</ul>
+              </CollapsibleSection>
+            )}
             <CollapsibleSection id="properties" title="Properties">
               <dl className="space-y-3">
-                {[
-                  ["Material", "Galvanised steel sheet, 1.6 mm standard thickness; heavy gauge high-impact uPVC ducts (2.5 to 3.2 mm)"],
-                  ["Standard Depths", "25 / 32 / 38 mm (L / M / H)"],
-                  ["Compartments", "Single, double or triple"],
-                  ["Standard Lengths", "2440 mm or 3000 mm (GI trunking); 2900 mm (uPVC duct)"],
-                  ["Standards", "MS IEC 61084 · SS 249 · JKR EMAL · Others"],
-                ].map(([term, detail]) => <div key={term}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{term}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-0.5">{detail}</dd></div>)}
+                {scene.properties.map(([term, detail]) => <div key={term}><dt className="font-raleway text-[13px] font-bold text-[#1A0F00]">{term}</dt><dd className="font-raleway text-[12px] text-[#5C4A30] leading-relaxed mt-0.5">{detail}</dd></div>)}
               </dl>
             </CollapsibleSection>
             <CollapsibleSection id="accessories" title="Accessories">
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {UNDERFLOOR_ACCESSORIES.map((item) => (
+                {scene.accessories.map((item) => (
                   <div key={item.name} className="border border-[#1A0F00]/15 rounded-lg bg-white p-4 flex flex-col">
                     {item.image && <img src={item.image} alt={item.name} loading="lazy" className="h-32 w-full object-contain mb-3" />}
                     <p className="font-raleway font-bold text-[13px] text-[#1A0F00] leading-snug">{item.name}</p>
@@ -195,11 +211,10 @@ export default function UnderfloorSceneClient() {
             </div>
 
             <p className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed mb-4">{description}</p>
-            {component.note && <p className="font-raleway text-[12px] font-semibold text-[#1A0F00] bg-[#F0E6CC]/60 border border-[#1A0F00]/15 rounded-md px-3 py-2 mb-4">? {component.note}</p>}
 
             {fields.map((field) => {
               if (field.type === "static") {
-                return <div key={field.label} className="mb-4 flex justify-between gap-4 bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md px-3 py-2"><span className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00]">{field.label}</span><span className="font-raleway text-[12px] font-semibold text-[#1A0F00] text-right">{field.value}</span></div>;
+                return <div key={field.label + field.value} className="mb-4 flex justify-between gap-4 bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md px-3 py-2"><span className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00]">{field.label}</span><span className="font-raleway text-[12px] font-semibold text-[#1A0F00] text-right">{field.value}</span></div>;
               }
               if (field.type === "chips") {
                 return <div key={field.key} className="mb-4"><p className={fieldLabel}>{field.label}</p><div className="flex flex-wrap gap-2">{field.options.map((option) => <button key={option} type="button" onClick={() => setValue(field.key, option)} className={chipClass(values[field.key] === option)}>{option}</button>)}</div></div>;
@@ -209,6 +224,8 @@ export default function UnderfloorSceneClient() {
               }
               return <div key={field.key} className="mb-4"><label className={fieldLabel}>{field.label}</label><DimensionCombobox value={values[field.key]} onChange={(v) => setValue(field.key, v)} options={field.options} /></div>;
             })}
+
+            {component.note && <p className="font-raleway text-[11px] text-[#5C4A30] leading-snug bg-[#F0E6CC]/40 border border-[#1A0F00]/15 rounded-md px-3 py-2 mb-4">{component.note}</p>}
 
             {component.enquire ? (
               <>

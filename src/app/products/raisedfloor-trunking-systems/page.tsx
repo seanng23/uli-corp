@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import FloorTrunkingClient from "@/components/products/FloorTrunkingClient";
-import { RAISEDFLOOR } from "@/data/floor-trunking";
+import FloorSceneClient from "@/components/products/FloorSceneClient";
 
 export const metadata: Metadata = {
   title: "Raisedfloor Trunking Systems",
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function RaisedfloorTrunkingSystemsPage() {
-  return <FloorTrunkingClient system={RAISEDFLOOR} />;
+  return <FloorSceneClient sceneKey="raisedfloor" />;
 }

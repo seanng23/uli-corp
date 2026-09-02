@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import FloorTrunkingClient from "@/components/products/FloorTrunkingClient";
-import { FLUSHFLOOR } from "@/data/floor-trunking";
+import FloorSceneClient from "@/components/products/FloorSceneClient";
 
 export const metadata: Metadata = {
   title: "Flushfloor Trunking Systems",
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function FlushfloorTrunkingSystemsPage() {
-  return <FloorTrunkingClient system={FLUSHFLOOR} />;
+  return <FloorSceneClient sceneKey="flushfloor" />;
 }
