@@ -9,7 +9,6 @@ const UF = "/images/products/floor-trunking/underfloor/";
 const HEIGHTS = ["32", "40", "50", "60", "65", "73"];
 const WIDTHS = ["100", "150", "200", "280", "300", "400", "450", "500", "600", "700"];
 const BOX_SIZES = ["100 × 100", "150 × 150", "200 × 200", "280 × 280", "300 × 300", "400 × 400", "450 × 450", "500 × 500", "600 × 600", "700 × 700"];
-const JOINT_WIDTHS = ["100", "150", "200", "280", "300", "400", "500", "600"];
 
 const MAIN = "Main Trunking";
 const SUB = "Sub Trunking";
@@ -110,26 +109,6 @@ export const FLUSHFLOOR_COMPONENTS: Record<string, ComponentDef> = {
       STANDARD,
     ],
   },
-  joint: {
-    key: "joint",
-    name: "Flushfloor Trunking Joint",
-    code: "UL-FJ",
-    codeFor: (v) => (v.jointType === "Adjustable Joint" ? "UL-FAJ" : "UL-FJ"),
-    description:
-      "Flat coupling plate that connects flushfloor trunking lengths end to end beneath the joint line.",
-    descriptionFor: (v) =>
-      v.jointType === "Adjustable Joint"
-        ? "Coupling plate with built-in levelling feet, so adjoining trunking lengths can be brought level on an uneven slab before the screed goes down."
-        : "Flat coupling plate that connects flushfloor trunking lengths end to end beneath the joint line.",
-    image: FF + "fft-joint-v1.png",
-    imageFor: (v) => FF + (v.jointType === "Adjustable Joint" ? "fft-adjustable-joint-v1.png" : "fft-joint-v1.png"),
-    enquire: true,
-    fields: [
-      { type: "chips", key: "jointType", label: "Type", options: ["Flat Joint", "Adjustable Joint"], default: "Flat Joint" },
-      { type: "combo", key: "width", label: "Width (mm)", options: JOINT_WIDTHS, default: "300" },
-      COMPARTMENTS,
-    ],
-  },
 };
 
 export const FLUSHFLOOR_VARIANTS: SceneVariant[] = [
@@ -148,12 +127,11 @@ export const FLUSHFLOOR_VARIANTS: SceneVariant[] = [
       { x: 57.5, y: 80, componentKey: "service-box", label: "Flushfloor Service Box" },
       { x: 87, y: 44.5, componentKey: "service-box", label: "Flushfloor Service Box", side: "left" },
       { x: 34, y: 36.5, componentKey: "vab", label: "Vertical Access Box" },
-      { x: 9, y: 86, componentKey: "joint", label: "Flushfloor Trunking Joint" },
     ],
   },
 ];
 
-/** Catalogue sections 5.0 and 6.0 plus the levelling bar from the service box detail: not configured on the drawing. */
+/** Catalogue sections 5.0 to 8.0 plus the levelling bar from the service box detail: not configured on the drawing. */
 export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Flushfloor Trunking Reducer",
@@ -168,6 +146,20 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
     image: FF + "fft-end-cap-v1.png",
     description: "Closes off the open end of a flushfloor trunking run before the screed is poured.",
     specs: ["Widths: 100 to 600 mm", "Heights: 32 / 40 / 50 / 60 / 65 / 73 mm"],
+  },
+  {
+    name: "Flushfloor Trunking Joint",
+    code: "UL-FJ-[W]/[C]",
+    image: FF + "fft-joint-v1.png",
+    description: "Flat coupling plate that connects flushfloor trunking lengths end to end beneath the joint line.",
+    specs: ["Widths: 100, 150, 200, 280, 300, 400, 500, 600 mm", "1 to 3 compartments (100 W and 150 W: 1 or 2)"],
+  },
+  {
+    name: "Flushfloor Trunking Adjustable Joint",
+    code: "UL-FAJ-[W]/[C]",
+    image: FF + "fft-adjustable-joint-v1.png",
+    description: "Coupling plate with built-in levelling feet, so adjoining trunking lengths can be brought level on an uneven slab before the screed goes down.",
+    specs: ["Widths: 100, 150, 200, 280, 300, 400, 500, 600 mm", "1 to 3 compartments (100 W and 150 W: 1 or 2)"],
   },
   {
     name: "Levelling Bar",
