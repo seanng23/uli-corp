@@ -9,7 +9,6 @@ const UF = "/images/products/floor-trunking/underfloor/";
 const HEIGHTS = ["25", "40", "50", "75", "100"];
 const WIDTHS = ["100", "150", "200", "300", "400", "450", "500"];
 const BOX_SIZES = ["100 × 100", "150 × 150", "200 × 200", "300 × 300", "400 × 400", "450 × 450", "500 × 500"];
-const COMPARTMENT_NOTE = "100 W and 200 W: 1 or 2 compartments. 150 W: 1 to 3. 300 W and above: 2 or 3.";
 
 const compartmentSuffix = (v: Record<string, string>) => (v.compartments === "1" ? "-1c" : v.compartments === "2" ? "-2c" : "");
 
@@ -23,7 +22,6 @@ export const RAISEDFLOOR_COMPONENTS: Record<string, ComponentDef> = {
     image: RF + "rft-trunking-v1.png",
     imageFor: (v) => RF + `rft-trunking${compartmentSuffix(v)}-v1.png`,
     enquire: true,
-    note: COMPARTMENT_NOTE,
     fields: [
       COMPARTMENTS,
       { type: "combo", key: "height", label: "Height H (mm)", options: HEIGHTS, default: "40" },
@@ -77,7 +75,6 @@ export const RAISEDFLOOR_COMPONENTS: Record<string, ComponentDef> = {
     image: RF + "rft-vab-slanting-v1.png",
     imageFor: (v) => RF + `rft-vab${v.vabType === "Slanting" ? "-slanting" : ""}${compartmentSuffix(v)}-v1.png`,
     enquire: true,
-    note: COMPARTMENT_NOTE,
     fields: [
       { type: "chips", key: "vabType", label: "Type", options: ["Straight (90°)", "Slanting"], default: "Slanting" },
       COMPARTMENTS,
