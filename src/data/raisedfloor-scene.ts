@@ -9,7 +9,6 @@ const UF = "/images/products/floor-trunking/underfloor/";
 const HEIGHTS = ["25", "40", "50", "75", "100"];
 const WIDTHS = ["100", "150", "200", "300", "400", "450", "500"];
 const BOX_SIZES = ["100 × 100", "150 × 150", "200 × 200", "300 × 300", "400 × 400", "450 × 450", "500 × 500"];
-const ACCESSORY_SIZES = ["150 × 150", "200 × 200", "300 × 300", "350 × 350", "400 × 400", "450 × 450", "500 × 500"];
 const COMPARTMENT_NOTE = "100 W and 200 W: 1 or 2 compartments. 150 W: 1 to 3. 300 W and above: 2 or 3.";
 
 const compartmentSuffix = (v: Record<string, string>) => (v.compartments === "1" ? "-1c" : v.compartments === "2" ? "-2c" : "");
@@ -68,47 +67,6 @@ export const RAISEDFLOOR_COMPONENTS: Record<string, ComponentDef> = {
       STANDARD,
     ],
   },
-  "header-box": {
-    key: "header-box",
-    name: "Raisedfloor Header Box",
-    code: "UL-RHBH",
-    description:
-      "Installed at the top of the raisedfloor trunking run, the header box is where the final sub-circuits leave the trunking for the service boxes through flexible conduit. Knock-outs on every side take the conduit adapters.",
-    image: RF + "rft-headed-box-v1.png",
-    enquire: true,
-    fields: [
-      { type: "select", key: "size", label: "Size (mm)", options: ACCESSORY_SIZES, default: "300 × 300" },
-      { type: "combo", key: "height", label: "Height H (mm)", options: HEIGHTS, default: "40" },
-      STANDARD,
-    ],
-  },
-  "tap-off": {
-    key: "tap-off",
-    name: "Raisedfloor Tap Off Unit",
-    code: "UL-RTOUH",
-    description:
-      "Through or termination box for conduit branch-outs, supplied as a body and a separate cover. It sits in the trunking line where several conduits need to leave the run at one point.",
-    image: RF + "rft-tap-off-v1.png",
-    enquire: true,
-    fields: [
-      { type: "select", key: "size", label: "Size (mm)", options: ACCESSORY_SIZES, default: "300 × 300" },
-      { type: "combo", key: "height", label: "Height H (mm)", options: ["40", "50", "75", "100", "150"], default: "50" },
-      STANDARD,
-    ],
-  },
-  "pedestal-box": {
-    key: "pedestal-box",
-    name: "Raisedfloor Pedestal Box",
-    code: "UL-RPB",
-    codeFor: (v) => "UL-RPB-" + ({ "1 Gang": "1G", "2 Gang": "2G", "Double Gang": "DG", "3 Gang": "3G", "4 Gang": "4G", "8 Gang": "8G" }[v.gang] ?? "2G"),
-    description:
-      "Surface-mounted pedestal box that stands on the raised floor panel and carries the switch socket outlets, fed from the trunking below through flexible conduit. Sloped face for easy plug access.",
-    image: RF + "rft-pedestal-box-v1.png",
-    enquire: true,
-    fields: [
-      { type: "chips", key: "gang", label: "Configuration", options: ["1 Gang", "2 Gang", "Double Gang", "3 Gang", "4 Gang", "8 Gang"], default: "2 Gang" },
-    ],
-  },
   vab: {
     key: "vab",
     name: "Raisedfloor Vertical Access Box",
@@ -129,20 +87,6 @@ export const RAISEDFLOOR_COMPONENTS: Record<string, ComponentDef> = {
       STANDARD,
     ],
   },
-  joint: {
-    key: "joint",
-    name: "Raisedfloor Trunking Joint",
-    code: "UL-RTJ",
-    codeFor: (v) => "UL-RTJ" + (v.height ?? "40"),
-    description:
-      "Side coupling plates that bolt two raisedfloor trunking lengths together end to end. One set of two plates per joint; the height must match the trunking.",
-    image: RF + "rft-joint-v1.png",
-    enquire: true,
-    fields: [
-      { type: "chips", key: "height", label: "Trunking Height H (mm)", options: HEIGHTS, default: "40" },
-      { type: "static", label: "Supplied As", value: "1 set = 2 pcs" },
-    ],
-  },
 };
 
 export const RAISEDFLOOR_VARIANTS: SceneVariant[] = [
@@ -157,19 +101,43 @@ export const RAISEDFLOOR_VARIANTS: SceneVariant[] = [
     hotspots: [
       { x: 35.5, y: 86, componentKey: "trunking", label: "Raisedfloor Trunking" },
       { x: 49, y: 68, componentKey: "junction-box", label: "Raisedfloor Junction Box" },
-      { x: 68.8, y: 63.8, componentKey: "joint", label: "Raisedfloor Trunking Joint" },
-      { x: 73, y: 51.3, componentKey: "header-box", label: "Raisedfloor Header Box" },
-      { x: 12.5, y: 78.1, componentKey: "tap-off", label: "Raisedfloor Tap Off Unit" },
       { x: 25, y: 41.7, componentKey: "service-box", label: "Raisedfloor Service Box" },
       { x: 63.5, y: 26.8, componentKey: "service-box", label: "Raisedfloor Service Box" },
-      { x: 65.5, y: 9.7, componentKey: "pedestal-box", label: "Raisedfloor Pedestal Box" },
       { x: 10, y: 35.7, componentKey: "vab", label: "Vertical Access Box" },
     ],
   },
 ];
 
-/** Catalogue section 5.0 Raisedfloor Accessories that are not configured on the drawing. */
+/** Catalogue section 5.0 Raisedfloor Accessories: generic reference cards, not configured on the drawing. */
 export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
+  {
+    name: "Raisedfloor Headed Box",
+    code: "UL-RHBH-[Size]",
+    image: RF + "rft-headed-box-v1.png",
+    description: "Installed at the top of the raisedfloor trunking run, where the final sub-circuits leave for the service boxes through flexible conduit. Knock-outs on every side take the conduit adapters.",
+    specs: ["Sizes: 150, 200, 300, 350, 400, 450, 500 mm square", "Heights: 25 / 40 / 50 / 75 / 100 mm"],
+  },
+  {
+    name: "Raisedfloor Tap Off Unit",
+    code: "UL-RTOUH-[Size]",
+    image: RF + "rft-tap-off-v1.png",
+    description: "Through or termination box for conduit branch-outs, supplied as a body and a separate cover.",
+    specs: ["Sizes: 150, 200, 300, 350, 400, 450, 500 mm square", "Heights: 40 / 50 / 75 / 100 / 150 mm"],
+  },
+  {
+    name: "Raisedfloor Trunking Joint",
+    code: "UL-RTJ[H]",
+    image: RF + "rft-joint-v1.png",
+    description: "Side coupling plates that bolt two raisedfloor trunking lengths together end to end. One set of two plates per joint.",
+    specs: ["Heights: 25 / 40 / 50 / 75 / 100 mm", "1 set = 2 pcs"],
+  },
+  {
+    name: "Raisedfloor Tap Pedestal Box",
+    code: "UL-RPB-[Gang]",
+    image: RF + "rft-pedestal-box-v1.png",
+    description: "Surface-mounted pedestal box that stands on the raised floor panel and carries the switch socket outlets, fed from the trunking below through flexible conduit.",
+    specs: ["1G / 2G / DG (double gang) / 3G / 4G / 8G"],
+  },
   {
     name: "RF Trunking End Cap",
     code: "UL-RTECH-[W]",
