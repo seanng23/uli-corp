@@ -112,6 +112,10 @@ body {
 }
 
 @layer utilities {
+  /* Horizontal scroll strips (mobile tab rows) hide their scrollbar; content still scrolls by touch. */
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
   /* Matches the body's fixed paper texture so sticky surfaces (nav, menus)
      blend seamlessly with the page instead of reading as flat cream blocks. */
   .bg-paper-fixed {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -98,11 +98,23 @@ export default function MetalFramingClient() {
   const [family, setFamily] = useState<string>("All");
   const [addedFitting, setAddedFitting] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState(0);
+  const tabRowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     if (TAB_LABELS.some(([key]) => key === hash)) setTab(hash as TabKey);
   }, []);
+
+  // On mobile the tab row scrolls horizontally: keep the active pill centred so the next tabs are always visible.
+  useEffect(() => {
+    const row = tabRowRef.current;
+    const pill = row?.querySelector<HTMLButtonElement>(`[data-tab="${tab}"]`);
+    if (!row || !pill || row.scrollWidth <= row.clientWidth) return;
+    const rowRect = row.getBoundingClientRect();
+    const pillRect = pill.getBoundingClientRect();
+    const target = row.scrollLeft + (pillRect.left - rowRect.left) - (row.clientWidth - pillRect.width) / 2;
+    row.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }, [tab]);
 
   function switchTab(next: TabKey) {
     setTab(next);
@@ -152,7 +164,23 @@ export default function MetalFramingClient() {
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
     <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
-    <div className="site-container"><div className="flex flex-wrap border-b border-[#1A0F00]/15">{TAB_LABELS.map(([key, label]) => <button key={key} type="button" onClick={() => switchTab(key)} className={`font-raleway text-[13px] font-bold uppercase tracking-widest px-5 py-4 border-b-[3px] transition-colors ${tab === key ? "text-[#1A0F00] border-[#ff8905]" : "text-[#5C4A30]/70 hover:text-[#1A0F00] border-transparent"}`}>{label}</button>)}</div></div>
+    {/* Category tabs: a swipeable pill strip on mobile (one row, no wrapping), underline tabs from lg up. */}
+    <div className="site-container">
+      <div ref={tabRowRef} className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5 py-3 lg:mx-0 lg:px-0 lg:py-0 lg:gap-0 lg:flex-wrap lg:overflow-visible lg:border-b lg:border-[#1A0F00]/15">
+        {TAB_LABELS.map(([key, label]) => (
+          <button
+            key={key}
+            type="button"
+            data-tab={key}
+            aria-pressed={tab === key}
+            onClick={() => switchTab(key)}
+            className={`shrink-0 whitespace-nowrap font-raleway font-bold uppercase tracking-wider transition-colors text-[11px] px-4 py-2 rounded-full border lg:text-[13px] lg:tracking-widest lg:px-5 lg:py-4 lg:rounded-none lg:border-x-0 lg:border-t-0 lg:border-b-[3px] ${tab === key ? "bg-[#1A0F00] text-white border-[#1A0F00] lg:bg-transparent lg:text-[#1A0F00] lg:border-[#ff8905]" : "bg-white/50 text-[#5C4A30] border-[#1A0F00]/20 hover:border-[#1A0F00]/50 lg:bg-transparent lg:text-[#5C4A30]/70 lg:hover:text-[#1A0F00] lg:border-transparent"}`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
 
     {tab === "channels" && <div id="channels" className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="contents lg:block">
