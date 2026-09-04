@@ -8,14 +8,14 @@ const LINE_SRC: Record<string, string> = {
   thin: "/images/lines/line-thin.png",
 };
 
-/** Section rule. Draws itself in from the left as it enters the viewport. */
-export default function Divider({ variant = "default" }: { variant?: Variant }) {
+/** Section rule. Pass `animate` for the soft fade-in (homepage); static everywhere else. */
+export default function Divider({ variant = "default", animate = false }: { variant?: Variant; animate?: boolean }) {
   return (
     <div className="site-container">
       {variant === "default" ? (
-        <RevealRule className="border-t-[4px] border-[#1A0F00]" />
+        <RevealRule className="border-t-[4px] border-[#1A0F00]" animate={animate} />
       ) : (
-        <RevealRule src={LINE_SRC[variant]} className="block w-full h-auto" />
+        <RevealRule src={LINE_SRC[variant]} className="block w-full h-auto" animate={animate} />
       )}
     </div>
   );

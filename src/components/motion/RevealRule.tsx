@@ -4,34 +4,35 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { CSSProperties } from "react";
 
 type Props = {
-  /** Line texture to draw. Omit to draw a plain element styled by className (e.g. a CSS border). */
+  /** Line texture. Omit to render a plain element styled by className (e.g. a CSS border). */
   src?: string;
   className?: string;
   style?: CSSProperties;
-  /** Horizontal rules draw left to right, vertical rules top to bottom. Inferred from the file name when omitted. */
-  orientation?: "horizontal" | "vertical";
+  /** Opt in to the soft fade-in. Off by default so pages outside the homepage keep static lines. */
+  animate?: boolean;
   delay?: number;
   duration?: number;
 };
 
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
+const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
 
 /**
- * The site's ruled lines draw themselves in as they scroll into view, like a pen stroke,
- * instead of sitting static. The line is fully laid out from the start (clip-path only),
- * so nothing shifts; reduced-motion users get the finished line immediately.
+ * The site's ruled lines. With `animate`, the line fades in softly as it enters the viewport;
+ * without it, it renders as a plain static line. Reduced-motion users always get the static line.
  */
-export default function RevealRule({ src, className, style, orientation, delay = 0, duration = 1.1 }: Props) {
+export default function RevealRule({ src, className, style, animate = false, delay = 0, duration = 1 }: Props) {
   const reduceMotion = useReducedMotion();
-  const vertical = orientation === "vertical" || (orientation === undefined && !!src && src.includes("vertical"));
-  const hidden = vertical ? "inset(0 0 100% 0)" : "inset(0 100% 0 0)";
+  if (!animate || reduceMotion) {
+    if (!src) return <div aria-hidden="true" className={className} style={style} />;
+    return <img src={src} alt="" aria-hidden="true" className={className} style={style} />;
+  }
   const shared = {
     className,
     style,
-    initial: reduceMotion ? false : { clipPath: hidden },
-    whileInView: { clipPath: "inset(0 0 0 0)" },
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
     viewport: { once: true, margin: "-40px" },
-    transition: { duration, delay, ease: EASE_OUT_EXPO },
+    transition: { duration, delay, ease: EASE_OUT_QUART },
   } as const;
   if (!src) return <motion.div aria-hidden="true" {...shared} />;
   return <motion.img src={src} alt="" aria-hidden="true" {...shared} />;

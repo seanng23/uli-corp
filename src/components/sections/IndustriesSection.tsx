@@ -35,7 +35,7 @@ export default function IndustriesSection({
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
         {/* Left text — thin textured vertical rule on its right edge */}
         <div className="relative flex flex-col">
-          <RevealRule src="/images/lines/line-thin-vertical.png" className="hidden lg:block absolute -top-[72px] right-0 h-[calc(100%_+_144px)] w-[4px] object-fill" />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="hidden lg:block absolute -top-[72px] right-0 h-[calc(100%_+_144px)] w-[4px] object-fill" animate />
           <div className="pb-14 lg:pb-20 lg:pr-12">
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text="Supporting Every Layer of the Built Environment." />
@@ -53,7 +53,7 @@ export default function IndustriesSection({
 
           {/* Middle rule (thin texture) meets the vertical rule on its right */}
           <div className="relative pt-14 lg:pt-20 lg:pr-12">
-            <RevealRule src="/images/lines/line-thin.png" className="absolute top-0 left-0 w-full h-auto" />
+            <RevealRule src="/images/lines/line-thin.png" className="absolute top-0 left-0 w-full h-auto" animate />
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text="A Proven Track Record Across Sectors." />
             </h2>

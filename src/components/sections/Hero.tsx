@@ -9,7 +9,7 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
     <section>
       {/* Single-line below nav */}
       <div className="site-container">
-        <RevealRule src="/images/single-line.png" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" animate />
       </div>
 
       {/* Title band */}
@@ -31,7 +31,7 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
 
       {/* Double-line below title */}
       <div className="site-container">
-        <RevealRule src="/images/double-line.png" className="w-full block" delay={0.45} />
+        <RevealRule src="/images/double-line.png" className="w-full block" delay={0.45} animate />
       </div>
 
       {/* Hero photo / video */}

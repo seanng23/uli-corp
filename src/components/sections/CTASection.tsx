@@ -16,7 +16,7 @@ export default function CTASection() {
 
         {/* Vertical thin rule (rotated thin line) — tall & thin, fills the cell */}
         <div className="hidden lg:block relative">
-          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" animate />
         </div>
 
         <FadeUp delay={typeDuration("Let's Talk About Your Project Needs.") * 0.6} className="flex flex-col justify-center">
