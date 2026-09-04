@@ -2,13 +2,30 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
-import { Trash2, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag, Package } from "lucide-react";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 
 // Dimension specs are expressed in millimetres — show the unit in the label.
 const MM_FIELDS = new Set(["Height", "Width", "Length", "Thickness"]);
 const specLabel = (key: string) => (MM_FIELDS.has(key) ? `${key} (mm)` : key);
+
+/**
+ * Cart rows keep the image path that was current when the item was added. If that file has since been
+ * renamed or removed, show a neutral placeholder instead of the browser's broken-image glyph.
+ */
+function CartThumb({ src, alt }: { src?: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="shrink-0 w-32 h-32 rounded-md border border-[#1A0F00]/15 bg-white/50 flex items-center justify-center overflow-hidden">
+      {src && !failed ? (
+        <img src={src} alt={alt} onError={() => setFailed(true)} className="w-full h-full object-contain p-1" />
+      ) : (
+        <Package size={28} strokeWidth={1.5} className="text-[#5C4A30]/40" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 
 type FormData = {
   name: string;
@@ -120,11 +137,7 @@ export default function EnquiryClient() {
               {items.map((item) => (
                 <div key={item.id} className="px-5 py-5 flex flex-col sm:flex-row sm:items-start gap-4">
                   <div className="flex items-start gap-4 flex-1">
-                    {item.image && (
-                      <div className="shrink-0 w-32 h-32 rounded-md border border-[#1A0F00]/15 bg-white/50 flex items-center justify-center overflow-hidden">
-                        <img src={item.image} alt={item.productName} className="w-full h-full object-contain p-1" />
-                      </div>
-                    )}
+                    <CartThumb src={item.image} alt={item.productName} />
                     <div className="flex-1">
                     <p className="font-typewriter text-base text-[#1A0F00] mb-1">{item.productName}</p>
                     <p className="font-raleway text-xs text-[#ff8905] font-semibold mb-2">{item.category}</p>

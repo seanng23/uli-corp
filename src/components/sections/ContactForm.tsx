@@ -85,21 +85,24 @@ export default function ContactForm() {
   return (
     <section className="site-container py-12 lg:py-16">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-16 items-start">
-        {/* Left — intro + direct contact */}
-        <div className="lg:sticky lg:top-24">
+        {/* Left — intro + direct contact. On mobile the intro stays above the form and the direct-contact
+            block drops below it, so the first field is reachable without scrolling past a directory. */}
+        <div className="contents lg:block lg:sticky lg:top-24">
+          <div className="order-1 lg:order-none">
           <p className="font-raleway text-[11px] font-bold tracking-[0.2em] uppercase text-[#ff8905] mb-3">
             Contact Form
           </p>
           <h2 className="font-typewriter uppercase text-[clamp(1.6rem,2.8vw,2.4rem)] leading-tight text-[#1A0F00] tracking-tight mb-4">
             Let&apos;s Talk About Your Project Needs.
           </h2>
-          <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-8">
+          <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed lg:mb-8">
             Whether you&apos;re planning a project, requesting a quotation, or looking for
             technical support, our team is ready to assist you. We typically respond
             within one business day.
           </p>
+          </div>
 
-          <div className="border-t border-[#1A0F00]/15 pt-6 space-y-4">
+          <div className="order-3 lg:order-none border-t border-[#1A0F00]/15 pt-6 space-y-4">
             <p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00]">
               Prefer to reach us directly?
             </p>
@@ -123,7 +126,7 @@ export default function ContactForm() {
         </div>
 
         {/* Right — form card */}
-        <div className="border border-white/40 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)] p-6 sm:p-8 lg:p-10">
+        <div className="order-2 lg:order-none border border-white/40 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)] p-6 sm:p-8 lg:p-10">
           <form ref={formRef} action={action} noValidate className="space-y-5">
             {/* Name (title + name) / Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
