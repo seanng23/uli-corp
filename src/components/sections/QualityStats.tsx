@@ -1,4 +1,5 @@
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import RevealRule from "@/components/motion/RevealRule";
 
 const stats = [
   { value: "8,300", over: true, line1: "hours of employee training", line2: "conducted" },
@@ -10,7 +11,7 @@ export default function QualityStats() {
   return (
     <section>
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
       <div className="site-container py-14">
         <h2 className="font-typewriter text-center text-[clamp(2rem,3.4vw,3.25rem)] leading-tight text-[#1A0F00] mb-10">
@@ -33,7 +34,7 @@ export default function QualityStats() {
         </StaggerGroup>
       </div>
       <div className="site-container">
-        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/lines/line-thin.png" className="w-full block" />
       </div>
     </section>
   );

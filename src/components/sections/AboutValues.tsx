@@ -1,6 +1,7 @@
 import Image from "next/image";
 import FadeUp from "@/components/motion/FadeUp";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
+import RevealRule from "@/components/motion/RevealRule";
 
 const values = [
   {
@@ -51,7 +52,7 @@ export default function AboutValues() {
 
       <div className="relative">
         {/* Top rule */}
-        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
+        <RevealRule src="/images/lines/line-thin.png" className="block w-full h-auto" />
 
         <StaggerGroup className="grid grid-cols-2 lg:grid-cols-4">
           {values.map((v) => (
@@ -66,7 +67,7 @@ export default function AboutValues() {
         </StaggerGroup>
 
         {/* Bottom rule */}
-        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
+        <RevealRule src="/images/lines/line-thin.png" className="block w-full h-auto" />
 
         {/* Vertical rules at the column boundaries, full frame height */}
         <VRule pos="left-0" />

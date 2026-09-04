@@ -1,6 +1,7 @@
 import FadeUp from "@/components/motion/FadeUp";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
@@ -26,12 +27,7 @@ export default function QualityControls({ media }: { media?: SectionMedia | null
             </div>
 
             {/* Thin horizontal line between the two blocks (pinned to 4px to match site-wide thin lines) */}
-            <img
-              src="/images/lines/line-thin.png"
-              alt=""
-              aria-hidden="true"
-              className="w-full h-[4px] object-fill block my-9"
-            />
+            <RevealRule src="/images/lines/line-thin.png" className="w-full h-[4px] object-fill block my-9" />
 
             <div>
               <h2 className={HEADING}>Investing in Research and Development</h2>
@@ -46,12 +42,7 @@ export default function QualityControls({ media }: { media?: SectionMedia | null
 
           {/* Thin vertical line */}
           <div className="hidden lg:block relative">
-            <img
-              src="/images/lines/line-thin-vertical.png"
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-fill"
-            />
+            <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
           </div>
 
           {/* Right (wider) — image + quote below */}
@@ -80,7 +71,7 @@ export default function QualityControls({ media }: { media?: SectionMedia | null
 
       {/* Thick textured line before "Certified" — a major section break */}
       <div className="site-container">
-        <img src="/images/lines/line-thick.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/lines/line-thick.png" className="w-full block" />
       </div>
     </>
   );

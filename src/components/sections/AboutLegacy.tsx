@@ -2,6 +2,7 @@ import FadeUp from "@/components/motion/FadeUp";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
@@ -36,7 +37,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
 
       {/* Timeline — 2002 spans 2 cols, all thick 4px dividers */}
       <div className="mt-10">
-        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
+        <RevealRule src="/images/lines/line-thin.png" className="block w-full h-auto" />
         <StaggerGroup className="grid grid-cols-[1fr_2fr_1fr_1fr]">
 
           {/* 1990s */}
@@ -49,7 +50,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
 
           {/* 2002 — double-width, year spans both cols, two text items below */}
           <StaggerItem className="relative flex flex-col">
-            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
+            <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             {/* Year spanning full width */}
             <div className="pt-8 pb-4 text-center">
               <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00]">2002</p>
@@ -62,7 +63,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
                 </p>
               </div>
               <div className="relative">
-                <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-fill" />
+                <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
               </div>
               <div className="px-6 flex items-center justify-center text-center">
                 <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
@@ -74,7 +75,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
 
           {/* 2020 */}
           <StaggerItem className="relative py-8 px-6 text-center">
-            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
+            <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00] mb-4">2020</p>
             <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
               Export operations across ASEAN, the Middle East, and Australia
@@ -83,7 +84,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
 
           {/* 2024 */}
           <StaggerItem className="relative py-8 px-6 text-center">
-            <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
+            <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute top-0 left-0 h-full w-[4px] object-fill" />
             <p className="font-typewriter text-[clamp(1.75rem,3vw,2.5rem)] text-[#1A0F00] mb-4">2024</p>
             <p className="font-raleway font-medium text-[16px] text-[#5C4A30] leading-relaxed">
               RM253 million revenue and over 40,000MT of steel processed
@@ -91,7 +92,7 @@ export default function AboutLegacy({ media }: { media?: SectionMedia | null }) 
           </StaggerItem>
 
         </StaggerGroup>
-        <img src="/images/lines/line-thin.png" alt="" aria-hidden="true" className="block w-full h-auto" />
+        <RevealRule src="/images/lines/line-thin.png" className="block w-full h-auto" />
       </div>
     </section>
   );

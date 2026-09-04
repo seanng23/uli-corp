@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import RevealRule from "@/components/motion/RevealRule";
 
 type Block =
   | { type: "p"; text: string }
@@ -243,7 +244,7 @@ export default async function ArticlePage({ params }: Props) {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Back link */}
@@ -333,7 +334,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Divider */}
       <div className="site-container mt-14">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Related */}

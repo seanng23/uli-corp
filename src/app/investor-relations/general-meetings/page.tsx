@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FileText } from "lucide-react";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "General Meetings",
@@ -21,7 +22,7 @@ export default function GeneralMeetingsPage() {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Header */}
@@ -40,7 +41,7 @@ export default function GeneralMeetingsPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* AGM minutes list */}

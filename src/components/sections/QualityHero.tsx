@@ -1,8 +1,9 @@
+import RevealRule from "@/components/motion/RevealRule";
 export default function QualityHero() {
   return (
     <section>
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       <div className="site-container">
@@ -16,7 +17,7 @@ export default function QualityHero() {
       </div>
 
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
     </section>
   );

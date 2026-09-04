@@ -1,6 +1,8 @@
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 import Typewriter from "@/components/motion/Typewriter";
+import { typeDuration } from "@/components/motion/typeDuration";
+import RevealRule from "@/components/motion/RevealRule";
 
 export default function CTASection() {
   return (
@@ -14,15 +16,10 @@ export default function CTASection() {
 
         {/* Vertical thin rule (rotated thin line) — tall & thin, fills the cell */}
         <div className="hidden lg:block relative">
-          <img
-            src="/images/lines/line-thin-vertical.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-fill"
-          />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
         </div>
 
-        <FadeUp delay={0.1} className="flex flex-col justify-center">
+        <FadeUp delay={typeDuration("Let's Talk About Your Project Needs.") * 0.6} className="flex flex-col justify-center">
           <p className="font-raleway font-bold text-[20px] text-[#1A0F00] mb-2">
             Request a quote, get technical support, or speak directly with our sales team.
           </p>

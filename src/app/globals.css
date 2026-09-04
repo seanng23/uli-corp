@@ -54,13 +54,21 @@ body {
   gap: 0.5rem;
   border: none;
   cursor: pointer;
-  transition: background-color 200ms ease-out;
+  transition: background-color 200ms ease-out, transform 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease-out;
   text-decoration: none;
   line-height: 1;
 }
 
 .btn-primary:hover {
   background-color: #cc6e00;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -6px rgba(204, 110, 0, 0.55);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+  transition-duration: 80ms;
 }
 
 .btn-outline {
@@ -76,7 +84,7 @@ body {
   gap: 0.5rem;
   background: transparent;
   cursor: pointer;
-  transition: all 200ms ease-out;
+  transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out, transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   line-height: 1;
 }
@@ -84,6 +92,11 @@ body {
 .btn-outline:hover {
   background-color: #1A0F00;
   color: #F5EDD6;
+}
+
+.btn-outline:active {
+  transform: scale(0.98);
+  transition-duration: 80ms;
 }
 
 .link-underline {
@@ -94,7 +107,11 @@ body {
   gap: 0.3rem;
   font-weight: 600;
   font-size: 0.9rem;
-  transition: color 200ms ease-out;
+  transition: color 200ms ease-out, text-underline-offset 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover {
+  text-underline-offset: 6px;
 }
 
 .link-underline:hover {
@@ -140,6 +157,10 @@ body {
   .marquee-track-left { animation: marquee-left 40s linear infinite; }
   .marquee-track-right { animation: marquee-right 40s linear infinite; }
   .marquee:hover .marquee-track { animation-play-state: paused; }
+  .marquee {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  }
 
   .site-container {
     max-width: 1400px;

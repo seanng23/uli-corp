@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SharePriceChart from "@/components/SharePriceChart";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "Share Price",
@@ -30,7 +31,7 @@ export default function SharePricePage() {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Header */}
@@ -50,7 +51,7 @@ export default function SharePricePage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Stock info + chart */}

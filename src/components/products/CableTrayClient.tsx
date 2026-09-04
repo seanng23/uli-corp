@@ -16,6 +16,7 @@ import {
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import RevealRule from "@/components/motion/RevealRule";
 
 const MAIN_IMAGE = "/images/products/cable-tray.png";
 const STANDARDS = CABLE_TRAY_STANDARDS;
@@ -221,7 +222,7 @@ export default function CableTrayClient() {
 
       {/* Top divider */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Two-column layout */}

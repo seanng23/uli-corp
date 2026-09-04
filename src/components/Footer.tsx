@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Printer, Mail } from "lucide-react";
+import RevealRule from "@/components/motion/RevealRule";
 
 type Col = { title: string; href: string; links?: { label: string; href: string; external?: boolean }[] };
 
@@ -73,7 +74,7 @@ export default function Footer() {
     <footer>
       {/* Double-line divider */}
       <div className="site-container">
-        <img src="/images/lines/line-thick.png" alt="" className="w-full h-auto block" aria-hidden="true" />
+        <RevealRule src="/images/lines/line-thick.png" className="w-full h-auto block" />
       </div>
 
       <div className="site-container py-8">

@@ -13,6 +13,7 @@ import {
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import RevealRule from "@/components/motion/RevealRule";
 
 const MAIN_IMAGE = "/images/products/steel-conduit-v2.png";
 const SYSTEMS = ["Cable Management", "Electrical Wiring"];
@@ -134,7 +135,7 @@ export default function SteelConduitClient() {
           <span className="text-[#1A0F00] font-semibold">Steel Conduit</span>
         </nav>
       </div>
-      <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
+      <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
 
       <div className="site-container py-10 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">

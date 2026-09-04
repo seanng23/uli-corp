@@ -1,5 +1,6 @@
 import Image from "next/image";
 import FadeUp from "@/components/motion/FadeUp";
+import RevealRule from "@/components/motion/RevealRule";
 
 export default function AboutVision() {
   return (
@@ -25,7 +26,7 @@ export default function AboutVision() {
 
         {/* Vertical divider — thin textured line */}
         <div className="hidden lg:block relative">
-          <img src="/images/lines/line-thin-vertical.png" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-fill" />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
         </div>
 
         {/* Right: cable ladder photo */}

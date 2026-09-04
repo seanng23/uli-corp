@@ -1,9 +1,11 @@
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 import Typewriter from "@/components/motion/Typewriter";
+import { typeDuration } from "@/components/motion/typeDuration";
 import RevealImage from "@/components/motion/RevealImage";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
@@ -34,18 +36,13 @@ export default function LegacySplit({
 
         {/* Text column — thin textured vertical rule on its left edge (desktop) */}
         <div className="relative flex flex-col">
-          <img
-            src="/images/lines/line-thin-vertical.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block absolute top-[-5px] left-0 h-[calc(100%+10px)] w-[4px] object-fill"
-          />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="hidden lg:block absolute top-[-5px] left-0 h-[calc(100%+10px)] w-[4px] object-fill" />
           {/* Block 1 */}
           <div className="py-10 lg:py-14 lg:pl-14">
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-6">
               <Typewriter text={"A Legacy of Steel\nand Precision."} />
             </h2>
-            <FadeUp delay={0.1}>
+            <FadeUp delay={typeDuration("A Legacy of Steel\nand Precision.") * 0.6}>
               <p className="font-raleway font-bold text-[20px] text-[#ff8905] leading-relaxed mb-4">
                 From humble beginnings to industry leadership.<br />Our story reflects growth, innovation, and trust.
               </p>
@@ -63,16 +60,11 @@ export default function LegacySplit({
 
           {/* Middle horizontal rule (thin texture) meets the vertical rule */}
           <div className="relative py-10 lg:py-14 lg:pl-14">
-            <img
-              src="/images/lines/line-thin.png"
-              alt=""
-              aria-hidden="true"
-              className="absolute top-0 left-0 w-full h-auto"
-            />
+            <RevealRule src="/images/lines/line-thin.png" className="absolute top-0 left-0 w-full h-auto" />
             <h3 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text={"Built in Malaysia.\nCertified for the World."} />
             </h3>
-            <FadeUp delay={0.1}>
+            <FadeUp delay={typeDuration("Built in Malaysia.\nCertified for the World.") * 0.6}>
               <p className="font-raleway font-bold text-[20px] text-[#ff8905] leading-relaxed mb-4">
                 We embed quality into every product from start to finish.
               </p>

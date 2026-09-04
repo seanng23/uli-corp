@@ -10,6 +10,7 @@ import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import RevealRule from "@/components/motion/RevealRule";
 
 type Props = { product: Product };
 
@@ -151,7 +152,7 @@ export default function ProductInnerClient({ product }: Props) {
 
       {/* Top divider */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Two-column layout */}

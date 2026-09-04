@@ -7,6 +7,7 @@ import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import type { FloorTrunkingFamily, FloorTrunkingSystem, FloorTrunkingTab } from "@/data/floor-trunking";
 import ProductGallery from "./ProductGallery";
+import RevealRule from "@/components/motion/RevealRule";
 
 function CollapsibleSection({ id, title, children, defaultOpen = false }: { id: string; title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -57,7 +58,7 @@ export default function FloorTrunkingClient({ system }: { system: FloorTrunkingS
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">{system.name}</span></nav></div>
-    <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
+    <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
 
     {/* Header: gallery + description */}
     <div className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_1fr] gap-10 lg:gap-14 items-start">

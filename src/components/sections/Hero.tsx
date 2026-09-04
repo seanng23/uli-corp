@@ -2,13 +2,14 @@ import SanityMedia from "@/components/SanityMedia";
 import Typewriter from "@/components/motion/Typewriter";
 import RevealImage from "@/components/motion/RevealImage";
 import type { HeroMedia } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 export default function Hero({ media }: { media?: HeroMedia | null }) {
   return (
     <section>
       {/* Single-line below nav */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Title band */}
@@ -19,7 +20,7 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
             <p className="font-typewriter text-sm text-[#1A0F00]">1978</p>
           </div>
           <h1 className="font-typewriter uppercase text-center text-[clamp(2rem,4.5vw,5rem)] leading-[1.0] text-[#1A0F00] tracking-tight px-4">
-            <Typewriter text="Engineering Tomorrow's Infrastructure" speed={0.045} />
+            <Typewriter text="Engineering Tomorrow's Infrastructure" speed={0.045} startDelay={0.35} />
           </h1>
           <div className="text-left">
             <p className="font-typewriter text-sm text-[#1A0F00]">Inc.</p>
@@ -30,12 +31,12 @@ export default function Hero({ media }: { media?: HeroMedia | null }) {
 
       {/* Double-line below title */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" delay={0.45} />
       </div>
 
       {/* Hero photo / video */}
       <div className="site-container pt-4">
-        <RevealImage duration={1.5}>
+        <RevealImage duration={1.4} delay={0.55}>
           <SanityMedia
             videoUrl={media?.videoUrl}
             videoThumbnailUrl={media?.videoThumbnailUrl}

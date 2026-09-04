@@ -11,6 +11,7 @@ import type { AccessoryCard, ComponentDef, Field, FloorScene, SceneHotspot, Scen
 import { UNDERFLOOR_SCENE } from "@/data/underfloor-scene";
 import { RAISEDFLOOR_SCENE } from "@/data/raisedfloor-scene";
 import { FLUSHFLOOR_SCENE } from "@/data/flushfloor-scene";
+import RevealRule from "@/components/motion/RevealRule";
 
 /** Scenes are resolved here, on the client, because the configs carry functions (imageFor, showIf) that cannot cross the server/client prop boundary. */
 const SCENES = { underfloor: UNDERFLOOR_SCENE, raisedfloor: RAISEDFLOOR_SCENE, flushfloor: FLUSHFLOOR_SCENE } satisfies Record<string, FloorScene>;
@@ -133,7 +134,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">{system.name}</span></nav></div>
-    <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
+    <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
 
     <div className="site-container py-8 lg:py-10">
       <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}</h1>

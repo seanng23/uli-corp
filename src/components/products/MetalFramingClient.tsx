@@ -23,6 +23,7 @@ import {
   LENGTH_OPTIONS,
 } from "@/data/metal-framing";
 import ProductGallery from "./ProductGallery";
+import RevealRule from "@/components/motion/RevealRule";
 
 type ChannelProfile = ChannelVariant["profile"];
 
@@ -163,7 +164,7 @@ export default function MetalFramingClient() {
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Metal Framing System</span></nav></div>
-    <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
+    <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
     {/* Category tabs: a swipeable pill strip on mobile (one row, no wrapping), underline tabs from lg up. */}
     <div className="site-container">
       <div ref={tabRowRef} className="flex gap-2 overflow-x-auto no-scrollbar -mx-5 px-5 py-3 lg:mx-0 lg:px-0 lg:py-0 lg:gap-0 lg:flex-wrap lg:overflow-visible lg:border-b lg:border-[#1A0F00]/15">

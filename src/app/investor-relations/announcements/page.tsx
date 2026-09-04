@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "Company Announcements",
@@ -15,7 +16,7 @@ export default function AnnouncementsPage() {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Header */}
@@ -35,7 +36,7 @@ export default function AnnouncementsPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Bursa Malaysia announcements widget */}

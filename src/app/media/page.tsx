@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FileText } from "lucide-react";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "Media Centre",
@@ -90,7 +91,7 @@ export default function MediaPage() {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Header */}
@@ -109,7 +110,7 @@ export default function MediaPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Featured */}
@@ -142,7 +143,7 @@ export default function MediaPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Latest news grid */}
@@ -179,7 +180,7 @@ export default function MediaPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Press releases */}

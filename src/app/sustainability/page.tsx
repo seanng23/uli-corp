@@ -13,6 +13,7 @@ import {
   Smile,
   LineChart,
 } from "lucide-react";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "Sustainability",
@@ -168,7 +169,7 @@ export default function SustainabilityPage() {
     <>
       {/* Top line */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Header */}
@@ -191,7 +192,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Strategic objectives */}
@@ -212,7 +213,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Four pillars */}
@@ -255,7 +256,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Environmental initiatives */}
@@ -284,7 +285,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* FY2025 highlights */}
@@ -313,7 +314,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Material topics & targets table */}
@@ -376,7 +377,7 @@ export default function SustainabilityPage() {
 
       {/* Divider */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Governance & reporting */}

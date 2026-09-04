@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 import Typewriter from "@/components/motion/Typewriter";
+import { typeDuration } from "@/components/motion/typeDuration";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
@@ -33,17 +35,12 @@ export default function IndustriesSection({
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
         {/* Left text — thin textured vertical rule on its right edge */}
         <div className="relative flex flex-col">
-          <img
-            src="/images/lines/line-thin-vertical.png"
-            alt=""
-            aria-hidden="true"
-            className="hidden lg:block absolute -top-[72px] right-0 h-[calc(100%_+_144px)] w-[4px] object-fill"
-          />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="hidden lg:block absolute -top-[72px] right-0 h-[calc(100%_+_144px)] w-[4px] object-fill" />
           <div className="pb-14 lg:pb-20 lg:pr-12">
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text="Supporting Every Layer of the Built Environment." />
             </h2>
-            <FadeUp delay={0.1}>
+            <FadeUp delay={typeDuration("Supporting Every Layer of the Built Environment.") * 0.6}>
               <p className="font-raleway font-bold text-[20px] text-[#ff8905] mb-4">
                 We power essential infrastructure across key industries.
               </p>
@@ -56,16 +53,11 @@ export default function IndustriesSection({
 
           {/* Middle rule (thin texture) meets the vertical rule on its right */}
           <div className="relative pt-14 lg:pt-20 lg:pr-12">
-            <img
-              src="/images/lines/line-thin.png"
-              alt=""
-              aria-hidden="true"
-              className="absolute top-0 left-0 w-full h-auto"
-            />
+            <RevealRule src="/images/lines/line-thin.png" className="absolute top-0 left-0 w-full h-auto" />
             <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00] mb-4">
               <Typewriter text="A Proven Track Record Across Sectors." />
             </h2>
-            <FadeUp delay={0.2}>
+            <FadeUp delay={typeDuration("A Proven Track Record Across Sectors.") * 0.6}>
               <p className="font-raleway font-bold text-[20px] text-[#ff8905] mb-4">
                 Explore highlights from our project portfolio in commercial, industrial, and infrastructure environments.
               </p>

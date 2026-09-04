@@ -3,6 +3,7 @@ import ProductsClientPage from "@/components/products/ProductsClientPage";
 import { getAllProducts } from "@/sanity/lib/queries";
 import { products as staticProducts } from "@/data/products";
 import type { Metadata } from "next";
+import RevealRule from "@/components/motion/RevealRule";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -126,7 +127,7 @@ export default async function ProductsPage() {
     <>
       {/* Double-line top */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       {/* Hero — split layout */}
@@ -163,12 +164,7 @@ export default async function ProductsPage() {
 
       {/* Double-line divider */}
       <div className="site-container">
-        <img
-          src="/images/double-line.png"
-          alt=""
-          aria-hidden="true"
-          className="w-full block"
-        />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
 
       {/* Sidebar + grid */}

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 import Typewriter from "@/components/motion/Typewriter";
+import { typeDuration } from "@/components/motion/typeDuration";
 import { StaggerGroup, StaggerItem } from "@/components/motion/StaggerGroup";
 
 const articles = [
@@ -38,7 +39,7 @@ export default function InsightsSection() {
         <h2 className="font-typewriter text-[clamp(2rem,5vw,3.75rem)] leading-[1.05] text-[#1A0F00]">
           <Typewriter text="Insights & Expertise." />
         </h2>
-        <FadeUp delay={0.15}>
+        <FadeUp delay={typeDuration("Insights & Expertise.") * 0.6}>
           <p className="font-raleway font-bold text-[20px] text-[#ff8905] mt-3">
             Real-world knowledge from the people who build infrastructure every day.
           </p>

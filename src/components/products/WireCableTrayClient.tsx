@@ -10,6 +10,7 @@ import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import RevealRule from "@/components/motion/RevealRule";
 
 const MAIN_IMAGE = "/images/products/wire-mesh-tray-v5.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
@@ -120,7 +121,7 @@ export default function WireCableTrayClient() {
 
   return <>
     <div className="site-container pt-5 pb-2"><nav className="flex items-center gap-2 font-raleway text-[12px] text-[#5C4A30]"><Link href="/" className="hover:text-[#ff8905] transition-colors">Home</Link><span>/</span><Link href="/products" className="hover:text-[#ff8905] transition-colors">Products</Link><span>/</span><span className="text-[#1A0F00] font-semibold">Wire Mesh Tray</span></nav></div>
-    <div className="site-container"><img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" /></div>
+    <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
 
     <div className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_540px] gap-10 lg:gap-14 items-start">
       <div className="contents lg:block">

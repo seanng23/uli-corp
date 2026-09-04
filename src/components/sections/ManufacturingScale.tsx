@@ -1,3 +1,4 @@
+import RevealRule from "@/components/motion/RevealRule";
 const pillars = [
   { icon: "/images/manufacturing/icon-machinery.png", label: "State-of-the-art machinery for precision fabrication" },
   { icon: "/images/manufacturing/icon-quality.png", label: "Strict adherence to ISO and SIRIM-certified processes" },
@@ -26,12 +27,7 @@ export default function ManufacturingScale() {
 
         {/* Vertical rule */}
         <div className="hidden lg:block relative self-stretch">
-          <img
-            src="/images/lines/line-thin-vertical.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-fill"
-          />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
         </div>
 
         {/* Right — quality pillars */}

@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CartProvider from "@/components/cart/CartProvider";
+import MotionProvider from "@/components/motion/MotionProvider";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -44,11 +45,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${raleway.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </CartProvider>
+        <MotionProvider>
+          <CartProvider>
+            <Nav />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </CartProvider>
+        </MotionProvider>
       </body>
     </html>
   );

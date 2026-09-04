@@ -15,6 +15,7 @@ import {
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import RevealRule from "@/components/motion/RevealRule";
 
 const MAIN_IMAGE = "/images/products/cable-ladder.png";
 const STANDARDS = CABLE_LADDER_STANDARDS;
@@ -210,7 +211,7 @@ export default function CableLadderClient() {
       </div>
 
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       <div className="site-container py-10 lg:py-12">

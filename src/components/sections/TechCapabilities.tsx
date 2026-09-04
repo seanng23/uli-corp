@@ -1,5 +1,6 @@
 import Image from "next/image";
 import FadeUp from "@/components/motion/FadeUp";
+import RevealRule from "@/components/motion/RevealRule";
 
 const capabilities = [
   {
@@ -113,12 +114,7 @@ export default function TechCapabilities() {
                     <h2 className="font-typewriter text-[clamp(1.75rem,3.5vw,2.875rem)] leading-[1.05] text-[#1A0F00] mb-5">
                       {cap.title}
                     </h2>
-                    <img
-                      src="/images/lines/line-thin.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="w-full h-[4px] object-fill block mb-6"
-                    />
+                    <RevealRule src="/images/lines/line-thin.png" className="w-full h-[4px] object-fill block mb-6" />
                     <p className="font-raleway text-[17px] text-[#1A0F00] leading-relaxed">
                       {cap.description}
                     </p>
@@ -137,12 +133,7 @@ export default function TechCapabilities() {
                     <h2 className="font-typewriter text-[clamp(1.75rem,3.5vw,2.875rem)] leading-[1.05] text-[#1A0F00] mb-5">
                       {cap.title}
                     </h2>
-                    <img
-                      src="/images/lines/line-thin.png"
-                      alt=""
-                      aria-hidden="true"
-                      className="w-full h-[4px] object-fill block mb-6"
-                    />
+                    <RevealRule src="/images/lines/line-thin.png" className="w-full h-[4px] object-fill block mb-6" />
                     <p className="font-raleway text-[17px] text-[#1A0F00] leading-relaxed">
                       {cap.description}
                     </p>

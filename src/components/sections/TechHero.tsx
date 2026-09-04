@@ -1,13 +1,14 @@
 import FadeUp from "@/components/motion/FadeUp";
 import SanityMedia from "@/components/SanityMedia";
 import type { HeroMedia } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 export default function TechHero({ media }: { media?: HeroMedia | null }) {
   return (
     <section>
       {/* Single-line below nav */}
       <div className="site-container">
-        <img src="/images/single-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/single-line.png" className="w-full block" />
       </div>
 
       <div className="site-container">
@@ -48,7 +49,7 @@ export default function TechHero({ media }: { media?: HeroMedia | null }) {
 
       {/* Double-line below hero */}
       <div className="site-container">
-        <img src="/images/double-line.png" alt="" aria-hidden="true" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" />
       </div>
     </section>
   );

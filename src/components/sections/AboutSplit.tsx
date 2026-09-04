@@ -1,6 +1,7 @@
 import FadeUp from "@/components/motion/FadeUp";
 import SanityMedia from "@/components/SanityMedia";
 import type { SiteSettings } from "@/sanity/lib/queries";
+import RevealRule from "@/components/motion/RevealRule";
 
 type SectionMedia = NonNullable<SiteSettings["sectionImages"]>[number];
 
@@ -44,12 +45,7 @@ export default function AboutSplit({
 
         {/* Vertical divider — thin textured line */}
         <div className="hidden lg:block relative">
-          <img
-            src="/images/lines/line-thin-vertical.png"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-fill"
-          />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" />
         </div>
 
         {/* Right: two stacked sections */}
