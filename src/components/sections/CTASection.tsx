@@ -4,7 +4,8 @@ import Typewriter from "@/components/motion/Typewriter";
 import { typeDuration } from "@/components/motion/typeDuration";
 import RevealRule from "@/components/motion/RevealRule";
 
-export default function CTASection() {
+/** Shared across six pages; only the homepage passes `animate` so its rule fades in. */
+export default function CTASection({ animate = false }: { animate?: boolean } = {}) {
   return (
     <section className="site-container py-10">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_4px_1fr] gap-8 lg:gap-12 items-stretch lg:min-h-[360px]">
@@ -16,7 +17,7 @@ export default function CTASection() {
 
         {/* Vertical thin rule (rotated thin line) — tall & thin, fills the cell */}
         <div className="hidden lg:block relative">
-          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" animate />
+          <RevealRule src="/images/lines/line-thin-vertical.png" className="absolute inset-0 h-full w-full object-fill" animate={animate} />
         </div>
 
         <FadeUp delay={typeDuration("Let's Talk About Your Project Needs.") * 0.6} className="flex flex-col justify-center">

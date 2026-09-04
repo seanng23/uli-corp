@@ -30,7 +30,7 @@ export default async function HomePage() {
       <Divider variant="thick" animate />
       <InsightsSection />
       <Divider variant="double" animate />
-      <CTASection />
+      <CTASection animate />
     </>
   );
 }
