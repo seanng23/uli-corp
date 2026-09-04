@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronUp, FileText, Award, ShoppingBag, CheckCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, FileText, ShoppingBag, CheckCircle } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
@@ -16,6 +15,7 @@ import {
 } from "@/data/cable-tray";
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
+import RequestCertificateButton from "./RequestCertificateButton";
 
 const MAIN_IMAGE = "/images/products/cable-tray.png";
 const STANDARDS = CABLE_TRAY_STANDARDS;
@@ -177,7 +177,6 @@ export default function CableTrayClient() {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [certOpen, setCertOpen] = useState(false);
 
   function selectProfile(code: string) {
     setProfileCode(code);
@@ -308,7 +307,7 @@ export default function CableTrayClient() {
                 ))}
               </div>
             </CollapsibleSection>
-                      <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
+                      <MobileDocuments product="Cable Tray" />
             </div>
           </div>
 
@@ -490,36 +489,11 @@ export default function CableTrayClient() {
                 <FileText size={14} strokeWidth={2} />
                 Data Sheet
               </button>
-              <div className="mt-6">
-                <p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3">
-                  <Award size={14} strokeWidth={2} className="text-[#ff8905]" />
-                  Certificate
-                </p>
-                <button
-                  onClick={() => setCertOpen(true)}
-                  aria-label="Enlarge certificate"
-                  className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"
-                >
-                  <Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={400} height={550} className="w-full h-auto" />
-                  <span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">Click to enlarge</span>
-                  </span>
-                </button>
-              </div>
+              <RequestCertificateButton product="Cable Tray" className="mt-6" />
             </div>
           </div>
         </div>
       </div>
-
-      {/* Certificate lightbox */}
-      {certOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setCertOpen(false)}>
-          <div className="relative max-w-2xl w-full bg-white p-4" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setCertOpen(false)} className="absolute top-2 right-3 font-raleway text-[20px] text-[#1A0F00] hover:text-[#ff8905] transition-colors leading-none">×</button>
-            <Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={800} height={1100} className="w-full h-auto" />
-          </div>
-        </div>
-      )}
     </>
   );
 }

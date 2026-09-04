@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Award, CheckCircle, ChevronDown, ChevronUp, FileText, ShoppingBag } from "lucide-react";
+import { CheckCircle, ChevronDown, ChevronUp, FileText, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
+import RequestCertificateButton from "./RequestCertificateButton";
 
 const MAIN_IMAGE = "/images/products/wire-mesh-tray-v5.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
@@ -60,7 +60,6 @@ export default function WireCableTrayClient() {
   const [coverColor, setCoverColor] = useState("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [certOpen, setCertOpen] = useState(false);
 
   const profile = TRAY_PROFILES.find((item) => String(item.height) === height);
   const standardRow = profile?.rows.find((item) => String(item.width) === width);
@@ -135,7 +134,7 @@ export default function WireCableTrayClient() {
         <CollapsibleSection id="fwb-cover" title="FWB Cover"><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed mb-4">Matching covers for FWB wire mesh trays. Mainly used for horizontal and vertical sections; the cover height is 10 mm.</p><div className="overflow-x-auto"><table className="w-full text-left min-w-[760px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{["Reference", "FWB Width (mm)", "Internal Width (mm)", "Thickness (mm)", "Length (mm)"].map((heading) => <th key={heading} className={thClass}>{heading}</th>)}</tr></thead><tbody>{COVERS.map((item, index) => <tr key={item.ref} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={tdClass}>{item.ref}</td><td className={tdClass}>{item.fwbWidth}</td><td className={tdClass}>{item.internalWidth}</td><td className={tdClass}>{item.thickness.toFixed(1)}</td><td className={tdClass}>{item.length}</td></tr>)}</tbody></table></div></CollapsibleSection>
 
         <CollapsibleSection id="accessories" title="Accessories"><div className="overflow-x-auto"><table className="w-full text-left min-w-[620px] border border-[#1A0F00]/20"><thead><tr className="bg-[#1A0F00]/5"><th className={`${thClass} w-[60px]`}>No.</th><th className={thClass}>Reference</th><th className={thClass}>Description</th></tr></thead><tbody>{ACCESSORIES.map((item, index) => <tr key={item.no} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={`${tdClass} py-2`}>{item.no}</td><td className={`${tdClass} py-2`}>{item.ref}</td><td className={`${tdClass} py-2`}>{item.description}</td></tr>)}</tbody></table></div></CollapsibleSection>
-                  <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
+                  <MobileDocuments product="Wire Mesh Tray" />
             </div>
           </div>
 
@@ -164,10 +163,8 @@ export default function WireCableTrayClient() {
       </div>
 
       <div className="hidden lg:block mt-8"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">Table of Contents</p><ul className="space-y-2">{[["description", "Description"], ["dimensions", "Dimensions"], ["fwb-cover", "FWB Cover"], ["accessories", "Accessories"]].map(([id, label]) => <li key={id}><a href={`#${id}`} className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors">{label}</a></li>)}</ul></div>
-      <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><div className="mt-6"><p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3"><Award size={14} strokeWidth={2} className="text-[#ff8905]" />Certificate</p><button onClick={() => setCertOpen(true)} aria-label="Enlarge certificate" className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={400} height={550} className="w-full h-auto" /><span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors"><span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">Click to enlarge</span></span></button></div></div>
+      <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><RequestCertificateButton product="Wire Mesh Tray" className="mt-6" /></div>
       </div>
     </div></div>
-
-    {certOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setCertOpen(false)}><div className="relative max-w-2xl w-full bg-white p-4" onClick={(event) => event.stopPropagation()}><button onClick={() => setCertOpen(false)} className="absolute top-2 right-3 font-raleway text-[20px] text-[#1A0F00] hover:text-[#ff8905] transition-colors leading-none">×</button><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={800} height={1100} className="w-full h-auto" /></div></div>}
   </>;
 }

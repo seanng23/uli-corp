@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronUp, FileText, Award, ShoppingBag, CheckCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, FileText, ShoppingBag, CheckCircle } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import {
@@ -13,6 +12,7 @@ import {
 } from "@/data/steel-conduit";
 import ProductGallery from "./ProductGallery";
 import MobileDocuments from "./MobileDocuments";
+import RequestCertificateButton from "./RequestCertificateButton";
 
 const MAIN_IMAGE = "/images/products/steel-conduit-v2.png";
 const SYSTEMS = ["Cable Management", "Electrical Wiring"];
@@ -100,7 +100,6 @@ export default function SteelConduitClient() {
   const [selectedColor, setSelectedColor] = useState("");
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [certOpen, setCertOpen] = useState(false);
 
   const isCableManagement = system === "Cable Management";
   const cableRow = CABLE_MGMT.rows.find((row) => row.nominalSize === nominalSize) ?? CABLE_MGMT.rows[0];
@@ -173,7 +172,7 @@ export default function SteelConduitClient() {
                 </table>
               </div>
             </CollapsibleSection>
-                      <MobileDocuments onEnlargeCertificate={() => setCertOpen(true)} />
+                      <MobileDocuments product="Steel Conduit" />
             </div>
           </div>
 
@@ -220,12 +219,10 @@ export default function SteelConduitClient() {
             </div>
 
             <div className="hidden lg:block mt-8"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#5C4A30] mb-3">Table of Contents</p><ul className="space-y-2">{[["description", "Description"], ["cable-management", "Conduit System for Cable Management"], ["electrical-wiring", "Steel Conduit for Electrical Wiring"], ["accessories", "Accessories"]].map(([id, label]) => <li key={id}><a href={`#${id}`} className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors">{label}</a></li>)}</ul></div>
-            <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><div className="mt-6"><p className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold uppercase tracking-wide text-[#1A0F00] mb-3"><Award size={14} strokeWidth={2} className="text-[#ff8905]" />Certificate</p><button onClick={() => setCertOpen(true)} aria-label="Enlarge certificate" className="group relative block w-full max-w-[280px] border border-[#1A0F00]/20 rounded-md overflow-hidden hover:border-[#ff8905] transition-colors"><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={400} height={550} className="w-full h-auto" /><span className="absolute inset-0 flex items-center justify-center bg-[#1A0F00]/0 group-hover:bg-[#1A0F00]/10 transition-colors"><span className="opacity-0 group-hover:opacity-100 transition-opacity font-raleway text-[11px] font-semibold text-white bg-[#1A0F00]/75 px-2.5 py-1 rounded">Click to enlarge</span></span></button></div></div>
+            <div className="hidden lg:block mt-8 pt-6 border-t border-[#1A0F00]/15"><button className="flex items-center gap-2.5 font-raleway text-[12px] font-semibold text-[#1A0F00] hover:text-[#ff8905] transition-colors uppercase tracking-wide"><FileText size={14} strokeWidth={2} />Data Sheet</button><RequestCertificateButton product="Steel Conduit" className="mt-6" /></div>
           </div>
         </div>
       </div>
-
-      {certOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setCertOpen(false)}><div className="relative max-w-2xl w-full bg-white p-4" onClick={(e) => e.stopPropagation()}><button onClick={() => setCertOpen(false)} className="absolute top-2 right-3 font-raleway text-[20px] text-[#1A0F00] hover:text-[#ff8905] transition-colors leading-none">×</button><Image src="/images/product-certificate.png" alt="U-LI Product Certificate" width={800} height={1100} className="w-full h-auto" /></div></div>}
     </>
   );
 }

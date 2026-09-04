@@ -23,6 +23,9 @@ export async function submitContact(
   const otherCategory = formData.get("otherCategory") as string;
   const address = formData.get("address") as string;
   const message = formData.get("message") as string;
+  const requestCertificate = formData.get("requestCertificate") === "yes";
+  const certificateProduct = (formData.get("certificateProduct") as string) || "";
+  const certificateNote = requestCertificate ? `Yes${certificateProduct ? ` — ${certificateProduct}` : ""}` : "No";
 
   if (!name || !email || !message) {
     return { status: "error", message: "Please fill in all required fields." };
@@ -35,7 +38,7 @@ export async function submitContact(
       from: "U-LI Website <onboarding@resend.dev>",
       to,
       replyTo: email,
-      subject: `New Enquiry from ${name}${companyName ? ` — ${companyName}` : ""}`,
+      subject: `${requestCertificate ? "[Certificate Request] " : ""}New Enquiry from ${name}${companyName ? ` — ${companyName}` : ""}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <table cellpadding="8" style="border-collapse:collapse;width:100%">
@@ -47,6 +50,7 @@ export async function submitContact(
           <tr><td><strong>Company Category</strong></td><td>${companyCategory || "—"}</td></tr>
           <tr><td><strong>Other Category</strong></td><td>${otherCategory || "—"}</td></tr>
           <tr><td><strong>Address</strong></td><td>${address || "—"}</td></tr>
+          <tr${requestCertificate ? ' style="background:#fff3e0"' : ""}><td><strong>Certificate Requested</strong></td><td>${certificateNote}</td></tr>
           <tr><td><strong>Message</strong></td><td style="white-space:pre-wrap">${message}</td></tr>
         </table>
       `,
@@ -61,8 +65,8 @@ export async function submitContact(
           company: companyName || undefined,
           email,
           phone: contactNumber || undefined,
-          subject: companyCategory || "General Enquiry",
-          message,
+          subject: requestCertificate ? "Certificate Request" : companyCategory || "General Enquiry",
+          message: requestCertificate ? `${message}\n\n[Certificate requested${certificateProduct ? ` for ${certificateProduct}` : ""}]` : message,
           submittedAt: new Date().toISOString(),
         });
       } catch (sanityErr) {

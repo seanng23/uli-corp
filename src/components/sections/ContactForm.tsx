@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { submitContact, ContactState } from "@/app/actions/contact";
 import { useFormStatus } from "react-dom";
-import { AlertCircle, ArrowRight, CheckCircle, ChevronDown, Mail, Phone } from "lucide-react";
+import { AlertCircle, ArrowRight, Award, CheckCircle, ChevronDown, Mail, Phone } from "lucide-react";
 
 const INITIAL_STATE: ContactState = { status: "idle" };
 
@@ -73,17 +73,30 @@ function SubmitButton() {
 export default function ContactForm() {
   const [state, action] = useActionState(submitContact, INITIAL_STATE);
   const [category, setCategory] = useState("");
+  const [wantCertificate, setWantCertificate] = useState(false);
+  const [certificateProduct, setCertificateProduct] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+
+  // Product pages link here with ?certificate=<product>: pre-tick the request and remember the product.
+  useEffect(() => {
+    const product = new URLSearchParams(window.location.search).get("certificate");
+    if (product !== null) {
+      setWantCertificate(true);
+      setCertificateProduct(product);
+    }
+  }, []);
 
   useEffect(() => {
     if (state.status === "success") {
       formRef.current?.reset();
       setCategory("");
+      setWantCertificate(false);
+      setCertificateProduct("");
     }
   }, [state]);
 
   return (
-    <section className="site-container py-12 lg:py-16">
+    <section id="contact-form" className="site-container py-12 lg:py-16 scroll-mt-24">
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-16 items-start">
         {/* Left — intro + direct contact. On mobile the intro stays above the form and the direct-contact
             block drops below it, so the first field is reachable without scrolling past a directory. */}
@@ -193,6 +206,28 @@ export default function ContactForm() {
               <Label htmlFor="cf-message" required>Message</Label>
               <textarea id="cf-message" name="message" placeholder="Tell us about your project, quantities, timeline, or the support you need." required rows={5} className={`${inputCls} resize-none`} />
             </div>
+
+            {/* Certificate request: certificates are issued by sales on request, not published on the site */}
+            <label className={`flex items-start gap-3 rounded-lg border px-4 py-3 cursor-pointer transition-colors ${wantCertificate ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/15 bg-white hover:border-[#1A0F00]/40"}`}>
+              <input
+                type="checkbox"
+                name="requestCertificate"
+                value="yes"
+                checked={wantCertificate}
+                onChange={(e) => setWantCertificate(e.target.checked)}
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[#ff8905] cursor-pointer"
+              />
+              <span className="flex-1">
+                <span className="flex items-center gap-2 font-raleway text-[13px] font-bold text-[#1A0F00]">
+                  <Award size={15} strokeWidth={2} className="text-[#ff8905]" /> Request product certificates
+                </span>
+                <span className="block font-raleway text-[12px] text-[#5C4A30] leading-snug mt-1">
+                  Tick this and our sales team will send the relevant product certificates with their reply.
+                  {certificateProduct && <> Requested for: <strong className="text-[#1A0F00]">{certificateProduct}</strong>.</>}
+                </span>
+              </span>
+              {certificateProduct && <input type="hidden" name="certificateProduct" value={certificateProduct} />}
+            </label>
 
             {/* Feedback */}
             {state.status === "success" && (

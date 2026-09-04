@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
-import { Trash2, ShoppingBag, Package } from "lucide-react";
+import { Trash2, ShoppingBag, Package, Award } from "lucide-react";
 import Link from "next/link";
 import FadeUp from "@/components/motion/FadeUp";
 
@@ -52,6 +52,7 @@ const INITIAL_FORM: FormData = {
 export default function EnquiryClient() {
   const { items, removeFromCart, updateQuantity, clearCart, count } = useCart();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
+  const [wantCertificate, setWantCertificate] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -70,7 +71,7 @@ export default function EnquiryClient() {
       const res = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ form, items }),
+        body: JSON.stringify({ form: { ...form, requestCertificate: wantCertificate ? "yes" : "" }, items }),
       });
       if (!res.ok) throw new Error("Submission failed");
       setSubmitted(true);
@@ -241,6 +242,25 @@ export default function EnquiryClient() {
                   className="w-full border border-[#1A0F00]/30 bg-transparent px-3 py-2.5 font-raleway text-sm text-[#1A0F00] focus:outline-none focus:border-[#ff8905] transition-colors resize-none"
                 />
               </div>
+
+              {/* Certificate request: certificates are issued by sales on request, not published on the site */}
+              <label className={`flex items-start gap-3 border px-3 py-3 cursor-pointer transition-colors ${wantCertificate ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/30 hover:border-[#1A0F00]/60"}`}>
+                <input
+                  type="checkbox"
+                  name="requestCertificate"
+                  checked={wantCertificate}
+                  onChange={(e) => setWantCertificate(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[#ff8905] cursor-pointer"
+                />
+                <span className="flex-1">
+                  <span className="flex items-center gap-2 font-raleway text-[13px] font-bold text-[#1A0F00]">
+                    <Award size={15} strokeWidth={2} className="text-[#ff8905]" /> Request product certificates
+                  </span>
+                  <span className="block font-raleway text-[12px] text-[#5C4A30] leading-snug mt-1">
+                    Our sales team will send the certificates for the products in this enquiry with their reply.
+                  </span>
+                </span>
+              </label>
 
               {error && (
                 <p className="font-raleway text-xs text-red-700 bg-red-50 border border-red-200 px-3 py-2">

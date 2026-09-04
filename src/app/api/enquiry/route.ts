@@ -90,6 +90,14 @@ function buildEmailHtml(form: Record<string, string>, items: CartItem[], ref: st
           </td>
         </tr>
 
+        ${form.requestCertificate === "yes" ? `
+        <!-- Certificate request -->
+        <tr>
+          <td style="padding:0 32px 24px;">
+            <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#1A0F00;line-height:1.6;padding:14px;background:#fff3e0;border-left:3px solid #ff8905;"><strong>Certificates requested.</strong> The customer has asked for the product certificates for the items in this enquiry. Please attach them to your reply.</p>
+          </td>
+        </tr>` : ""}
+
         <!-- Products table -->
         <tr>
           <td style="padding:0 32px 24px;">
@@ -146,7 +154,7 @@ export async function POST(req: NextRequest) {
       from: "U-LI Enquiries <enquiries@resend.dev>",
       to: ["hello@uli.com.my"],
       replyTo: form.email,
-      subject: `[${ref}] New Product Enquiry — ${form.company || form.name}`,
+      subject: `[${ref}] ${form.requestCertificate === "yes" ? "[Certificate Request] " : ""}New Product Enquiry — ${form.company || form.name}`,
       html,
     });
 
