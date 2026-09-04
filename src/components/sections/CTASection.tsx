@@ -4,8 +4,8 @@ import Typewriter from "@/components/motion/Typewriter";
 import { typeDuration } from "@/components/motion/typeDuration";
 import RevealRule from "@/components/motion/RevealRule";
 
-/** Shared across six pages; only the homepage passes `animate` so its rule fades in. */
-export default function CTASection({ animate = false }: { animate?: boolean } = {}) {
+/** Shared across six pages; the rule fades in everywhere unless `animate={false}` is passed. */
+export default function CTASection({ animate = true }: { animate?: boolean } = {}) {
   return (
     <section className="site-container py-10">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_4px_1fr] gap-8 lg:gap-12 items-stretch lg:min-h-[360px]">

@@ -8,8 +8,8 @@ const LINE_SRC: Record<string, string> = {
   thin: "/images/lines/line-thin.png",
 };
 
-/** Section rule. Pass `animate` for the soft fade-in (homepage); static everywhere else. */
-export default function Divider({ variant = "default", animate = false }: { variant?: Variant; animate?: boolean }) {
+/** Section rule with the site-wide soft fade-in; pass `animate={false}` for a static line. */
+export default function Divider({ variant = "default", animate = true }: { variant?: Variant; animate?: boolean }) {
   return (
     <div className="site-container">
       {variant === "default" ? (

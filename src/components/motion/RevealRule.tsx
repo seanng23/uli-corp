@@ -8,7 +8,7 @@ type Props = {
   src?: string;
   className?: string;
   style?: CSSProperties;
-  /** Opt in to the soft fade-in. Off by default so pages outside the homepage keep static lines. */
+  /** Soft fade-in as the line enters view. On site-wide (approved on the homepage first); pass false for a static line. */
   animate?: boolean;
   delay?: number;
   duration?: number;
@@ -17,10 +17,10 @@ type Props = {
 const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
 
 /**
- * The site's ruled lines. With `animate`, the line fades in softly as it enters the viewport;
- * without it, it renders as a plain static line. Reduced-motion users always get the static line.
+ * The site's ruled lines fade in softly as they enter the viewport (`animate={false}` for a static line).
+ * Reduced-motion users always get the static line.
  */
-export default function RevealRule({ src, className, style, animate = false, delay = 0, duration = 1 }: Props) {
+export default function RevealRule({ src, className, style, animate = true, delay = 0, duration = 1 }: Props) {
   const reduceMotion = useReducedMotion();
   if (!animate || reduceMotion) {
     if (!src) return <div aria-hidden="true" className={className} style={style} />;
