@@ -2,6 +2,8 @@ import FadeUp from "@/components/motion/FadeUp";
 import SanityMedia from "@/components/SanityMedia";
 import type { HeroMedia } from "@/sanity/lib/queries";
 import RevealRule from "@/components/motion/RevealRule";
+import Typewriter from "@/components/motion/Typewriter";
+import { typeDuration } from "@/components/motion/typeDuration";
 
 export default function TechHero({ media }: { media?: HeroMedia | null }) {
   return (
@@ -33,10 +35,10 @@ export default function TechHero({ media }: { media?: HeroMedia | null }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-14 pt-10 pb-12">
           <FadeUp>
             <h1 className="font-typewriter uppercase text-[clamp(2rem,4vw,4rem)] leading-[1.0] text-[#1A0F00] tracking-tight">
-              Engineering Beyond Steel
+              <Typewriter text="Engineering Beyond Steel" />
             </h1>
           </FadeUp>
-          <FadeUp delay={0.1} className="flex items-center pt-6 lg:pt-0">
+          <FadeUp delay={typeDuration("Engineering Beyond Steel") * 0.6} className="flex items-center pt-6 lg:pt-0">
             <p className="font-raleway text-[18px] text-[#1A0F00] leading-relaxed">
               At U-LI, technology goes beyond equipment. It is rooted in how we design, improve,
               and problem-solve. Every product we build reflects ongoing R&amp;D, precision

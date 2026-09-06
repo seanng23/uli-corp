@@ -14,6 +14,7 @@ import {
   LineChart,
 } from "lucide-react";
 import RevealRule from "@/components/motion/RevealRule";
+import Typewriter from "@/components/motion/Typewriter";
 
 export const metadata: Metadata = {
   title: "Sustainability",
@@ -178,9 +179,7 @@ export default function SustainabilityPage() {
           Sustainability
         </p>
         <h1 className="font-typewriter text-[clamp(1.8rem,3vw,3rem)] leading-tight text-[#1A0F00] mb-4">
-          Building Responsibly,
-          <br />
-          for the Long Term.
+          <Typewriter text={"Building Responsibly,\nfor the Long Term."} />
         </h1>
         <p className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed max-w-[720px]">
           Sustainable development remains material to the business operations of United U-LI

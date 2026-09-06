@@ -1,4 +1,5 @@
 import RevealRule from "@/components/motion/RevealRule";
+import Typewriter from "@/components/motion/Typewriter";
 export default function AboutHero() {
   return (
     <section>
@@ -10,14 +11,14 @@ export default function AboutHero() {
         <div className="grid grid-cols-[40px_1fr_40px] lg:grid-cols-[80px_1fr_80px] items-center py-10">
           <div />
           <h1 className="font-typewriter uppercase text-center text-[clamp(2rem,4.5vw,5rem)] leading-[1.0] text-[#1A0F00] tracking-tight px-4">
-            Building Infrastructure That Lasts
+            <Typewriter text="Building Infrastructure That Lasts" startDelay={0.35} />
           </h1>
           <div />
         </div>
       </div>
 
       <div className="site-container">
-        <RevealRule src="/images/double-line.png" className="w-full block" />
+        <RevealRule src="/images/double-line.png" className="w-full block" delay={0.45} />
       </div>
     </section>
   );
