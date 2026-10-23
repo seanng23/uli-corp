@@ -30,7 +30,7 @@ type ChannelProfile = ChannelVariant["profile"];
 const MAIN_IMAGE = "/images/products/metal-framing-v5.png";
 const GALLERY_IMAGES: { src: string; alt: string }[] = [
   { src: "/images/products/metal-framing-v5.png", alt: "UliStrut® channel" },
-  { src: "/images/products/metal-framing-pierced-v2.png", alt: "Packed slotted pierced channel" },
+  { src: "/images/products/metal-framing-pierced-v3.png", alt: "Packed slotted pierced channel" },
 ];
 const PROFILE_IMAGES: Record<ChannelProfile, { src: string; heightClass: string }> = {
   "single-deep": { src: "/images/products/metal-framing/profiles/single-deep.png", heightClass: "h-10" },
@@ -40,13 +40,13 @@ const PROFILE_IMAGES: Record<ChannelProfile, { src: string; heightClass: string 
   "back-to-back-shallow": { src: "/images/products/metal-framing/profiles/back-to-back-shallow.png", heightClass: "h-10" },
 };
 const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
-  "UL1000": { iso: "/images/products/metal-framing/channels/ul1000-iso.png", dims: "/images/products/metal-framing/channels/ul1000-dims.png" },
-  "UL1001": { iso: "/images/products/metal-framing/channels/ul1001-iso.png", dims: "/images/products/metal-framing/channels/ul1001-dims.png" },
-  "UL1001-C41": { iso: "/images/products/metal-framing/channels/ul1001-c41-iso.png", dims: "/images/products/metal-framing/channels/ul1001-c41-dims.png" },
-  "UL3300": { iso: "/images/products/metal-framing/channels/ul3300-iso.png", dims: "/images/products/metal-framing/channels/ul3300-dims.png" },
-  "UL3301": { iso: "/images/products/metal-framing/channels/ul3301-iso.png", dims: "/images/products/metal-framing/channels/ul3301-dims.png" },
-  "UL1000T": { iso: "/images/products/metal-framing/channels/ul1000t-iso.png", dims: "/images/products/metal-framing/channels/ul1000t-dims.png" },
-  "UL3300T": { iso: "/images/products/metal-framing/channels/ul3300t-iso.png", dims: "/images/products/metal-framing/channels/ul3300t-dims.png" },
+  "UL1000": { iso: "/images/products/metal-framing/channels/ul1000-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1000-dims.png" },
+  "UL1001": { iso: "/images/products/metal-framing/channels/ul1001-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1001-dims.png" },
+  "UL1001-C41": { iso: "/images/products/metal-framing/channels/ul1001-c41-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1001-c41-dims.png" },
+  "UL3300": { iso: "/images/products/metal-framing/channels/ul3300-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3300-dims.png" },
+  "UL3301": { iso: "/images/products/metal-framing/channels/ul3301-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3301-dims.png" },
+  "UL1000T": { iso: "/images/products/metal-framing/channels/ul1000t-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1000t-dims.png" },
+  "UL3300T": { iso: "/images/products/metal-framing/channels/ul3300t-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3300t-dims.png" },
 };
 const FINISHING_OPTIONS = ["Hot-dip Galvanizing (HDG)", "Sheet Galvanizing (Pre-galvanized) (PG)", "Stainless Steel 316", "Stainless Steel 304"];
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];

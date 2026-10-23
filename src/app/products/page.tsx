@@ -92,7 +92,7 @@ export default async function ProductsPage() {
         slug: "metal-framing-system",
         name: "Packed Slotted",
         itemNo: "UL1000T · UL3300T",
-        image: "/images/products/metal-framing-pierced-v2.png",
+        image: "/images/products/metal-framing-pierced-v3.png",
       },
     ],
   };
