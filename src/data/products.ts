@@ -32,6 +32,8 @@ export type Product = {
   itemNo?: string;
   description: string;
   image: string;
+  /** Listing card opens this site in a new tab instead of a product page. */
+  externalUrl?: string;
   thumbnails?: string[];
   standards?: string[];
   dimensions?: {

@@ -123,6 +123,22 @@ export default async function ProductsPage() {
     }
   }
 
+  // Lighting Systems links out to Goodlite's site in a new tab. Defined here
+  // rather than in the static catalogue so it never gets a /products/[slug] page.
+  products.push({
+    slug: "lighting-systems",
+    name: "Lighting Systems",
+    subcategory: "Lighting Systems",
+    category: "Lighting Systems",
+    categorySlug: "lighting-systems",
+    itemNo: "goodlite.com.my",
+    description: "Quality lighting systems by Goodlite.",
+    image: "/images/brand/goodlite-logo.png",
+    externalUrl: "https://www.goodlite.com.my/",
+    thumbnails: [],
+    specs: [],
+  });
+
   return (
     <>
       {/* Double-line top */}

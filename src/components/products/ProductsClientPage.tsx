@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Plus, Minus, SlidersHorizontal, X } from "lucide-react";
+import { Plus, Minus, SlidersHorizontal, X, ArrowUpRight } from "lucide-react";
 import type { Product } from "@/data/products";
 
 type Filters = {
@@ -92,6 +92,30 @@ const PRODUCT_IMAGES: Record<string, string> = {
 };
 
 function ProductCard({ product }: { product: Product }) {
+  if (product.externalUrl) {
+    // Partner brand (e.g. Goodlite): logo on white, opens their site in a new tab
+    return (
+      <a href={product.externalUrl} target="_blank" rel="noopener noreferrer" className="group block">
+        <div className="relative aspect-square overflow-hidden rounded-xl border border-[#1A0F00]/15 bg-white">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-contain object-center p-[14%] transition-transform duration-500 group-hover:scale-[1.04]"
+            sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+          />
+        </div>
+        <p className="font-typewriter text-[14px] leading-snug text-[#1A0F00] group-hover:text-[#ff8905] transition-colors mt-2">
+          {product.name}
+        </p>
+        <p className="font-raleway text-[11px] text-[#5C4A30] mt-0.5 inline-flex items-center gap-1">
+          {product.itemNo}
+          <ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" />
+          <span className="sr-only">(opens in a new tab)</span>
+        </p>
+      </a>
+    );
+  }
   return (
     <Link href={`/products/${product.slug}`} className="group block">
       <div className="relative aspect-square overflow-hidden rounded-xl border border-[#1A0F00]/15">
