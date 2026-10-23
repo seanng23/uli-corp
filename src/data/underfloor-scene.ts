@@ -175,6 +175,7 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Leveling Screws",
     code: "ULLS38 / ULLS48 / ULLS60 / ULLS95",
+    options: [{ key: "model", label: "Model", options: ["ULLS38", "ULLS48", "ULLS60", "ULLS95"] }],
     description:
       "M8 leveling screws are the primary component setting the overall height of a junction or service box. Floor finish (carpet, tiles, marble) and the pillar height at the trunking entry decide which length is needed.",
     specs: [
@@ -187,6 +188,7 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "UF Trunking OHM Bracket",
     code: "UL-UOHMX-[W]",
+    options: [{ key: "height", label: "Height", options: ["L (25H)", "M (32H)", "H (38H)"] }, { key: "width", label: "Width (mm)", options: ["150", "200", "225", "275", "300", "350"] }],
     image: UF + "uft-ohm-bracket-v1.png",
     description: "Hold-down bracket that fixes underfloor trunking and uPVC duct runs to the slab before screeding.",
     specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 150, 200, 225, 275, 300, 350 mm"],
@@ -194,6 +196,7 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "UF Trunking Joint",
     code: "UL-UTJX-[W]",
+    options: [{ key: "height", label: "Height", options: ["L (25H)", "M (32H)", "H (38H)"] }, { key: "width", label: "Width (mm)", options: ["50", "75", "100", "150", "200", "225", "275", "300", "350"] }],
     image: UF + "uft-joint-v1.png",
     description: "Coupling joint that connects underfloor trunking lengths end to end.",
     specs: ["X = L (25H), M (32H) or H (38H)", "Widths: 50, 75, 100, 150, 200, 225, 275, 300, 350 mm"],
@@ -201,6 +204,7 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Trunking End Cap",
     code: "UL-UTECL-[W] / UL-UDECL-[W]",
+    options: [{ key: "type", label: "Type", options: ["UL-UTECL (GI trunking)", "UL-UDECL (uPVC duct)"] }, { key: "width", label: "Width (mm)", options: WIDTHS }],
     image: UF + "uft-end-cap-v1.png",
     description: "Closes off the open end of a trunking or duct run before screeding, keeping concrete and debris out of the compartments.",
     specs: ["UL-UTECL: GI metal trunking end cap", "UL-UDECL: uPVC duct end cap", "Widths: 50 to 350 mm, to suit the run"],
@@ -208,6 +212,7 @@ export const UNDERFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Leveling Bar",
     code: "Leveling Bar",
+    options: [{ key: "width", label: "Trunking Width (mm)", options: WIDTHS }],
     image: UF + "uft-leveling-bar-v1.png",
     description: "Steel bar set beneath the trunking run to keep it flat and level on an uneven slab before screeding.",
     specs: ["Supplied to suit the trunking width"],

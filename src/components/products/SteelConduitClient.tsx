@@ -11,6 +11,7 @@ import {
   ELECTRICAL_WIRING,
 } from "@/data/steel-conduit";
 import ProductGallery from "./ProductGallery";
+import AccessoryEnquiryTable from "./AccessoryEnquiry";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
@@ -167,11 +168,12 @@ export default function SteelConduitClient() {
             </CollapsibleSection>
 
             <CollapsibleSection id="accessories" title="Accessories">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border border-[#1A0F00]/20"><thead><tr className="bg-[#1A0F00]/5"><th className={`${thClass} w-[60px]`}>No.</th><th className={thClass}>Description</th></tr></thead>
-                  <tbody>{ACCESSORIES.map((accessory, i) => <tr key={accessory} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={`${tdClass} py-2`}>{i + 1}</td><td className={`${tdClass} py-2`}>{accessory}</td></tr>)}</tbody>
-                </table>
-              </div>
+              <AccessoryEnquiryTable
+                groups={[{ items: ACCESSORIES.map((name) => ({ name })) }]}
+                fields={[{ key: "Size", label: "Conduit Size", options: [...CABLE_MGMT.rows.map((row) => `${row.nominalSize}mm`), ...ELECTRICAL_WIRING.rows.map((row) => row.sizeInch)] }]}
+                initial={{ Size: isCableManagement ? `${nominalSize}mm` : wiringSize }}
+                meta={{ idPrefix: "steel-conduit-", category: "Cable Support Systems", slug: "steel-conduit", image: MAIN_IMAGE, context: { Product: "Steel Conduit" } }}
+              />
             </CollapsibleSection>
                       <MobileDocuments product="Steel Conduit" />
             </div>

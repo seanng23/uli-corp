@@ -48,8 +48,11 @@ export type SceneVariant = {
   hotspots: SceneHotspot[];
 };
 
+/** Size choice on an accessory card; left blank it goes in the enquiry as "To advise". */
+export type AccessoryOption = { key: string; label: string; options: string[] };
+
 /** Generic reference cards for parts that are not configured on the drawing. */
-export type AccessoryCard = { name: string; code: string; image?: string; description: string; specs: string[] };
+export type AccessoryCard = { name: string; code: string; image?: string; description: string; specs: string[]; options?: AccessoryOption[] };
 
 export type FloorScene = {
   system: FloorTrunkingSystem;

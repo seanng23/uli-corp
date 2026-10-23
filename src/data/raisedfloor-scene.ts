@@ -110,6 +110,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Raisedfloor Headed Box",
     code: "UL-RHBH-[Size]",
+    options: [{ key: "size", label: "Size (mm sq.)", options: ["150", "200", "300", "350", "400", "450", "500"] }, { key: "height", label: "Height (mm)", options: HEIGHTS }],
     image: RF + "rft-headed-box-v1.png",
     description: "Installed at the top of the raisedfloor trunking run, where the final sub-circuits leave for the service boxes through flexible conduit. Knock-outs on every side take the conduit adapters.",
     specs: ["Sizes: 150, 200, 300, 350, 400, 450, 500 mm square", "Heights: 25 / 40 / 50 / 75 / 100 mm"],
@@ -117,6 +118,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Raisedfloor Tap Off Unit",
     code: "UL-RTOUH-[Size]",
+    options: [{ key: "size", label: "Size (mm sq.)", options: ["150", "200", "300", "350", "400", "450", "500"] }, { key: "height", label: "Height (mm)", options: ["40", "50", "75", "100", "150"] }],
     image: RF + "rft-tap-off-v1.png",
     description: "Through or termination box for conduit branch-outs, supplied as a body and a separate cover.",
     specs: ["Sizes: 150, 200, 300, 350, 400, 450, 500 mm square", "Heights: 40 / 50 / 75 / 100 / 150 mm"],
@@ -124,6 +126,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Raisedfloor Trunking Joint",
     code: "UL-RTJ[H]",
+    options: [{ key: "height", label: "Height (mm)", options: HEIGHTS }],
     image: RF + "rft-joint-v1.png",
     description: "Side coupling plates that bolt two raisedfloor trunking lengths together end to end. One set of two plates per joint.",
     specs: ["Heights: 25 / 40 / 50 / 75 / 100 mm", "1 set = 2 pcs"],
@@ -131,6 +134,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Raisedfloor Tap Pedestal Box",
     code: "UL-RPB-[Gang]",
+    options: [{ key: "gang", label: "Gang", options: ["1G", "2G", "DG", "3G", "4G", "8G"] }],
     image: RF + "rft-pedestal-box-v1.png",
     description: "Surface-mounted pedestal box that stands on the raised floor panel and carries the switch socket outlets, fed from the trunking below through flexible conduit.",
     specs: ["1G / 2G / DG (double gang) / 3G / 4G / 8G"],
@@ -138,6 +142,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "RF Trunking End Cap",
     code: "UL-RTECH-[W]",
+    options: [{ key: "height", label: "Height (mm)", options: HEIGHTS }, { key: "width", label: "Width (mm)", options: WIDTHS }],
     image: RF + "rft-end-cap-v1.png",
     description: "Closes off the open end of a raisedfloor trunking run so cables stay inside the compartments.",
     specs: ["Heights: 25 / 40 / 50 / 75 / 100 mm", "Widths: 100, 150, 200, 300, 400, 450, 500 mm"],
@@ -145,6 +150,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Levelling Bar",
     code: "Levelling Bar",
+    options: [{ key: "width", label: "Trunking Width (mm)", options: WIDTHS }],
     image: UF + "uft-leveling-bar-v1.png",
     description: "Steel bar set beneath the trunking joint to keep adjoining lengths flat and level between the pedestals.",
     specs: ["Supplied to suit the trunking width"],
@@ -152,6 +158,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Surface Metal Box",
     code: "UL-MBH-[Size] / UL-MBH-[Size]/h",
+    options: [{ key: "size", label: "Size (mm)", options: ["100 × 100", "150 × 150", "75 × 100", "100 × 150", "100 × 200", "200 × 200"] }, { key: "height", label: "Height (mm)", options: ["50", "75", "100"] }, { key: "holes", label: "Holes", options: ["Plain", "Pre-punched (/h)"] }],
     image: RF + "rft-surface-metal-box-v1.png",
     description: "Surface-mounted metal box for outlets and connections above the access floor, plain or with pre-punched holes (/h).",
     specs: ["Sizes: 100 × 100, 150 × 150, 75 × 100, 100 × 150, 100 × 200, 200 × 200 mm", "Heights: 50 / 75 / 100 mm and others"],
@@ -159,6 +166,7 @@ export const RAISEDFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Surface Switch Centre",
     code: "UL-MBSC-[Gang]",
+    options: [{ key: "gang", label: "Gang", options: ["2", "3", "4", "5", "6", "8", "10"] }],
     image: RF + "rft-switch-centre-v1.png",
     description: "Surface-mounted switch centre housing several switch gangs in one enclosure.",
     specs: ["2 / 3 / 4 / 5 / 6 / 8 / 10 gang"],

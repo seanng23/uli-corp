@@ -11,6 +11,7 @@ import DimensionCombobox from "./DimensionCombobox";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import ProductBadge from "./ProductBadge";
+import AccessoryEnquiryTable from "./AccessoryEnquiry";
 import RevealRule from "@/components/motion/RevealRule";
 
 type Props = { product: Product };
@@ -305,30 +306,15 @@ export default function ProductInnerClient({ product }: Props) {
 
           {product.accessories && product.accessories.length > 0 && (
             <CollapsibleSection id="accessories" title="Accessories">
-              <table className="w-full text-left border border-[#1A0F00]/20">
-                <thead>
-                  <tr className="bg-[#1A0F00]/5">
-                    <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20 w-[60px]">
-                      No.
-                    </th>
-                    <th className="font-raleway text-[11px] font-bold uppercase tracking-wider text-[#1A0F00] px-3 py-2 border-b border-[#1A0F00]/20">
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {product.accessories.map((a, i) => (
-                    <tr key={a.no} className={i % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}>
-                      <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">
-                        {a.no}
-                      </td>
-                      <td className="font-raleway text-[13px] text-[#5C4A30] px-3 py-2 border-b border-[#1A0F00]/10">
-                        {a.description}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <AccessoryEnquiryTable
+                groups={[{ items: product.accessories.map((a) => ({ name: a.description })) }]}
+                fields={[
+                  ...(dims?.height?.length ? [{ key: "Height", label: "Height (mm)", options: dims.height.map(String) }] : []),
+                  ...(dims?.width?.length ? [{ key: "Width", label: "Width (mm)", options: dims.width.map(String) }] : []),
+                ]}
+                initial={{ Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" }}
+                meta={{ idPrefix: product.slug + "-", category: product.category, slug: product.slug, image: mainImage, context: { Product: product.name } }}
+              />
             </CollapsibleSection>
           )}
           <MobileDocuments product={product.name} />

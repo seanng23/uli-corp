@@ -8,6 +8,8 @@ const UF = "/images/products/floor-trunking/underfloor/";
 
 const HEIGHTS = ["32", "40", "50", "60", "65", "73"];
 const WIDTHS = ["100", "150", "200", "280", "300", "400", "450", "500", "600", "700"];
+// Joint, end cap and reducer widths stop at 600 mm
+const JOINT_WIDTHS = ["100", "150", "200", "280", "300", "400", "500", "600"];
 const BOX_SIZES = ["100 × 100", "150 × 150", "200 × 200", "280 × 280", "300 × 300", "400 × 400", "450 × 450", "500 × 500", "600 × 600", "700 × 700"];
 
 const MAIN = "Main Trunking";
@@ -136,6 +138,7 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Flushfloor Trunking Reducer",
     code: "UL-FRH-[W1]-[W2]",
+    options: [{ key: "size", label: "W1 - W2 (mm)", options: ["600-500", "600-400", "600-300", "500-400", "500-300", "500-280", "400-300", "400-280"] }, { key: "height", label: "Height (mm)", options: HEIGHTS }, { key: "compartments", label: "Compartments", options: ["2", "3"] }],
     image: FF + "fft-reducer-v1.png",
     description: "Steps a wider main trunking run down to a narrower one, keeping the compartments continuous through the transition.",
     specs: ["600-500 · 600-400 · 600-300 · 500-400 · 500-300 · 500-280 · 400-300 · 400-280", "Heights: 32 / 40 / 50 / 60 / 65 / 73 mm · 2 or 3 compartments"],
@@ -143,6 +146,7 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Flushfloor Trunking End Cap",
     code: "UL-FTECH-[W]",
+    options: [{ key: "width", label: "Width (mm)", options: JOINT_WIDTHS }, { key: "height", label: "Height (mm)", options: HEIGHTS }],
     image: FF + "fft-end-cap-v1.png",
     description: "Closes off the open end of a flushfloor trunking run before the screed is poured.",
     specs: ["Widths: 100 to 600 mm", "Heights: 32 / 40 / 50 / 60 / 65 / 73 mm"],
@@ -150,6 +154,7 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Flushfloor Trunking Joint",
     code: "UL-FJ-[W]/[C]",
+    options: [{ key: "width", label: "Width (mm)", options: JOINT_WIDTHS }, { key: "compartments", label: "Compartments", options: ["1", "2", "3"] }],
     image: FF + "fft-joint-v1.png",
     description: "Flat coupling plate that connects flushfloor trunking lengths end to end beneath the joint line.",
     specs: ["Widths: 100, 150, 200, 280, 300, 400, 500, 600 mm", "1 to 3 compartments (100 W and 150 W: 1 or 2)"],
@@ -157,6 +162,7 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Flushfloor Trunking Adjustable Joint",
     code: "UL-FAJ-[W]/[C]",
+    options: [{ key: "width", label: "Width (mm)", options: JOINT_WIDTHS }, { key: "compartments", label: "Compartments", options: ["1", "2", "3"] }],
     image: FF + "fft-adjustable-joint-v1.png",
     description: "Coupling plate with built-in levelling feet, so adjoining trunking lengths can be brought level on an uneven slab before the screed goes down.",
     specs: ["Widths: 100, 150, 200, 280, 300, 400, 500, 600 mm", "1 to 3 compartments (100 W and 150 W: 1 or 2)"],
@@ -164,6 +170,7 @@ export const FLUSHFLOOR_ACCESSORIES: AccessoryCard[] = [
   {
     name: "Levelling Bar",
     code: "Levelling Bar",
+    options: [{ key: "width", label: "Trunking Width (mm)", options: WIDTHS }],
     image: UF + "uft-leveling-bar-v1.png",
     description: "Steel bar set beneath the trunking at each joint and under the service box, keeping the run flat and level on the slab before screeding.",
     specs: ["Supplied to suit the trunking width"],

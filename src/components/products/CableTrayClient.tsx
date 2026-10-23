@@ -14,6 +14,7 @@ import {
   type TrayDim,
 } from "@/data/cable-tray";
 import ProductGallery from "./ProductGallery";
+import AccessoryEnquiryTable, { hwFields } from "./AccessoryEnquiry";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
@@ -135,25 +136,6 @@ function ProfileAccordion({
         )}
       </button>
       {open && <div className="p-4">{children}</div>}
-    </div>
-  );
-}
-
-function AccessoryList({ title, items }: { title: string; items: string[] }) {
-  if (!items.length) return null;
-  return (
-    <div>
-      <p className="font-raleway text-[12px] font-bold uppercase tracking-widest text-[#1A0F00] mb-2">
-        {title}
-      </p>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
-        {items.map((a) => (
-          <li key={a} className="font-raleway text-[14px] text-[#5C4A30] flex items-center gap-2">
-            <span className="w-1 h-1 rounded-full bg-[#ff8905] flex-shrink-0" />
-            {a}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -294,16 +276,21 @@ export default function CableTrayClient() {
 
             <CollapsibleSection id="accessories" title="Accessories">
               <p className="font-raleway text-[13px] text-[#5C4A30] mb-4">
-                Compatible accessories per design profile — expand a profile to view its range.
+                Compatible accessories per design profile. Expand a profile, pick the size and add the accessories you need to your enquiry.
               </p>
               <div className="space-y-3">
                 {CABLE_TRAY_PROFILES.map((p) => (
                   <ProfileAccordion key={p.code} code={p.code} itemCode={p.itemCode} defaultOpen={false}>
-                    <div className="space-y-5">
-                      <AccessoryList title="Standard Accessories" items={p.standardAccessories} />
-                      <AccessoryList title="Cover Accessories" items={p.coverAccessories} />
-                      <AccessoryList title="Angular Type" items={p.angularAccessories} />
-                    </div>
+                    <AccessoryEnquiryTable
+                      groups={[
+                        { title: "Standard Accessories", items: p.standardAccessories.map((name) => ({ name })) },
+                        { title: "Cover Accessories", items: p.coverAccessories.map((name) => ({ name })) },
+                        { title: "Angular Type", items: p.angularAccessories.map((name) => ({ name })) },
+                      ]}
+                      fields={hwFields(p.dimensions)}
+                      initial={p.code === profileCode ? { Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" } : {}}
+                      meta={{ idPrefix: `cable-tray-${p.code.toLowerCase()}-`, category: "Cable Tray", slug: "cable-tray", image: MAIN_IMAGE, context: { Profile: p.code } }}
+                    />
                   </ProfileAccordion>
                 ))}
               </div>

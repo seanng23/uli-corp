@@ -7,6 +7,7 @@ import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
+import { SizeSelect, accessorySpecs } from "./AccessoryEnquiry";
 import type { AccessoryCard, ComponentDef, Field, FloorScene, SceneHotspot, SceneVariant, Values } from "@/data/floor-scene";
 import { UNDERFLOOR_SCENE } from "@/data/underfloor-scene";
 import { RAISEDFLOOR_SCENE } from "@/data/raisedfloor-scene";
@@ -58,6 +59,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [addedAccessory, setAddedAccessory] = useState<string | null>(null);
+  const [accessoryValues, setAccessoryValues] = useState<Record<string, Record<string, string>>>({});
   const panelRef = useRef<HTMLDivElement>(null);
 
   const component = components[componentKey];
@@ -98,7 +100,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
   }
 
   function addAccessory(item: AccessoryCard) {
-    const specs: Record<string, string> = { "Item No.": item.code, System: system.name };
+    const specs = accessorySpecs({ name: item.name, code: item.code }, item.options ?? [], accessoryValues[item.name] ?? {}, { System: system.name });
     addToCart({
       id: generateItemId(scene.idPrefix + "accessory-" + item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"), specs),
       productName: item.name,
@@ -210,7 +212,20 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
                     <p className="font-raleway text-[11px] font-semibold text-[#ff8905] mb-2">{item.code}</p>
                     <p className="font-raleway text-[12px] text-[#5C4A30] leading-snug mb-2">{item.description}</p>
                     <ul className="space-y-0.5">{item.specs.map((spec) => <li key={spec} className="font-raleway text-[11px] text-[#5C4A30] leading-snug">{spec}</li>)}</ul>
-                    <div className="mt-auto pt-3"><button type="button" onClick={() => addAccessory(item)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedAccessory === item.name ? "Added ✓" : "Add to Enquiry"}</button></div>
+                    {item.options && (
+                      <div className="grid grid-cols-2 gap-2 mt-auto pt-3">
+                        {item.options.map((option) => (
+                          <SizeSelect
+                            key={option.key}
+                            small
+                            field={option}
+                            value={accessoryValues[item.name]?.[option.key] ?? ""}
+                            onChange={(v) => setAccessoryValues((prev) => ({ ...prev, [item.name]: { ...prev[item.name], [option.key]: v } }))}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    <div className={item.options ? "pt-3" : "mt-auto pt-3"}><button type="button" onClick={() => addAccessory(item)} className="w-full rounded-md bg-[#ff8905] hover:bg-[#e67b00] text-white py-2 px-3 font-raleway text-[12px] font-bold transition-colors">{addedAccessory === item.name ? "Added ✓" : "Add to Enquiry"}</button></div>
                   </div>
                 ))}
               </div>

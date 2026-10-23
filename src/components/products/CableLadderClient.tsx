@@ -13,6 +13,7 @@ import {
   type LadderDim,
 } from "@/data/cable-ladder";
 import ProductGallery from "./ProductGallery";
+import AccessoryEnquiryTable, { hwFields } from "./AccessoryEnquiry";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
@@ -130,20 +131,6 @@ function ProfileAccordion({
       </button>
       {open && <div className="p-4">{children}</div>}
     </div>
-  );
-}
-
-function AccessoryList({ items }: { items: string[] }) {
-  if (!items.length) return null;
-  return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
-      {items.map((a) => (
-        <li key={a} className="font-raleway text-[14px] text-[#5C4A30] flex items-center gap-2">
-          <span className="w-1 h-1 rounded-full bg-[#ff8905] flex-shrink-0" />
-          {a}
-        </li>
-      ))}
-    </ul>
   );
 }
 
@@ -278,12 +265,17 @@ export default function CableLadderClient() {
 
             <CollapsibleSection id="accessories" title="Accessories">
               <p className="font-raleway text-[13px] text-[#5C4A30] mb-4">
-                Compatible accessories per design profile — expand a profile to view its range.
+                Compatible accessories per design profile. Expand a profile, pick the size and add the accessories you need to your enquiry.
               </p>
               <div className="space-y-3">
                 {CABLE_LADDER_PROFILES.map((p) => (
                   <ProfileAccordion key={p.code} code={p.code} itemCode={p.itemCode} defaultOpen={false}>
-                    <AccessoryList items={p.accessories} />
+                    <AccessoryEnquiryTable
+                      groups={[{ items: p.accessories.map((name) => ({ name })) }]}
+                      fields={hwFields(p.dimensions)}
+                      initial={p.code === profileCode ? { Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" } : {}}
+                      meta={{ idPrefix: `cable-ladder-${p.code.toLowerCase()}-`, category: "Cable Ladder", slug: "cable-ladder", image: MAIN_IMAGE, context: { Profile: p.code } }}
+                    />
                   </ProfileAccordion>
                 ))}
               </div>

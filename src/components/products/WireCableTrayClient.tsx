@@ -8,6 +8,7 @@ import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import { ACCESSORIES, COVERS, TRAY_PROFILES } from "@/data/wire-cable-tray";
 import ProductGallery from "./ProductGallery";
+import AccessoryEnquiryTable from "./AccessoryEnquiry";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
@@ -134,7 +135,18 @@ export default function WireCableTrayClient() {
 
         <CollapsibleSection id="fwb-cover" title="FWB Cover"><p className="font-raleway text-[14px] text-[#5C4A30] leading-relaxed mb-4">Matching covers for FWB wire mesh trays. Mainly used for horizontal and vertical sections; the cover height is 10 mm.</p><div className="overflow-x-auto"><table className="w-full text-left min-w-[760px] border border-[#1A0F00]/20"><thead><tr className="bg-[#F0E6CC]">{["Reference", "FWB Width (mm)", "Internal Width (mm)", "Thickness (mm)", "Length (mm)"].map((heading) => <th key={heading} className={thClass}>{heading}</th>)}</tr></thead><tbody>{COVERS.map((item, index) => <tr key={item.ref} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={tdClass}>{item.ref}</td><td className={tdClass}>{item.fwbWidth}</td><td className={tdClass}>{item.internalWidth}</td><td className={tdClass}>{item.thickness.toFixed(1)}</td><td className={tdClass}>{item.length}</td></tr>)}</tbody></table></div></CollapsibleSection>
 
-        <CollapsibleSection id="accessories" title="Accessories"><div className="overflow-x-auto"><table className="w-full text-left min-w-[620px] border border-[#1A0F00]/20"><thead><tr className="bg-[#1A0F00]/5"><th className={`${thClass} w-[60px]`}>No.</th><th className={thClass}>Reference</th><th className={thClass}>Description</th></tr></thead><tbody>{ACCESSORIES.map((item, index) => <tr key={item.no} className={index % 2 === 1 ? "bg-[#1A0F00]/[0.03]" : ""}><td className={`${tdClass} py-2`}>{item.no}</td><td className={`${tdClass} py-2`}>{item.ref}</td><td className={`${tdClass} py-2`}>{item.description}</td></tr>)}</tbody></table></div></CollapsibleSection>
+        <CollapsibleSection id="accessories" title="Accessories">
+          <AccessoryEnquiryTable
+            groups={[{ items: ACCESSORIES.map((item) => ({ name: item.description, code: item.ref })) }]}
+            fields={[
+              { key: "Height", label: "Tray Height (mm)", options: TRAY_PROFILES.map((p) => String(p.height)) },
+              { key: "Width", label: "Tray Width (mm)", options: [...new Set(TRAY_PROFILES.flatMap((p) => p.rows.map((r) => r.width)))].sort((a, b) => a - b).map(String) },
+            ]}
+            initial={{ Height: height, Width: width }}
+            meta={{ idPrefix: "wire-cable-tray-", category: "Cable Support Systems", slug: "wire-cable-tray", image: MAIN_IMAGE, context: { Product: "Wire Mesh Tray" } }}
+            showCode
+          />
+        </CollapsibleSection>
                   <MobileDocuments product="Wire Mesh Tray" />
             </div>
           </div>
