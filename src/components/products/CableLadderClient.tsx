@@ -17,7 +17,7 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/cable-ladder.png";
+const MAIN_IMAGE = "/images/products/cable-ladder-v2.png";
 const STANDARDS = CABLE_LADDER_STANDARDS;
 const FINISH_CUSTOM = "Others / Custom Finishing";
 const RAW_FINISHING = [

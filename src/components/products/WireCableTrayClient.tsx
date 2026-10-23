@@ -12,7 +12,7 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/wire-mesh-tray-v5.png";
+const MAIN_IMAGE = "/images/products/wire-mesh-tray-v6.png";
 const STANDARDS = ["DIN EN IEC 61537", "Others"];
 const FINISHING = [
   "Electro Zinc-Plated",

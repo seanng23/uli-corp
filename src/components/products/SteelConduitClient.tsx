@@ -15,7 +15,7 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/steel-conduit-v2.png";
+const MAIN_IMAGE = "/images/products/steel-conduit-v3.png";
 const SYSTEMS = ["Cable Management", "Electrical Wiring"];
 const STANDARD_OPTIONS: Record<string, string[]> = {
   "Cable Management": ["MS IEC 61386-1 / MS 61386-21", "Others"],

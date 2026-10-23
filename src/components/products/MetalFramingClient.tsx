@@ -27,10 +27,10 @@ import RevealRule from "@/components/motion/RevealRule";
 
 type ChannelProfile = ChannelVariant["profile"];
 
-const MAIN_IMAGE = "/images/products/metal-framing-v4.png";
+const MAIN_IMAGE = "/images/products/metal-framing-v5.png";
 const GALLERY_IMAGES: { src: string; alt: string }[] = [
-  { src: "/images/products/metal-framing-v4.png", alt: "UliStrut® channel" },
-  { src: "/images/products/metal-framing-pierced-v1.png", alt: "Packed slotted pierced channel" },
+  { src: "/images/products/metal-framing-v5.png", alt: "UliStrut® channel" },
+  { src: "/images/products/metal-framing-pierced-v2.png", alt: "Packed slotted pierced channel" },
 ];
 const PROFILE_IMAGES: Record<ChannelProfile, { src: string; heightClass: string }> = {
   "single-deep": { src: "/images/products/metal-framing/profiles/single-deep.png", heightClass: "h-10" },

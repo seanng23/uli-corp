@@ -18,7 +18,7 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/cable-tray.png";
+const MAIN_IMAGE = "/images/products/cable-tray-v2.png";
 const STANDARDS = CABLE_TRAY_STANDARDS;
 const FINISH_CUSTOM = "Others / Custom Finishing";
 const RAW_FINISHING = [

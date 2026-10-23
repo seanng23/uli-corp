@@ -32,8 +32,8 @@ const EXCLUDED_SUBCATEGORIES = new Set([
 
 // Card images that match the product's inner detail page.
 const CARD_IMAGES: Record<string, string> = {
-  "cable-trunking": "/images/products/cable-trunking-v5.png",
-  "conduit-pipe-accessories": "/images/products/steel-conduit-v2.png",
+  "cable-trunking": "/images/products/cable-trunking-v6.png",
+  "conduit-pipe-accessories": "/images/products/steel-conduit-v3.png",
 };
 
 export default async function ProductsPage() {
@@ -57,31 +57,31 @@ export default async function ProductsPage() {
       slug: "cable-tray",
       name: "Cable Tray",
       itemNo: "TU · TT · TC · TR",
-      image: "/images/products/cable-tray.png",
+      image: "/images/products/cable-tray-v2.png",
     }),
     "Cable Ladder": makeCard("Cable Ladder", {
       slug: "cable-ladder",
       name: "Cable Ladder",
       itemNo: "LZ · LN · LG · LC · L6N",
-      image: "/images/products/cable-ladder.png",
+      image: "/images/products/cable-ladder-v2.png",
     }),
     Conduit: makeCard("Conduit", {
       slug: "steel-conduit",
       name: "Steel Conduit",
       itemNo: "C-ULI",
-      image: "/images/products/steel-conduit-v2.png",
+      image: "/images/products/steel-conduit-v3.png",
     }),
     "Wire Mesh Tray": makeCard("Wire Mesh Tray", {
       slug: "wire-cable-tray",
       name: "Wire Mesh Tray",
       itemNo: "FWB",
-      image: "/images/products/wire-mesh-tray-v5.png",
+      image: "/images/products/wire-mesh-tray-v6.png",
     }),
     "Metal Framing System": makeCard("Metal Framing System", {
       slug: "metal-framing-system",
       name: "UliStrut® Channel",
       itemNo: "UL1000 · UL3300",
-      image: "/images/products/metal-framing-v4.png",
+      image: "/images/products/metal-framing-v5.png",
     }),
   };
 
@@ -92,7 +92,7 @@ export default async function ProductsPage() {
         slug: "metal-framing-system",
         name: "Packed Slotted",
         itemNo: "UL1000T · UL3300T",
-        image: "/images/products/metal-framing-pierced-v1.png",
+        image: "/images/products/metal-framing-pierced-v2.png",
       },
     ],
   };

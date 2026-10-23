@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import ProductBadge from "./ProductBadge";
 
 export type GalleryImage = string | { src: string; alt: string };
 
@@ -14,7 +15,9 @@ type Props = {
   fit?: "cover" | "contain";
   mainSizes?: string;
   className?: string;
-  /** Extra overlays for the main image (e.g. a logo badge). */
+  /** Show the U-LI™ badge on the main image. */
+  badge?: boolean;
+  /** Extra overlays for the main image. */
   children?: React.ReactNode;
 };
 
@@ -23,7 +26,7 @@ type Props = {
  * Desktop: thumbnail strip on the left, square main image on the right.
  * Mobile: square main image only, with previous / next arrows and position dots (Shopee style).
  */
-export default function ProductGallery({ images, active, onChange, alt = "Product image", fit = "cover", mainSizes = "(max-width:1024px) 100vw, 50vw", className = "", children }: Props) {
+export default function ProductGallery({ images, active, onChange, alt = "Product image", fit = "cover", mainSizes = "(max-width:1024px) 100vw, 50vw", className = "", badge = true, children }: Props) {
   const items = images.map((img, i) =>
     typeof img === "string" ? { src: img, alt, thumbAlt: `${alt} thumbnail ${i + 1}` } : { src: img.src, alt: img.alt, thumbAlt: img.alt },
   );
@@ -55,6 +58,7 @@ export default function ProductGallery({ images, active, onChange, alt = "Produc
       {/* Main image */}
       <div className={`relative w-full lg:flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20 ${fit === "contain" ? "bg-white" : ""}`}>
         <Image src={current.src} alt={current.alt} fill priority className={fitClass} sizes={mainSizes} />
+        {badge && <ProductBadge />}
         {children}
         {count > 1 && (
           <>

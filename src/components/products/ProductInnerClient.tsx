@@ -10,6 +10,7 @@ import { generateItemId } from "@/lib/cart-store";
 import DimensionCombobox from "./DimensionCombobox";
 import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
+import ProductBadge from "./ProductBadge";
 import RevealRule from "@/components/motion/RevealRule";
 
 type Props = { product: Product };
@@ -71,15 +72,12 @@ export default function ProductInnerClient({ product }: Props) {
 
   const PLACEHOLDER = "/images/products/placeholder.png";
   const MAIN_IMAGES: Record<string, string> = {
-    "cable-trunking": "/images/products/cable-trunking-v5.png",
+    "cable-trunking": "/images/products/cable-trunking-v6.png",
   };
   const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
   const allImages = [mainImage, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
   // Fill all four thumbnail slots — duplicate the main image into empty slots
   const galleryImages = Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
-  // Main images that already include the U-LI badge baked in (skip the overlay badge)
-  const BADGED_MAIN = new Set<string>(["cable-trunking"]);
-  const showBadgeOverlay = !BADGED_MAIN.has(product.slug);
 
   const ITEM_CODES: Record<string, string> = { "cable-trunking": "UL/TG" };
   const itemCode = ITEM_CODES[product.slug] ?? product.itemNo;
@@ -191,7 +189,7 @@ export default function ProductInnerClient({ product }: Props) {
               })}
             </div>
 
-            {/* Main image — rounded bordered box (transparent bg) with U-LI logo badge */}
+            {/* Main image — rounded bordered box (transparent bg) with U-LI™ badge */}
             <div className="relative w-full lg:flex-1 aspect-square overflow-hidden rounded-2xl border border-[#1A0F00]/20">
               <Image
                 src={galleryImages[activeImage]}
@@ -201,15 +199,7 @@ export default function ProductInnerClient({ product }: Props) {
                 className="object-cover object-center"
                 sizes="(max-width:1024px) 100vw, 50vw"
               />
-              {showBadgeOverlay && (
-                <Image
-                  src="/images/products/logo-badge.png"
-                  alt="United U-LI Corporation Berhad"
-                  width={254}
-                  height={223}
-                  className="absolute top-5 left-5 w-[92px] h-auto drop-shadow-md"
-                />
-              )}
+              <ProductBadge />
               {/* Mobile only: previous / next arrows and position dots instead of a thumbnail row */}
               {galleryImages.length > 1 && (
                 <>
