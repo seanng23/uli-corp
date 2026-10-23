@@ -45,8 +45,8 @@ const CHANNEL_DETAIL_IMAGES: Record<string, { iso: string; dims: string }> = {
   "UL1001-C41": { iso: "/images/products/metal-framing/channels/ul1001-c41-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1001-c41-dims.png" },
   "UL3300": { iso: "/images/products/metal-framing/channels/ul3300-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3300-dims.png" },
   "UL3301": { iso: "/images/products/metal-framing/channels/ul3301-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3301-dims.png" },
-  "UL1000T": { iso: "/images/products/metal-framing/channels/ul1000t-iso-v2.png", dims: "/images/products/metal-framing/channels/ul1000t-dims.png" },
-  "UL3300T": { iso: "/images/products/metal-framing/channels/ul3300t-iso-v2.png", dims: "/images/products/metal-framing/channels/ul3300t-dims.png" },
+  "UL1000T": { iso: "/images/products/metal-framing/channels/ul1000t-iso-v3.png", dims: "/images/products/metal-framing/channels/ul1000t-dims.png" },
+  "UL3300T": { iso: "/images/products/metal-framing/channels/ul3300t-iso-v3.png", dims: "/images/products/metal-framing/channels/ul3300t-dims.png" },
 };
 const FINISHING_OPTIONS = ["Hot-dip Galvanizing (HDG)", "Sheet Galvanizing (Pre-galvanized) (PG)", "Stainless Steel 316", "Stainless Steel 304"];
 const COLORS = ["Grey", "White", "Orange", "Others / Custom Colour"];
