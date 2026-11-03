@@ -1,5 +1,7 @@
 import RevealRule from "@/components/motion/RevealRule";
 import Typewriter from "@/components/motion/Typewriter";
+import { PROJECT_LIST_STATS } from "@/data/project-list";
+
 export default function ProjectsHero() {
   return (
     <section>
@@ -14,6 +16,11 @@ export default function ProjectsHero() {
             <Typewriter text="Our Projects" startDelay={0.35} />
           </h1>
           <div />
+          <p className="col-start-2 text-center font-raleway text-[15px] lg:text-[17px] text-[#5C4A30] leading-relaxed mt-4 px-4">
+            <strong className="font-bold text-[#1A0F00]">{PROJECT_LIST_STATS.totalRounded.toLocaleString("en-US")}+ projects</strong> across{" "}
+            <strong className="font-bold text-[#1A0F00]">{PROJECT_LIST_STATS.countriesRounded}+ countries</strong> since {PROJECT_LIST_STATS.sinceYear}.{" "}
+            <a href="#full-project-list" className="whitespace-nowrap font-semibold text-[#cc6e00] underline underline-offset-2 hover:text-[#ff8905] transition-colors">See the full list</a>
+          </p>
         </div>
       </div>
 

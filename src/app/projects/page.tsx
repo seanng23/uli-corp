@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import ProjectsHero from "@/components/sections/ProjectsHero";
 import ProjectsTabs from "@/components/sections/ProjectsTabs";
+import ProjectsFullList from "@/components/sections/ProjectsFullList";
 import CTASection from "@/components/sections/CTASection";
 import Divider from "@/components/Divider";
 import type { Metadata } from "next";
@@ -18,6 +19,7 @@ export default function ProjectsPage() {
       <Suspense fallback={null}>
         <ProjectsTabs />
       </Suspense>
+      <ProjectsFullList />
       <Divider />
       <CTASection />
     </>
