@@ -16,6 +16,66 @@ import RevealRule from "@/components/motion/RevealRule";
 
 type Props = { product: Product };
 
+const CT = "/images/products/cable-trunking";
+
+/** Extra gallery slides after the main photo (drawings redrawn from U-LI's CAD sheets, Nov 2026). */
+const GALLERY_EXTRAS: Record<string, string[]> = {
+  "cable-trunking": [`${CT}/ct-system-overview.webp`, `${CT}/ct-straight-length.webp`, `${CT}/ct-turnbuckle-trunking.webp`],
+};
+
+/** Accessory drawings keyed by the accessory description as it is stored in Sanity. */
+const ACCESSORY_IMAGES: Record<string, Record<string, string>> = {
+  "cable-trunking": {
+    "Horizontal Cross with Cover": `${CT}/accessories/cross.webp`,
+    "Horizontal Tee with Cover": `${CT}/accessories/tee.webp`,
+    "90° Horizontal Elbow with Cover": `${CT}/accessories/elbow-90.webp`,
+    "45° Horizontal Elbow with Cover": `${CT}/accessories/elbow-45.webp`,
+    "90° Internal Riser with Cover": `${CT}/accessories/internal-riser-90.webp`,
+    "45° Internal Riser with Cover": `${CT}/accessories/internal-riser-45.webp`,
+    "90° External Riser with Cover": `${CT}/accessories/external-riser-90.webp`,
+    "45° External Riser with Cover": `${CT}/accessories/external-riser-45.webp`,
+    "90° Horizontal Offset with Cover (right)": `${CT}/accessories/offset-90-a.webp`,
+    "90° Horizontal Offset with Cover (left)": `${CT}/accessories/offset-90-b.webp`,
+    "45° Horizontal Offset with Cover (right)": `${CT}/accessories/offset-45-a.webp`,
+    "45° Horizontal Offset with Cover (left)": `${CT}/accessories/offset-45-b.webp`,
+    "Straight Reducer with Cover": `${CT}/accessories/reducer-straight.webp`,
+    "Right Reducer with Cover": `${CT}/accessories/reducer-2.webp`,
+    "Left Reducer with Cover": `${CT}/accessories/reducer-3.webp`,
+    "Pier Set": `${CT}/accessories/pier-set.webp`,
+    "Copper Earth Link": `${CT}/accessories/copper-earth-link.webp`,
+    "Single Socket Plate": `${CT}/accessories/socket-plate-single.webp`,
+    "Double Socket Plate": `${CT}/accessories/socket-plate-double.webp`,
+    "Twin Socket Plate": `${CT}/accessories/socket-plate-twin.webp`,
+    "Knockout": `${CT}/accessories/knockout.webp`,
+  },
+};
+
+type CoverOption = { title: string; image: string; text: string };
+const COVER_OPTIONS: Record<string, CoverOption[]> = {
+  "cable-trunking": [
+    {
+      title: "Standard screw-fixed cover",
+      image: `${CT}/cover-straight-length.webp`,
+      text: 'The cover is fixed with 6 x 3/8" self-tapping screws. Lengths are joined with a coupler and M6 x 12 slotted pan head screws with hex nuts.',
+    },
+    {
+      title: "Turnbuckle cover fastener",
+      image: `${CT}/cover-turnbuckle-detail.webp`,
+      text: "Turn the stud to lock or release the cover. Widths of 50 to 100 mm take a single fastener across the cover, and widths of 150 mm and above take a double fastener.",
+    },
+    {
+      title: "Secured type with Torx screws",
+      image: `${CT}/cover-secured-torx.webp`,
+      text: "The cover is fixed with Torx screws and lengths are joined with M6 x 12 carriage bolts and hex nuts, for runs that should not be opened with an ordinary screwdriver.",
+    },
+    {
+      title: "Secured type with sealing holes",
+      image: `${CT}/cover-secured-lamper.webp`,
+      text: "The cover and body have matching holes of at least 4 mm diameter for a tamper-proof seal.",
+    },
+  ],
+};
+
 const FINISH_CUSTOM = "Others / Custom Finishing";
 function normalizeFinishing(list: string[] = []): string[] {
   const expanded = list.flatMap((f) =>
@@ -76,9 +136,11 @@ export default function ProductInnerClient({ product }: Props) {
     "cable-trunking": "/images/products/cable-trunking-v6.png",
   };
   const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
-  const allImages = [mainImage, ...(product.thumbnails ?? [])].filter(Boolean) as string[];
+  const allImages = [mainImage, ...(GALLERY_EXTRAS[product.slug] ?? []), ...(product.thumbnails ?? [])].filter(Boolean) as string[];
   // Fill all four thumbnail slots — duplicate the main image into empty slots
   const galleryImages = Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
+  const accessoryImages = ACCESSORY_IMAGES[product.slug] ?? {};
+  const coverOptions = COVER_OPTIONS[product.slug];
 
   const ITEM_CODES: Record<string, string> = { "cable-trunking": "UL/TG" };
   const itemCode = ITEM_CODES[product.slug] ?? product.itemNo;
@@ -304,10 +366,28 @@ export default function ProductInnerClient({ product }: Props) {
             </CollapsibleSection>
           )}
 
+          {coverOptions && (
+            <CollapsibleSection id="cover-fixing" title="Cover Fixing Options">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {coverOptions.map((o) => (
+                  <div key={o.title} className="rounded-xl border border-[#1A0F00]/15 bg-white overflow-hidden">
+                    <div className="relative aspect-[4/3] border-b border-[#1A0F00]/10">
+                      <Image src={o.image} alt={o.title} fill sizes="(max-width:640px) 100vw, 320px" className="object-contain" />
+                    </div>
+                    <div className="p-4">
+                      <p className="font-raleway text-[14px] font-bold text-[#1A0F00] mb-1.5">{o.title}</p>
+                      <p className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed">{o.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
+
           {product.accessories && product.accessories.length > 0 && (
             <CollapsibleSection id="accessories" title="Accessories">
               <AccessoryEnquiryTable
-                groups={[{ items: product.accessories.map((a) => ({ name: a.description })) }]}
+                groups={[{ items: product.accessories.map((a) => ({ name: a.description, image: accessoryImages[a.description] })) }]}
                 fields={[
                   ...(dims?.height?.length ? [{ key: "Height", label: "Height (mm)", options: dims.height.map(String) }] : []),
                   ...(dims?.width?.length ? [{ key: "Width", label: "Width (mm)", options: dims.width.map(String) }] : []),
@@ -596,6 +676,16 @@ export default function ProductInnerClient({ product }: Props) {
                     className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
                   >
                     Properties
+                  </a>
+                </li>
+              )}
+              {coverOptions && (
+                <li>
+                  <a
+                    href="#cover-fixing"
+                    className="font-raleway text-[13px] text-[#1A0F00] hover:text-[#ff8905] transition-colors"
+                  >
+                    Cover Fixing Options
                   </a>
                 </li>
               )}

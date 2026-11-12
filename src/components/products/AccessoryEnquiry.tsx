@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Check, Plus } from "lucide-react";
+import Image from "next/image";
+import { createPortal } from "react-dom";
+import { ChevronDown, Check, Plus, X } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import { generateItemId } from "@/lib/cart-store";
 
 /** One size choice for an accessory, e.g. Height (mm) or Width (mm). */
 export type SizeField = { key: string; label: string; options: string[] };
 
-export type AccessoryItem = { name: string; code?: string };
+/** `image` shows a thumbnail in the row (click to enlarge) and is used as the enquiry cart thumbnail. */
+export type AccessoryItem = { name: string; code?: string; image?: string };
 export type AccessoryGroup = { title?: string; items: AccessoryItem[] };
 
 /** Cart details shared by every accessory in a section. */
@@ -80,7 +83,7 @@ export function useAccessoryAdd(meta: AccessoryCartMeta) {
       productName: item.code && item.code !== item.name ? `${item.name} (${item.code})` : item.name,
       category: meta.category,
       slug: meta.slug,
-      image: meta.image,
+      image: item.image ?? meta.image,
       quantity: 1,
       specs,
     });
@@ -112,6 +115,14 @@ export default function AccessoryEnquiryTable({
 }) {
   const [values, setValues] = useState<Record<string, string>>(initial);
   const { add, added } = useAccessoryAdd(meta);
+  const [zoom, setZoom] = useState<AccessoryItem | null>(null);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setZoom(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
 
   // Follow the main configurator until the visitor sets a size here themselves.
   const initialKey = JSON.stringify(initial);
@@ -159,8 +170,22 @@ export default function AccessoryEnquiryTable({
                     {showNo && <td className={tdCls}>{no}</td>}
                     {showCode && <td className={`${tdCls} hidden sm:table-cell font-semibold text-[#1A0F00]`}>{item.code}</td>}
                     <td className={tdCls}>
-                      {item.name}
-                      {showCode && item.code && <span className="sm:hidden block text-[11px] text-[#ff8905] font-semibold">{item.code}</span>}
+                      <div className="flex items-center gap-3">
+                        {item.image && (
+                          <button
+                            type="button"
+                            onClick={() => setZoom(item)}
+                            aria-label={`Enlarge ${item.name} drawing`}
+                            className="relative shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-md border border-[#1A0F00]/15 bg-white overflow-hidden hover:border-[#ff8905] transition-colors cursor-zoom-in"
+                          >
+                            <Image src={item.image} alt={item.name} fill sizes="64px" className="object-contain p-1" />
+                          </button>
+                        )}
+                        <span>
+                          {item.name}
+                          {showCode && item.code && <span className="sm:hidden block text-[11px] text-[#ff8905] font-semibold">{item.code}</span>}
+                        </span>
+                      </div>
                     </td>
                     <td className={`${tdCls} text-right`}>
                       <button
@@ -179,6 +204,40 @@ export default function AccessoryEnquiryTable({
           ))}
         </tbody>
       </table>
+      {zoom?.image && typeof document !== "undefined" && createPortal(
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoom.name}
+          onClick={() => setZoom(null)}
+          className="fixed inset-0 z-[300] bg-[#1A0F00]/70 flex items-center justify-center p-4"
+        >
+          <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[720px] rounded-2xl bg-white p-4 sm:p-6 shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setZoom(null)}
+              aria-label="Close"
+              className="absolute right-3 top-3 z-10 w-9 h-9 rounded-full bg-[#1A0F00]/80 text-white flex items-center justify-center"
+            >
+              <X size={18} strokeWidth={2.5} />
+            </button>
+            <div className="relative w-full aspect-[4/3]">
+              <Image src={zoom.image} alt={zoom.name} fill sizes="(max-width:768px) 100vw, 720px" className="object-contain" />
+            </div>
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <p className="font-raleway text-[15px] font-bold text-[#1A0F00]">{zoom.name}</p>
+              <button
+                type="button"
+                onClick={() => add(zoom, fields, values)}
+                className={`inline-flex items-center gap-1 whitespace-nowrap rounded-md border px-3 py-2 font-raleway text-[12px] font-bold transition-colors ${added === itemKey(zoom) ? "bg-[#1A0F00] border-[#1A0F00] text-white" : "border-[#ff8905] text-[#ff8905] hover:bg-[#ff8905] hover:text-white"}`}
+              >
+                {added === itemKey(zoom) ? <><Check size={12} strokeWidth={3} /> Added</> : <><Plus size={12} strokeWidth={3} /> Add to Enquiry</>}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
