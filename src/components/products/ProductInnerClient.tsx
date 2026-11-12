@@ -16,7 +16,7 @@ import RevealRule from "@/components/motion/RevealRule";
 
 type Props = { product: Product };
 
-const CT = "/images/products/cable-trunking";
+const CT = "/images/products/ct-drawings";
 
 /** Extra gallery slides after the main photo (drawings redrawn from U-LI's CAD sheets, Nov 2026). */
 const GALLERY_EXTRAS: Record<string, string[]> = {
@@ -370,7 +370,7 @@ export default function ProductInnerClient({ product }: Props) {
             <CollapsibleSection id="cover-fixing" title="Cover Fixing Options">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {coverOptions.map((o) => (
-                  <div key={o.title} className="rounded-xl border border-[#1A0F00]/15 bg-white overflow-hidden">
+                  <div key={o.title} className="rounded-xl border border-[#1A0F00]/15 bg-[#F5EDD6]/60 overflow-hidden">
                     <div className="relative aspect-[4/3] border-b border-[#1A0F00]/10">
                       <Image src={o.image} alt={o.title} fill sizes="(max-width:640px) 100vw, 320px" className="object-contain" />
                     </div>

@@ -176,9 +176,9 @@ export default function AccessoryEnquiryTable({
                             type="button"
                             onClick={() => setZoom(item)}
                             aria-label={`Enlarge ${item.name} drawing`}
-                            className="relative shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-md border border-[#1A0F00]/15 bg-white overflow-hidden hover:border-[#ff8905] transition-colors cursor-zoom-in"
+                            className="relative shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-md border border-[#1A0F00]/15 bg-[#F5EDD6]/60 overflow-hidden hover:border-[#ff8905] transition-colors cursor-zoom-in"
                           >
-                            <Image src={item.image} alt={item.name} fill sizes="64px" className="object-contain p-1" />
+                            <Image src={item.image} alt={item.name} fill sizes="96px" className="object-contain p-1" />
                           </button>
                         )}
                         <span>
@@ -212,7 +212,7 @@ export default function AccessoryEnquiryTable({
           onClick={() => setZoom(null)}
           className="fixed inset-0 z-[300] bg-[#1A0F00]/70 flex items-center justify-center p-4"
         >
-          <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[720px] rounded-2xl bg-white p-4 sm:p-6 shadow-2xl">
+          <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[720px] rounded-2xl bg-[#F5EDD6] p-4 sm:p-6 shadow-2xl">
             <button
               type="button"
               onClick={() => setZoom(null)}
