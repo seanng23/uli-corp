@@ -41,7 +41,7 @@ export const UNDERFLOOR: FloorTrunkingSystem = {
     "All accessories are compatible with both uPVC and metal trunking, giving the most straightforward and cost-effective method of installation compared to other floor trunking options.",
   ],
   gallery: [
-    { src: UF + "uft-listing-v1.png", alt: "Underfloor trunking with cover" },
+    { src: UF + "uft-listing-v2.webp", alt: "Underfloor trunking with cover" },
     { src: UF + "uft-service-box-photo-v1.png", alt: "Underfloor service box, closed" },
     { src: UF + "uft-service-box-open-v1.png", alt: "Underfloor service box with cover open" },
   ],
@@ -232,7 +232,7 @@ export const RAISEDFLOOR: FloorTrunkingSystem = {
     "Vertical access box managing final sub-circuits back to the distribution board",
   ],
   gallery: [
-    { src: RF + "rft-listing-v1.png", alt: "Raisedfloor trunking with cover" },
+    { src: RF + "rft-listing-v2.webp", alt: "Raisedfloor trunking with cover" },
     { src: RF + "rft-trunking-photo-v1.png", alt: "Raisedfloor trunking, epoxy powder coated" },
   ],
   typicals: [
@@ -410,12 +410,12 @@ export const FLUSHFLOOR: FloorTrunkingSystem = {
     "Body, separators and junction box base in 1.6 mm pre-galvanized steel; covers 3.0 mm",
   ],
   gallery: [
-    { src: FF + "fft-listing-v1.png", alt: "Flushfloor trunking with separators" },
+    { src: FF + "fft-listing-v2.webp", alt: "Flushfloor trunking with separators" },
     { src: FF + "fft-trunking-photo-v1.png", alt: "Flushfloor trunking with cover" },
   ],
   typicals: [
     {
-      src: FF + "fft-typical-v1.png",
+      src: FF + "fft-typical-v2.webp",
       alt: "Typical flushfloor installation",
       caption: "Typical flushfloor installation: main and sub trunking with tee junction boxes, service box, end cap, joints and a slanting vertical access riser to surface trunking.",
     },

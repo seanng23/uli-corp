@@ -562,7 +562,7 @@ export const products: Product[] = [
     itemNo: "UFD · UTX · UJX · USX",
     description:
       "Power and data distribution across screed floors or concrete slabs: uPVC ducts, galvanized steel underfloor trunking, junction boxes, service boxes, vertical access boxes and accessories.",
-    image: "/images/products/floor-trunking/underfloor/uft-listing-v1.png",
+    image: "/images/products/floor-trunking/underfloor/uft-listing-v2.webp",
     standards: ["Others/Custom"],
     dimensions: {
       height: ["25", "32", "38"],
@@ -586,7 +586,7 @@ export const products: Product[] = [
     itemNo: "RTH · RJH · RSH",
     description:
       "Cable distribution beneath 600 x 600 mm raised access floor panels: trunking, junction boxes, service boxes, header boxes, tap-off units, pedestal boxes and vertical access boxes.",
-    image: "/images/products/floor-trunking/raisedfloor/rft-listing-v1.png",
+    image: "/images/products/floor-trunking/raisedfloor/rft-listing-v2.webp",
     standards: ["Others/Custom"],
     dimensions: {
       height: ["25", "40", "50", "75", "100"],
@@ -610,7 +610,7 @@ export const products: Product[] = [
     itemNo: "FTH · FJH · FS",
     description:
       "Main and sub trunking flush to the finished floor, with junction boxes, service boxes, reducers, end caps, joints and vertical access risers in galvanized steel.",
-    image: "/images/products/floor-trunking/flushfloor/fft-listing-v1.png",
+    image: "/images/products/floor-trunking/flushfloor/fft-listing-v2.webp",
     standards: ["Others/Custom"],
     dimensions: {
       height: ["32", "40", "50", "60", "65", "73"],

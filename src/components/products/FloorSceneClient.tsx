@@ -161,7 +161,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
         <div className="contents lg:block min-w-0">
         <div className="order-1 lg:order-none min-w-0">
           {/* Interactive drawing with in-picture labels */}
-          <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 bg-white p-2 sm:p-4 select-none">
+          <div className="relative overflow-hidden rounded-2xl border border-[#1A0F00]/15 p-2 sm:p-4 select-none">
             <div className="relative">
               <Image src={variant.image} alt={`${variant.caption} Installation drawing.`} width={variant.imageWidth} height={variant.imageHeight} className="w-full h-auto block" priority />
               {variant.hotspots.map((h, i) => {

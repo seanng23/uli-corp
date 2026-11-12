@@ -139,7 +139,7 @@ export const SCENE_VARIANTS: SceneVariant[] = [
     label: "GI Metal Trunking",
     sublabel: "Pre-galvanized steel",
     caption: "Typical underfloor installation (GI metal trunking).",
-    image: UF + "scene-gi-line-v1.png",
+    image: UF + "scene-gi-line-v2.webp",
     imageWidth: 2008,
     imageHeight: 1287,
     hotspots: [
@@ -156,7 +156,7 @@ export const SCENE_VARIANTS: SceneVariant[] = [
     label: "uPVC Duct",
     sublabel: "Heavy gauge uPVC",
     caption: "Typical underfloor installation (uPVC duct).",
-    image: UF + "scene-upvc-line-v1.png",
+    image: UF + "scene-upvc-line-v2.webp",
     imageWidth: 2472,
     imageHeight: 1369,
     hotspots: [

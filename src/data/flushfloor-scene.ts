@@ -119,7 +119,7 @@ export const FLUSHFLOOR_VARIANTS: SceneVariant[] = [
     label: "Flushfloor Trunking",
     sublabel: "Pre-galvanised steel",
     caption: "Typical flushfloor installation.",
-    image: FF + "fft-typical-v1.png",
+    image: FF + "fft-typical-v2.webp",
     imageWidth: 2703,
     imageHeight: 1944,
     hotspots: [
