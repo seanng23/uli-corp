@@ -92,7 +92,7 @@ export const RAISEDFLOOR_VARIANTS: SceneVariant[] = [
     label: "Raisedfloor Trunking",
     sublabel: "Pre-galvanised steel",
     caption: "Typical raisedfloor installation.",
-    image: RF + "rft-typical-v1.png",
+    image: RF + "rft-typical-v2.webp",
     imageWidth: 2703,
     imageHeight: 1816,
     hotspots: [

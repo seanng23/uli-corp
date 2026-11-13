@@ -237,7 +237,7 @@ export const RAISEDFLOOR: FloorTrunkingSystem = {
   ],
   typicals: [
     {
-      src: RF + "rft-typical-v1.png",
+      src: RF + "rft-typical-v2.webp",
       alt: "Typical raisedfloor installation",
       caption: "Typical raisedfloor installation: trunking runs between raisedfloor supports with junction boxes, header box, tap-off units, service boxes, pedestal boxes and a vertical access box to surface trunking.",
     },
