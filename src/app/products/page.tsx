@@ -63,7 +63,7 @@ export default async function ProductsPage() {
       slug: "cable-ladder",
       name: "Cable Ladder",
       itemNo: "LZ · LN · LG · LC · L6N",
-      image: "/images/products/cable-ladder-v2.png",
+      image: "/images/products/cable-ladder-v3.png",
     }),
     Conduit: makeCard("Conduit", {
       slug: "steel-conduit",
