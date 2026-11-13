@@ -37,13 +37,16 @@ export default function ProductGallery({ images, active, onChange, alt = "Produc
   const fitClass = fit === "contain" ? "object-contain object-center" : "object-cover object-center";
   const arrowClass = "lg:hidden absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-[#1A0F00]/80 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform";
 
+  // Six or more thumbnails use a narrower strip so the column stays no taller than the main image.
+  const dense = count > 5;
+
   if (!current) return null;
 
   return (
     <div className={className}>
     <div className="flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start">
       {/* Desktop-only thumbnail strip */}
-      <div className="hidden lg:flex lg:flex-col gap-3 lg:w-[104px] lg:shrink-0">
+      <div className={`hidden lg:flex lg:flex-col gap-3 lg:shrink-0 ${dense ? "lg:w-[86px]" : "lg:w-[104px]"}`}>
         {items.map((img, i) => (
           <button
             key={`${img.src}-${i}`}
@@ -79,7 +82,7 @@ export default function ProductGallery({ images, active, onChange, alt = "Produc
         )}
       </div>
     </div>
-    <ImageDisclaimer className="mt-3 lg:pl-[120px]" />
+    <ImageDisclaimer className={`mt-3 ${dense ? "lg:pl-[102px]" : "lg:pl-[120px]"}`} />
     </div>
   );
 }

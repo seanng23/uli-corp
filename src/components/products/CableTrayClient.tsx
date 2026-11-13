@@ -20,11 +20,14 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-/** Gallery per profile: realistic render first, then U-LI's CAD model (Nov 2026). */
-const profileImages = (code: string) => {
-  const c = code.toLowerCase();
-  return [`/images/products/cable-tray/${c}-render.webp`, `/images/products/cable-tray/${c}-cad.webp`];
-};
+const MAIN_IMAGE = "/images/products/cable-tray-v2.png";
+/** Realistic render of one profile, made from U-LI's CAD (Nov 2026). */
+const profileImage = (code: string) => `/images/products/cable-tray/${code.toLowerCase()}-render.webp`;
+/** Fixed gallery: the main photo first, then one picture per profile in the same order as the profile buttons. */
+const GALLERY_IMAGES = [
+  { src: MAIN_IMAGE, alt: "U-LI Cable Tray" },
+  ...CABLE_TRAY_PROFILES.map((p) => ({ src: profileImage(p.code), alt: `U-LI Cable Tray ${p.code}` })),
+];
 const STANDARDS = CABLE_TRAY_STANDARDS;
 const FINISH_CUSTOM = "Others / Custom Finishing";
 const RAW_FINISHING = [
@@ -156,7 +159,6 @@ export default function CableTrayClient() {
   const widths = [...new Set(dims.map((d) => d.w))].sort((a, b) => a - b);
   const thicknesses = [...new Set(dims.map((d) => d.t))].sort((a, b) => a - b);
 
-  const galleryImages = profileImages(profile.code);
   const [activeImage, setActiveImage] = useState(0);
 
   const [selectedStandard, setSelectedStandard] = useState<string>(STANDARDS[0]);
@@ -168,7 +170,7 @@ export default function CableTrayClient() {
 
   function selectProfile(code: string) {
     setProfileCode(code);
-    setActiveImage(0);
+    setActiveImage(CABLE_TRAY_PROFILES.findIndex((p) => p.code === code) + 1); // jump to that profile's picture
     setSelectedDimensions({}); // dimension options differ per profile
   }
 
@@ -189,7 +191,7 @@ export default function CableTrayClient() {
       specs,
       quantity: qty,
       slug: "cable-tray",
-      image: galleryImages[0],
+      image: profileImage(profile.code),
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
@@ -220,7 +222,7 @@ export default function CableTrayClient() {
           {/* LEFT — image gallery + collapsible sections */}
           <div className="contents lg:block">
             {/* Image gallery — thumbnails left, main image right */}
-            <ProductGallery images={galleryImages} alt={`U-LI Cable Tray ${profile.code}`} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
+            <ProductGallery images={GALLERY_IMAGES} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
             <div className="order-3 lg:order-none">
 
             {/* Collapsible sections */}
@@ -295,7 +297,7 @@ export default function CableTrayClient() {
                       ]}
                       fields={hwFields(p.dimensions)}
                       initial={p.code === profileCode ? { Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" } : {}}
-                      meta={{ idPrefix: `cable-tray-${p.code.toLowerCase()}-`, category: "Cable Tray", slug: "cable-tray", image: profileImages(p.code)[0], context: { Profile: p.code } }}
+                      meta={{ idPrefix: `cable-tray-${p.code.toLowerCase()}-`, category: "Cable Tray", slug: "cable-tray", image: profileImage(p.code), context: { Profile: p.code } }}
                     />
                   </ProfileAccordion>
                 ))}

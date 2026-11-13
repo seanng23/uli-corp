@@ -20,6 +20,13 @@ import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
 const MAIN_IMAGE = "/images/products/cable-ladder-v3.png";
+/** Realistic render of one profile, made from U-LI's CAD (Nov 2026). */
+const profileImage = (code: string) => `/images/products/cable-ladder/${code.toLowerCase()}-render.webp`;
+/** Fixed gallery: the main photo first, then one picture per profile in the same order as the profile buttons. */
+const GALLERY_IMAGES = [
+  { src: MAIN_IMAGE, alt: "U-LI Cable Ladder" },
+  ...CABLE_LADDER_PROFILES.map((p) => ({ src: profileImage(p.code), alt: `U-LI Cable Ladder ${p.code}` })),
+];
 const STANDARDS = CABLE_LADDER_STANDARDS;
 const FINISH_CUSTOM = "Others / Custom Finishing";
 const RAW_FINISHING = [
@@ -146,7 +153,6 @@ export default function CableLadderClient() {
   const widths = [...new Set(dims.map((d) => d.w))].sort((a, b) => a - b);
   const thicknesses = [...new Set(dims.map((d) => d.t))].sort((a, b) => a - b);
 
-  const galleryImages = Array.from({ length: 4 }, () => MAIN_IMAGE);
   const [activeImage, setActiveImage] = useState(0);
 
   const [selectedStandard, setSelectedStandard] = useState<string>(STANDARDS[0]);
@@ -158,6 +164,7 @@ export default function CableLadderClient() {
 
   function selectProfile(code: string) {
     setProfileCode(code);
+    setActiveImage(CABLE_LADDER_PROFILES.findIndex((p) => p.code === code) + 1); // jump to that profile's picture
     setSelectedDimensions({});
   }
 
@@ -177,7 +184,7 @@ export default function CableLadderClient() {
       specs,
       quantity: qty,
       slug: "cable-ladder",
-      image: MAIN_IMAGE,
+      image: profileImage(profile.code),
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
@@ -208,7 +215,7 @@ export default function CableLadderClient() {
           {/* LEFT */}
           <div className="contents lg:block">
             {/* Image gallery — thumbnails left, main image right */}
-            <ProductGallery images={galleryImages} alt={`U-LI Cable Ladder ${profile.code}`} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
+            <ProductGallery images={GALLERY_IMAGES} active={activeImage} onChange={setActiveImage} className="order-1 lg:order-none lg:mb-10" />
             <div className="order-3 lg:order-none">
 
             {/* Collapsible sections */}
@@ -275,7 +282,7 @@ export default function CableLadderClient() {
                       groups={[{ items: p.accessories.map((name) => ({ name })) }]}
                       fields={hwFields(p.dimensions)}
                       initial={p.code === profileCode ? { Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" } : {}}
-                      meta={{ idPrefix: `cable-ladder-${p.code.toLowerCase()}-`, category: "Cable Ladder", slug: "cable-ladder", image: MAIN_IMAGE, context: { Profile: p.code } }}
+                      meta={{ idPrefix: `cable-ladder-${p.code.toLowerCase()}-`, category: "Cable Ladder", slug: "cable-ladder", image: profileImage(p.code), context: { Profile: p.code } }}
                     />
                   </ProfileAccordion>
                 ))}
