@@ -20,7 +20,11 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/cable-tray-v2.png";
+/** Gallery per profile: realistic render first, then U-LI's CAD model (Nov 2026). */
+const profileImages = (code: string) => {
+  const c = code.toLowerCase();
+  return [`/images/products/cable-tray/${c}-render.webp`, `/images/products/cable-tray/${c}-cad.webp`];
+};
 const STANDARDS = CABLE_TRAY_STANDARDS;
 const FINISH_CUSTOM = "Others / Custom Finishing";
 const RAW_FINISHING = [
@@ -152,7 +156,7 @@ export default function CableTrayClient() {
   const widths = [...new Set(dims.map((d) => d.w))].sort((a, b) => a - b);
   const thicknesses = [...new Set(dims.map((d) => d.t))].sort((a, b) => a - b);
 
-  const galleryImages = Array.from({ length: 4 }, () => MAIN_IMAGE);
+  const galleryImages = profileImages(profile.code);
   const [activeImage, setActiveImage] = useState(0);
 
   const [selectedStandard, setSelectedStandard] = useState<string>(STANDARDS[0]);
@@ -164,6 +168,7 @@ export default function CableTrayClient() {
 
   function selectProfile(code: string) {
     setProfileCode(code);
+    setActiveImage(0);
     setSelectedDimensions({}); // dimension options differ per profile
   }
 
@@ -184,7 +189,7 @@ export default function CableTrayClient() {
       specs,
       quantity: qty,
       slug: "cable-tray",
-      image: MAIN_IMAGE,
+      image: galleryImages[0],
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 3000);
@@ -290,7 +295,7 @@ export default function CableTrayClient() {
                       ]}
                       fields={hwFields(p.dimensions)}
                       initial={p.code === profileCode ? { Height: selectedDimensions.Height ?? "", Width: selectedDimensions.Width ?? "" } : {}}
-                      meta={{ idPrefix: `cable-tray-${p.code.toLowerCase()}-`, category: "Cable Tray", slug: "cable-tray", image: MAIN_IMAGE, context: { Profile: p.code } }}
+                      meta={{ idPrefix: `cable-tray-${p.code.toLowerCase()}-`, category: "Cable Tray", slug: "cable-tray", image: profileImages(p.code)[0], context: { Profile: p.code } }}
                     />
                   </ProfileAccordion>
                 ))}
