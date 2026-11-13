@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import ImageDisclaimer from "./ImageDisclaimer";
 import TitleIcon from "./TitleIcon";
 import Image from "next/image";
 import Link from "next/link";
@@ -186,6 +187,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
             </div>
           </div>
           <p className="font-raleway text-[12px] text-[#5C4A30] mt-3">{variant.caption} Tap a numbered marker to configure that component.</p>
+          <ImageDisclaimer className="mt-1.5" />
         </div>
 
           {/* Bottom info sections (after the configurator on mobile) */}

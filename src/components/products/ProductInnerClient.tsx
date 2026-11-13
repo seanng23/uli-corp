@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ImageDisclaimer from "./ImageDisclaimer";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, FileText, ShoppingBag, CheckCircle } from "lucide-react";
@@ -20,7 +21,7 @@ const CT = "/images/products/ct-drawings";
 
 /** Extra gallery slides after the main photo (drawings redrawn from U-LI's CAD sheets, Nov 2026). */
 const GALLERY_EXTRAS: Record<string, string[]> = {
-  "cable-trunking": [`${CT}/ct-system-overview.webp`, `${CT}/ct-straight-length.webp`, `${CT}/ct-turnbuckle-trunking.webp`],
+  "cable-trunking": [`${CT}/ct-straight-length-v2.webp`],
 };
 
 /** Accessory drawings keyed by the accessory description as it is stored in Sanity. */
@@ -60,8 +61,8 @@ const COVER_OPTIONS: Record<string, CoverOption[]> = {
     },
     {
       title: "Turnbuckle cover fastener",
-      image: `${CT}/cover-turnbuckle-detail.webp`,
-      text: "Turn the stud to lock or release the cover. Widths of 50 to 100 mm take a single fastener across the cover, and widths of 150 mm and above take a double fastener.",
+      image: `${CT}/cover-turnbuckle-v2.webp`,
+      text: "The cover locks and releases with a turn of the fastener, with no loose screws to remove. Wider trunking takes two fasteners.",
     },
     {
       title: "Secured type with Torx screws",
@@ -70,7 +71,7 @@ const COVER_OPTIONS: Record<string, CoverOption[]> = {
     },
     {
       title: "Secured type with sealing holes",
-      image: `${CT}/cover-secured-lamper.webp`,
+      image: `${CT}/cover-secured-lamper-v2.webp`,
       text: "The cover and body have matching holes of at least 4 mm diameter for a tamper-proof seal.",
     },
   ],
@@ -137,8 +138,8 @@ export default function ProductInnerClient({ product }: Props) {
   };
   const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
   const allImages = [mainImage, ...(GALLERY_EXTRAS[product.slug] ?? []), ...(product.thumbnails ?? [])].filter(Boolean) as string[];
-  // Fill all four thumbnail slots — duplicate the main image into empty slots
-  const galleryImages = Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
+  // Fill all four thumbnail slots (duplicate the main image into empty slots), unless the product has its own curated gallery
+  const galleryImages = GALLERY_EXTRAS[product.slug] ? allImages : Array.from({ length: 4 }, (_, i) => allImages[i] ?? allImages[0]);
   const accessoryImages = ACCESSORY_IMAGES[product.slug] ?? {};
   const coverOptions = COVER_OPTIONS[product.slug];
 
@@ -291,6 +292,7 @@ export default function ProductInnerClient({ product }: Props) {
               )}
             </div>
           </div>
+          <ImageDisclaimer className="mt-3 lg:pl-[120px]" />
         </div>
 
         {/* Description / Properties / Accessories: bottom of the page on mobile, under the gallery on desktop */}

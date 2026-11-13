@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductBadge from "./ProductBadge";
+import ImageDisclaimer from "./ImageDisclaimer";
 
 export type GalleryImage = string | { src: string; alt: string };
 
@@ -39,7 +40,8 @@ export default function ProductGallery({ images, active, onChange, alt = "Produc
   if (!current) return null;
 
   return (
-    <div className={`flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start ${className}`}>
+    <div className={className}>
+    <div className="flex flex-col-reverse lg:flex-row gap-3 lg:gap-4 items-start">
       {/* Desktop-only thumbnail strip */}
       <div className="hidden lg:flex lg:flex-col gap-3 lg:w-[104px] lg:shrink-0">
         {items.map((img, i) => (
@@ -76,6 +78,8 @@ export default function ProductGallery({ images, active, onChange, alt = "Produc
           </>
         )}
       </div>
+    </div>
+    <ImageDisclaimer className="mt-3 lg:pl-[120px]" />
     </div>
   );
 }
