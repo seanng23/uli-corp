@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -193,7 +194,7 @@ export default function MetalFramingClient() {
           </div>
 
       <div className="order-2 lg:order-none lg:sticky lg:top-24"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
-        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">UliStrut® Channel</h1>
+        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-5">UliStrut® Channel<TitleIcon name="metal-framing" /></h1>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Series</p><div className="grid grid-cols-2 gap-2">{CHANNEL_SERIES.map((item) => <button key={item.key} type="button" onClick={() => selectSeries(item)} className={optionClass(series.key === item.key)}>{item.label}</button>)}</div></div>
         <div className="mb-5"><p className="font-raleway text-[11px] font-bold uppercase tracking-widest text-[#1A0F00] mb-3">Profile / Version</p><div className="flex flex-wrap gap-2">{series.variants.map((item) => <button key={item.code} type="button" onClick={() => setVariant(item)} className={`rounded-md border p-2 flex flex-col items-center gap-1 transition-colors ${variant.code === item.code ? "border-[#ff8905] bg-[#ff8905]/5" : "border-[#1A0F00]/20 hover:border-[#1A0F00]/50"}`}><span className="h-20 w-20 flex items-center justify-center"><img src={PROFILE_IMAGES[item.profile].src} alt={`${item.code} profile`} className={`${PROFILE_IMAGES[item.profile].heightClass} w-auto`} /></span><span className="font-raleway text-[10px] font-bold text-[#1A0F00]">{item.code}</span></button>)}</div></div>
         {detail && (

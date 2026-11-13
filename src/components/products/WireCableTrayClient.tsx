@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, FileText, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -152,7 +153,7 @@ export default function WireCableTrayClient() {
           </div>
 
       <div className="order-2 lg:order-none"><div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
-        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Wire Mesh Tray</h1>
+        <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Wire Mesh Tray<TitleIcon name="wire-mesh-tray" /></h1>
         <p className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#5C4A30] mb-5">Item No: <span className="text-[#1A0F00]">FWB</span></p>
         <div className="mb-5 pb-5 border-b border-[#1A0F00]/15"><p className="font-raleway text-[12px] text-[#5C4A30]">Screen: 50 x 100 mm&nbsp; | &nbsp;Wire: 5.00 mm&nbsp; | &nbsp;L: 3000 mm</p></div>
 

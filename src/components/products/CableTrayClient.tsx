@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Link from "next/link";
 import { ChevronDown, ChevronUp, FileText, ShoppingBag, CheckCircle } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -304,7 +305,7 @@ export default function CableTrayClient() {
             <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
               {/* Title */}
               <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-4">
-                Cable Tray
+                Cable Tray<TitleIcon name="cable-tray" />
               </h1>
 
               {/* Profile selector */}

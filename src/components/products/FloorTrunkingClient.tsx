@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Link from "next/link";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -64,7 +65,7 @@ export default function FloorTrunkingClient({ system }: { system: FloorTrunkingS
     <div className="site-container py-10 lg:py-12"><div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_1fr] gap-10 lg:gap-14 items-start">
       <ProductGallery images={system.gallery} active={activeImage} onChange={setActiveImage} fit="contain" mainSizes="(max-width:1024px) 100vw, 480px" />
       <div className="min-w-0">
-        <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}</h1>
+        <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}<TitleIcon name={system.slug} /></h1>
         {system.description.map((para) => <p key={para} className="font-raleway text-[15px] text-[#5C4A30] leading-relaxed mb-4">{para}</p>)}
         {system.features && <CollapsibleSection id="key-components" title="Key Features & Components" defaultOpen>
           <ul className="space-y-1.5">{system.features.map((f) => <li key={f} className="font-raleway text-[13px] text-[#5C4A30] leading-relaxed pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-[#ff8905] before:font-bold">{f}</li>)}</ul>

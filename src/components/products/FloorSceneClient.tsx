@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, ChevronDown, ChevronUp, ShoppingBag } from "lucide-react";
@@ -139,7 +140,7 @@ export default function FloorSceneClient({ sceneKey }: { sceneKey: FloorSceneKey
     <div className="site-container"><RevealRule src="/images/single-line.png" className="w-full block" /></div>
 
     <div className="site-container py-8 lg:py-10">
-      <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}</h1>
+      <h1 className="font-typewriter text-[clamp(1.6rem,2.5vw,2.3rem)] leading-tight text-[#1A0F00] mb-5">{system.name}<TitleIcon name={system.slug} /></h1>
 
       {/* Variant toggle (only when there is more than one drawing): full width above both columns so the drawing and the configurator start level */}
       {scene.variants.length > 1 && (

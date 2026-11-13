@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import TitleIcon from "./TitleIcon";
 import Link from "next/link";
 import { ChevronDown, ChevronUp, FileText, ShoppingBag, CheckCircle } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
@@ -181,7 +182,7 @@ export default function SteelConduitClient() {
 
           <div className="order-2 lg:order-none">
             <div className="border border-white/40 p-6 bg-white/15 rounded-2xl shadow-[0_8px_30px_rgba(26,15,0,0.12)]">
-              <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Steel Conduit</h1>
+              <h1 className="font-typewriter text-[clamp(1.4rem,2vw,1.9rem)] leading-tight text-[#1A0F00] mb-2">Steel Conduit<TitleIcon name="steel-conduit" /></h1>
               <p className="font-raleway text-[11px] font-bold tracking-widest uppercase text-[#5C4A30] mb-5">Item No: <span className="text-[#1A0F00]">C-ULI</span></p>
               <div className="mb-5 pb-5 border-b border-[#1A0F00]/15"><div className="flex flex-wrap gap-x-4 gap-y-1"><span className="font-raleway text-[12px] text-[#5C4A30]">L: 3.81m (3.0m for colour conduits)</span></div></div>
 
