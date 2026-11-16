@@ -32,7 +32,7 @@ const EXCLUDED_SUBCATEGORIES = new Set([
 
 // Card images that match the product's inner detail page.
 const CARD_IMAGES: Record<string, string> = {
-  "cable-trunking": "/images/products/cable-trunking-v6.png",
+  "cable-trunking": "/images/products/cable-trunking-v7.webp",
   "conduit-pipe-accessories": "/images/products/steel-conduit-v3.png",
 };
 
@@ -57,13 +57,13 @@ export default async function ProductsPage() {
       slug: "cable-tray",
       name: "Cable Tray",
       itemNo: "TU · TT · TC · TR",
-      image: "/images/products/cable-tray-v2.png",
+      image: "/images/products/cable-tray/tu-render.webp", // first picture on the Cable Tray page
     }),
     "Cable Ladder": makeCard("Cable Ladder", {
       slug: "cable-ladder",
       name: "Cable Ladder",
       itemNo: "LZ · LN · LG · LC · L6N",
-      image: "/images/products/cable-ladder-v3.png",
+      image: "/images/products/cable-ladder/lz-render-v2.webp", // first picture on the Cable Ladder page
     }),
     Conduit: makeCard("Conduit", {
       slug: "steel-conduit",

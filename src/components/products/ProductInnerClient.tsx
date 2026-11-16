@@ -134,7 +134,7 @@ export default function ProductInnerClient({ product }: Props) {
 
   const PLACEHOLDER = "/images/products/placeholder.png";
   const MAIN_IMAGES: Record<string, string> = {
-    "cable-trunking": "/images/products/cable-trunking-v6.png",
+    "cable-trunking": "/images/products/cable-trunking-v7.webp",
   };
   const mainImage = MAIN_IMAGES[product.slug] ?? product.image ?? PLACEHOLDER;
   const allImages = [mainImage, ...(GALLERY_EXTRAS[product.slug] ?? []), ...(product.thumbnails ?? [])].filter(Boolean) as string[];

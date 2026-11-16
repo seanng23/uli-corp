@@ -20,12 +20,10 @@ import MobileDocuments from "./MobileDocuments";
 import RequestCertificateButton from "./RequestCertificateButton";
 import RevealRule from "@/components/motion/RevealRule";
 
-const MAIN_IMAGE = "/images/products/cable-tray-v2.png";
 /** Realistic render of one profile, made from U-LI's CAD (Nov 2026). */
 const profileImage = (code: string) => `/images/products/cable-tray/${code.toLowerCase()}-render.webp`;
-/** Fixed gallery: the main photo first, then one picture per profile in the same order as the profile buttons. */
+/** Fixed gallery: one picture per profile, in the same order as the profile buttons. */
 const GALLERY_IMAGES = [
-  { src: MAIN_IMAGE, alt: "U-LI Cable Tray" },
   ...CABLE_TRAY_PROFILES.map((p) => ({ src: profileImage(p.code), alt: `U-LI Cable Tray ${p.code}` })),
 ];
 const STANDARDS = CABLE_TRAY_STANDARDS;
@@ -170,7 +168,7 @@ export default function CableTrayClient() {
 
   function selectProfile(code: string) {
     setProfileCode(code);
-    setActiveImage(CABLE_TRAY_PROFILES.findIndex((p) => p.code === code) + 1); // jump to that profile's picture
+    setActiveImage(CABLE_TRAY_PROFILES.findIndex((p) => p.code === code)); // jump to that profile's picture
     setSelectedDimensions({}); // dimension options differ per profile
   }
 
